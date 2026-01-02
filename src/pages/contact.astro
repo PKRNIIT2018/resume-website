@@ -28,7 +28,7 @@ import Footer from '../components/Footer.astro';
           <!-- Contact Form -->
           <div class="contact-form-container">
             <h2>Send Me a Message</h2>
-            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form class="contact-form" id="contactForm">
               <div class="form-group">
                 <label for="name">Name *</label>
                 <input 
@@ -77,6 +77,25 @@ import Footer from '../components/Footer.astro';
                 Send Message
               </button>
             </form>
+            
+            <script>
+              const form = document.getElementById('contactForm') as HTMLFormElement;
+              
+              form?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = (document.getElementById('name') as HTMLInputElement)?.value || '';
+                const email = (document.getElementById('email') as HTMLInputElement)?.value || '';
+                const subject = (document.getElementById('subject') as HTMLInputElement)?.value || '';
+                const message = (document.getElementById('message') as HTMLTextAreaElement)?.value || '';
+                
+                // Construct the mailto link
+                const mailtoLink = `mailto:prasanth.k.ramesh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                
+                // Open the user's email client
+                window.location.href = mailtoLink;
+              });
+            </script>
           </div>
 
           <!-- Contact Info -->
