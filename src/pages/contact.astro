@@ -1,0 +1,440 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Contact Me - Prasanth K Ramesh, PMP® | Get In Touch"
+  description="Get in touch with me for project inquiries, collaborations, or professional opportunities."
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Get In Touch</h1>
+        <p class="lead">
+          I'd love to hear from you. Whether you have a question or just want to say hi, feel free to reach out!
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Form -->
+          <div class="contact-form-container">
+            <h2>Send Me a Message</h2>
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <div class="form-group">
+                <label for="name">Name *</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  required 
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required 
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject *</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  required 
+                  placeholder="What's this about?"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="6" 
+                  required 
+                  placeholder="Your message here..."
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary full-width">
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <h2>Contact Information</h2>
+            
+            <div class="info-card">
+              <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div class="info-content">
+                  <h3>Email</h3>
+                  <a href="mailto:prasanth.k.ramesh@gmail.com">prasanth.k.ramesh@gmail.com</a>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">📱</div>
+                <div class="info-content">
+                  <h3>Phone</h3>
+                  <a href="tel:+421944016820">+421 944 016 820</a>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                  <h3>Location</h3>
+                  <p>Pezinok, Slovakia</p>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="info-icon">💼</div>
+                <div class="info-content">
+                  <h3>Availability</h3>
+                  <p>Open to opportunities</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links-section">
+              <h3>Connect With Me</h3>
+              <div class="social-links">
+                <a href="https://linkedin.com/in/prasanthkr" target="_blank" rel="noopener noreferrer" class="social-link">
+                  <span class="social-icon">in</span>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="mailto:prasanth.k.ramesh@gmail.com" class="social-link">
+                  <span class="social-icon">@</span>
+                  <span>Email</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="response-time">
+              <p>
+                <strong>Response Time:</strong> I typically respond within 24-48 hours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section bg-surface">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+        <div class="faq-item">
+          <h3>What is your area of expertise?</h3>
+          <p>
+            I specialize in Product Ownership, Technical Business Analysis, and Project Management
+            with 20+ years of IT experience. I combine technical depth in software development and
+            data science with leadership excellence.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Are you available for new opportunities?</h3>
+          <p>
+            Yes! I'm open to discussing new opportunities, consulting engagements, and
+            collaborations. Feel free to reach out to discuss how I can add value to your organization.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What certifications do you hold?</h3>
+          <p>
+            I'm a PMP® certified professional and Microsoft Certified Trainer with multiple
+            certifications including MCAD, MCTS, Scrum Fundamentals, and specialized certifications
+            in Arcmate and document management systems.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Do you work with distributed teams?</h3>
+          <p>
+            Absolutely! I have extensive experience managing cross-functional teams of 30+ members
+            and collaborating with distributed teams across different time zones, particularly in
+            my roles at IBM and NVSSoft.
+          </p>
+        </div>
+      </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    padding: var(--space-8) 0 var(--space-6);
+    background: linear-gradient(135deg, var(--surface) 0%, white 100%);
+    text-align: center;
+  }
+  
+  .page-hero h1 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  /* Contact Form */
+  .contact-form-container h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: var(--secondary);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: var(--space-2) var(--space-3);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  /* Contact Info */
+  .contact-info h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .info-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .info-item {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .info-item:first-child {
+    padding-top: 0;
+  }
+
+  .info-icon {
+    font-size: var(--text-3xl);
+    flex-shrink: 0;
+  }
+
+  .info-content h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-1);
+  }
+
+  .info-content p,
+  .info-content a {
+    color: var(--text-light);
+    margin: 0;
+  }
+
+  .info-content a {
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .info-content a:hover {
+    color: var(--primary);
+  }
+
+  /* Social Links Section */
+  .social-links-section {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-4);
+  }
+
+  .social-links-section h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .social-link:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateX(4px);
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: white;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .social-link:hover .social-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  /* Response Time */
+  .response-time {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    border-left: 4px solid var(--primary);
+  }
+
+  .response-time p {
+    margin: 0;
+    color: var(--text);
+  }
+
+  /* FAQ Section */
+  .section-title {
+    font-size: var(--text-4xl);
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq-item h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+    color: var(--primary);
+  }
+
+  .faq-item p {
+    color: var(--text-light);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero h1 {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>

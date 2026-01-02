@@ -1,0 +1,542 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Projects based on Prasanth's experience
+const projects = [
+  {
+    id: 1,
+    title: "IBM Global Invoice Access Application",
+    description: "Worldwide IBM application providing seamless invoice access across multiple billing tools. Managed product development, technical debt, and security compliance while tracking user adoption through data analytics.",
+    image: "/images/projects/ibm-invoice.jpg",
+    tags: ["Product Ownership", "PostgreSQL", "Python/Pandas", "IBM Cloud", "Agile/Scrum"],
+    github: null,
+    demo: null,
+    featured: true,
+    category: "enterprise"
+  },
+  {
+    id: 2,
+    title: "Enterprise Document Management System",
+    description: "Led implementation of comprehensive document management solutions for enterprise clients in Saudi Arabia. Managed cross-functional teams of 30+ members delivering mission-critical systems.",
+    image: "/images/projects/document-mgmt.jpg",
+    tags: ["Arcmate Enterprise", "Team Leadership", "Project Management", "Document Control"],
+    github: null,
+    demo: null,
+    featured: true,
+    category: "enterprise"
+  },
+  {
+    id: 3,
+    title: "Data Analytics & KPI Dashboard",
+    description: "Developed comprehensive analytics solution using Python, Pandas, and Jupyter Notebooks to track user adoption, system performance, and key performance indicators for IBM applications.",
+    image: "/images/projects/analytics-dashboard.jpg",
+    tags: ["Python", "Pandas", "Jupyter", "PostgreSQL", "Data Visualization"],
+    github: null,
+    demo: null,
+    featured: true,
+    category: "analytics"
+  },
+  {
+    id: 4,
+    title: "Agile Transformation Initiative",
+    description: "Led agile transformation across multiple teams, implementing Scrum ceremonies, backlog management, and continuous improvement processes. Achieved significant improvements in delivery velocity and team satisfaction.",
+    image: "/images/projects/agile-transformation.jpg",
+    tags: ["Agile/Scrum", "Change Management", "Team Leadership", "Process Improvement"],
+    github: null,
+    demo: null,
+    featured: false,
+    category: "leadership"
+  },
+  {
+    id: 5,
+    title: "Technical Training Program",
+    description: "Designed and delivered comprehensive technical training programs for .NET, C#, and project management. Managed team of 7 trainers and achieved 'Best Trainer' recognition.",
+    image: "/images/projects/training-program.jpg",
+    tags: [".NET", "C#", "Training Management", "Curriculum Design"],
+    github: null,
+    demo: null,
+    featured: false,
+    category: "training"
+  },
+  {
+    id: 6,
+    title: "Cloud Migration & Integration",
+    description: "Managed migration of enterprise applications to IBM Cloud platform, ensuring seamless integration with existing systems and maintaining high availability throughout the transition.",
+    image: "/images/projects/cloud-migration.jpg",
+    tags: ["IBM Cloud", "Cloud Migration", "Integration", "DevOps"],
+    github: null,
+    demo: null,
+    featured: false,
+    category: "enterprise"
+  }
+];
+---
+
+<BaseLayout 
+  title="Portfolio - Prasanth K Ramesh, PMP® | Projects & Achievements"
+  description="Explore my portfolio of enterprise projects, product ownership initiatives, and technical leadership achievements spanning 20+ years."
+>
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>My Portfolio</h1>
+        <p class="lead">
+          A showcase of enterprise projects, product initiatives, and leadership achievements 
+          from my 20+ year career in IT
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+      <div class="container">
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="featured">Featured</button>
+          <button class="filter-btn" data-filter="enterprise">Enterprise</button>
+          <button class="filter-btn" data-filter="analytics">Analytics</button>
+          <button class="filter-btn" data-filter="leadership">Leadership</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+      <div class="container">
+        <div class="projects-grid">
+          {projects.map((project) => (
+            <article class="card project-card" data-category={project.featured ? 'featured' : project.category}>
+              <div class="project-image">
+                <div class="placeholder-image">
+                  {project.title}
+                </div>
+                {project.featured && (
+                  <span class="featured-badge">Featured</span>
+                )}
+              </div>
+              <div class="project-content">
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <div class="project-tags">
+                  {project.tags.map((tag) => (
+                    <span class="badge">{tag}</span>
+                  ))}
+                </div>
+                <div class="project-info">
+                  <span class="project-type">
+                    {project.category === 'enterprise' ? '🏢 Enterprise' : 
+                     project.category === 'analytics' ? '📊 Analytics' : 
+                     project.category === 'leadership' ? '👥 Leadership' : 
+                     '📚 Training'}
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Achievements Section -->
+    <section class="section achievements-section bg-surface">
+      <div class="container">
+        <h2 class="section-title">Key Achievements</h2>
+        <div class="achievements-grid">
+          <div class="achievement-card card">
+            <div class="achievement-icon">🌍</div>
+            <h3>Global Impact</h3>
+            <p>Managed worldwide IBM application serving users across multiple countries and billing systems</p>
+          </div>
+          <div class="achievement-card card">
+            <div class="achievement-icon">👥</div>
+            <h3>Team Leadership</h3>
+            <p>Led cross-functional teams of 30+ members delivering enterprise solutions</p>
+          </div>
+          <div class="achievement-card card">
+            <div class="achievement-icon">🎓</div>
+            <h3>Training Excellence</h3>
+            <p>Awarded "Best Trainer of Aptech Qatar" and managed team of 7 certified trainers</p>
+          </div>
+          <div class="achievement-card card">
+            <div class="achievement-icon">📊</div>
+            <h3>Data-Driven</h3>
+            <p>Leveraged Python, Pandas, and PostgreSQL for comprehensive analytics and KPI tracking</p>
+          </div>
+          <div class="achievement-card card">
+            <div class="achievement-icon">🏆</div>
+            <h3>PMP® Certified</h3>
+            <p>Project Management Professional with proven track record in agile transformation</p>
+          </div>
+          <div class="achievement-card card">
+            <div class="achievement-icon">💡</div>
+            <h3>Solution Finder</h3>
+            <p>Recognized for "boundless energy" and focus on solutions instead of problems</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technologies & Tools -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Technologies & Tools</h2>
+        <div class="tech-categories">
+          <div class="tech-category">
+            <h3>Product & Project Management</h3>
+            <div class="tech-list">
+              <span class="tech-badge">Jira</span>
+              <span class="tech-badge">Trello</span>
+              <span class="tech-badge">MURAL</span>
+              <span class="tech-badge">monday.com</span>
+              <span class="tech-badge">SharePoint</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Data & Analytics</h3>
+            <div class="tech-list">
+              <span class="tech-badge">Python</span>
+              <span class="tech-badge">Pandas</span>
+              <span class="tech-badge">Jupyter</span>
+              <span class="tech-badge">PostgreSQL</span>
+              <span class="tech-badge">MS SQL Server</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Cloud & Platforms</h3>
+            <div class="tech-list">
+              <span class="tech-badge">IBM Cloud</span>
+              <span class="tech-badge">IBM Cloud Object Storage</span>
+              <span class="tech-badge">Enterprise Software</span>
+            </div>
+          </div>
+          <div class="tech-category">
+            <h3>Development</h3>
+            <div class="tech-list">
+              <span class="tech-badge">.NET</span>
+              <span class="tech-badge">C#</span>
+              <span class="tech-badge">ASP.NET</span>
+              <span class="tech-badge">JavaScript</span>
+              <span class="tech-badge">Java</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Interested in Collaboration?</h2>
+          <p>
+            I'm always open to discussing new projects, opportunities, and ways to add value 
+            to your organization through product ownership and technical leadership.
+          </p>
+          <a href="/contact" class="btn btn-primary">Let's Connect</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Filter functionality
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      const filter = button.getAttribute('data-filter');
+
+      // Filter projects
+      projectCards.forEach(card => {
+        if (filter === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const category = card.getAttribute('data-category');
+          card.style.display = category === filter ? 'flex' : 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Page Hero */
+  .page-hero {
+    padding: var(--space-8) 0 var(--space-6);
+    background: linear-gradient(135deg, var(--surface) 0%, white 100%);
+    text-align: center;
+  }
+  
+  .page-hero h1 {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .lead {
+    font-size: var(--text-xl);
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Filter Section */
+  .filter-section {
+    padding: var(--space-4) 0;
+    background-color: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: var(--header-height);
+    z-index: 100;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--space-2);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: var(--space-2) var(--space-4);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-full);
+    background-color: white;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .filter-btn.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all var(--transition-base);
+  }
+
+  .project-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+  }
+
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    background-color: var(--accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-content h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .project-content p {
+    color: var(--text-light);
+    margin-bottom: var(--space-3);
+    flex: 1;
+    line-height: var(--leading-relaxed);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+
+  .project-info {
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--border);
+  }
+
+  .project-type {
+    color: var(--text-light);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  /* Achievements Section */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  .achievement-card {
+    text-align: center;
+    padding: var(--space-5);
+  }
+
+  .achievement-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .achievement-card h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+    color: var(--primary);
+  }
+
+  .achievement-card p {
+    color: var(--text-light);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Technologies Section */
+  .tech-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .tech-category h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+    color: var(--secondary);
+  }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tech-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .tech-badge:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+  }
+  
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .cta-content h2 {
+    color: white;
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-3);
+  }
+  
+  .cta-content p {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-5);
+    opacity: 0.95;
+  }
+  
+  .cta-content .btn {
+    background-color: white;
+    color: var(--primary);
+  }
+  
+  .cta-content .btn:hover {
+    background-color: var(--surface);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .achievements-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tech-categories {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-hero h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .projects-grid,
+    .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

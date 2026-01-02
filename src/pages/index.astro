@@ -1,16 +1,439 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Prasanth K Ramesh, PMP® - Product Owner | Senior Technical Business Analyst">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Hi, I'm <span class="highlight">Prasanth K Ramesh, PMP®</span>
+          </h1>
+          <p class="hero-subtitle">Product Owner | Senior Technical Business Analyst | Project Manager</p>
+          <p class="hero-description">
+            Dynamic IT professional with 20+ years of expertise blending technical depth in
+            Software Development & Data Science with leadership excellence in Product Ownership
+            & Team Management. Proven track record at IBM delivering high-impact global applications.
+          </p>
+          <div class="hero-actions">
+            <a href="/portfolio" class="btn btn-primary">View My Work</a>
+            <a href="/contact" class="btn btn-secondary">Get In Touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="section about-preview">
+      <div class="container">
+        <div class="section-header">
+          <h2>About Me</h2>
+          <p class="section-description">
+            A brief introduction to who I am and what I do
+          </p>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              I'm a PMP® certified professional with over 20 years of IT expertise, combining
+              technical depth in Software Development & Data Science with leadership excellence
+              in Product Ownership & Team Management. Currently at IBM, I've led the development
+              of global applications serving users worldwide.
+            </p>
+            <p>
+              My unique blend of skills includes Agile methodologies, data analytics with Python
+              and PostgreSQL, and managing cross-functional teams of 30+ members. I'm recognized
+              for my "boundless energy" approach to problem-solving and distinguished background
+              as a Microsoft Certified Trainer.
+            </p>
+            <a href="/about" class="link-with-arrow">
+              Learn more about me
+              <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="skills-preview">
+            <h3>Core Skills</h3>
+            <div class="skills-grid">
+              <span class="badge">Agile/Scrum</span>
+              <span class="badge">Product Ownership</span>
+              <span class="badge">Python/Pandas</span>
+              <span class="badge">PostgreSQL</span>
+              <span class="badge">Jira</span>
+              <span class="badge">IBM Cloud</span>
+              <span class="badge">.NET/C#</span>
+              <span class="badge">Team Leadership</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section featured-projects bg-surface">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Projects</h2>
+          <p class="section-description">
+            Some of my recent work that I'm proud of
+          </p>
+        </div>
+        <div class="projects-grid">
+          <!-- Project Card 1 -->
+          <article class="card project-card">
+            <div class="project-image">
+              <div class="placeholder-image">Project Image</div>
+            </div>
+            <div class="project-content">
+              <h3>Project Name 1</h3>
+              <p>
+                A brief description of the project, highlighting the key features 
+                and technologies used.
+              </p>
+              <div class="project-tags">
+                <span class="badge">React</span>
+                <span class="badge">Node.js</span>
+                <span class="badge">MongoDB</span>
+              </div>
+              <a href="/portfolio/project-1" class="link-with-arrow">
+                View Project
+                <span class="arrow">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project Card 2 -->
+          <article class="card project-card">
+            <div class="project-image">
+              <div class="placeholder-image">Project Image</div>
+            </div>
+            <div class="project-content">
+              <h3>Project Name 2</h3>
+              <p>
+                Another exciting project showcasing different skills and technologies 
+                in action.
+              </p>
+              <div class="project-tags">
+                <span class="badge">Python</span>
+                <span class="badge">FastAPI</span>
+                <span class="badge">PostgreSQL</span>
+              </div>
+              <a href="/portfolio/project-2" class="link-with-arrow">
+                View Project
+                <span class="arrow">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project Card 3 -->
+          <article class="card project-card">
+            <div class="project-image">
+              <div class="placeholder-image">Project Image</div>
+            </div>
+            <div class="project-content">
+              <h3>Project Name 3</h3>
+              <p>
+                A third project demonstrating versatility and problem-solving abilities 
+                across different domains.
+              </p>
+              <div class="project-tags">
+                <span class="badge">TypeScript</span>
+                <span class="badge">Next.js</span>
+                <span class="badge">Tailwind</span>
+              </div>
+              <a href="/portfolio/project-3" class="link-with-arrow">
+                View Project
+                <span class="arrow">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
+        <div class="section-footer">
+          <a href="/portfolio" class="btn btn-primary">View All Projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Let's Work Together</h2>
+          <p>
+            I'm always interested in hearing about new projects and opportunities.
+          </p>
+          <div class="cta-actions">
+            <a href="/contact" class="btn btn-primary">Get In Touch</a>
+            <a href="/resume.pdf" download class="btn btn-secondary">Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    padding: var(--space-10) 0;
+    background: linear-gradient(135deg, var(--surface) 0%, white 100%);
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .hero-title {
+    font-size: var(--text-5xl);
+    margin-bottom: var(--space-3);
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--text-2xl);
+    color: var(--text-light);
+    margin-bottom: var(--space-3);
+  }
+  
+  .hero-description {
+    font-size: var(--text-lg);
+    color: var(--text);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-5);
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Section Styles */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+  
+  .section-header h2 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .section-description {
+    font-size: var(--text-lg);
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .section-footer {
+    text-align: center;
+    margin-top: var(--space-6);
+  }
+  
+  /* About Preview */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  
+  .about-text p {
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-relaxed);
+  }
+  
+  .skills-preview h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+  
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+  }
+  
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-content h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .project-content p {
+    color: var(--text-light);
+    margin-bottom: var(--space-3);
+    flex: 1;
+  }
+  
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+  
+  /* Link with Arrow */
+  .link-with-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap var(--transition-fast);
+  }
+  
+  .link-with-arrow:hover {
+    gap: var(--space-2);
+  }
+  
+  .arrow {
+    transition: transform var(--transition-fast);
+  }
+  
+  .link-with-arrow:hover .arrow {
+    transform: translateX(4px);
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+  }
+  
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .cta-content h2 {
+    color: white;
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-3);
+  }
+  
+  .cta-content p {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-5);
+    opacity: 0.95;
+  }
+  
+  .cta-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cta-actions .btn-primary {
+    background-color: white;
+    color: var(--primary);
+  }
+  
+  .cta-actions .btn-primary:hover {
+    background-color: var(--surface);
+  }
+  
+  .cta-actions .btn-secondary {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+  }
+  
+  .cta-actions .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-4xl);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--text-xl);
+    }
+    
+    .about-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero-actions,
+    .cta-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .hero-actions .btn,
+    .cta-actions .btn {
+      width: 100%;
+    }
+  }
+</style>
