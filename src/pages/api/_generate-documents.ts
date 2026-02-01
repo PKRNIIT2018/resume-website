@@ -14,36 +14,28 @@ const RESUME_TEMPLATE = `# PRASANTH KUNNUMAL RAMESH, PMP®
 
 ## EXECUTIVE SUMMARY
 
-Dynamic and result-oriented Project Management Professional (PMP®) with over 20 years of IT expertise. A rare blend of technical depth (Software Development & Data Science) and leadership excellence (Product Ownership & Team Management). Proven track record at IBM and NVSSoft in delivering high-impact global applications, managing cross-functional teams of 30+, and fostering agile transformation.
+Experience is valuable, but experience multiplied by AI is a superpower. By self-initiating a workflow that includes Gemini, Copilot, and IBM’s internal AI tools, I’ve transformed my daily Business Analyst tasks into a high-velocity delivery engine. This is my blueprint for staying at the cutting edge of technical leadership after two decades in the industry.
 
 ---
 
 ## CORE COMPETENCIES
 
 ### Strategic Leadership & Management
-- Agile (Scrum/Kanban), DevOps, Waterfall
+- Agile (Scrum/Kanban), Jira & Confluence, Git Documentation
 - Team Leadership (30+ members), Stakeholder Management
-- Project Planning, Change Management, Negotiation
-- Process Improvement, IT Service Management (ITSM)
-- Business Development, Consulting
+- Vulnerability Management, Change Management, Negotiation
+- Process Improvement, Markup, Vibe Coding
 
 ### Technical & Product Ownership
 - Product Vision & Strategy, Backlog Prioritization
 - User Story Mapping, Technical Documentation
-- IBM Cloud, IBM Cloud Object Storage, SharePoint
-- Jira, Trello, MURAL, monday.com
-- Microsoft Excel (Expert), MS SQL Server, Oracle
+- IBM watsonx Code Assistant, IBM BOB, Perplexity
+- Gemini & Copilot, NotebookLM, Prompt Engineering
 
-### Data Science & Analytics
+### Technical & Data Analysis
 - Python, Pandas, Jupyter Notebooks
-- PostgreSQL, SQL, Data Analysis
-- KPI Tracking, User Adoption Metrics
-
-### Software Development
-- .NET, C#, ASP.NET, JavaScript, HTML, Java
-- Software Development Life Cycle (SDLC)
-- Electronic Health Records (EHR)
-- Document Management Systems
+- PostgreSQL, SQL Server, IBM Cloud
+- Data Enrichment & Analysis, Knowledge Synthesis
 
 ---
 
@@ -51,37 +43,38 @@ Dynamic and result-oriented Project Management Professional (PMP®) with over 20
 
 ### IBM | Bratislava, Slovakia
 
-**Business Analyst** | *September 2024 – Present*
-- Leading on-site Scrum initiatives and project management for strategic business units
-- Facilitating agile transformation and process improvements
-- Managing stakeholder relationships and requirements gathering
-
-**Senior Technical Business Analyst / Product Owner** | *April 2019 – October 2023*
-- Managed development of a worldwide IBM application for invoice access across multiple billing tools
-- Facilitated all Scrum ceremonies; managed technical debt, security compliance, and feature roadmaps
-- Leveraged PostgreSQL, Pandas, and Jupyter to track user adoption and KPI metrics
-- Led cross-functional teams in delivering high-impact solutions for global users
+**Senior Technical Business Analyst / Product Owner** | *April 2019 – Present*
+- Leading on-site Scrum initiatives and project management for strategic business units.
+- Facilitating agile transformation, process improvements, and managing complex backlogs using **Jira** for worldwide IBM applications.
+- Documenting and translating business requirements into precise technical specifications, bridging the gap between stakeholders and developers.
+- Conducting regular vulnerability checks for applications and infrastructure to ensure enterprise-grade security compliance.
+- **AI-Enhanced Productivity (Self-Initiated):**
+    - Leveraged **watsonx Code Assistant** and **IBM BOB** to interpret complex logic, ensuring 100% alignment between business goals and implementation.
+    - Utilized **Perplexity** and **Gemini** to conduct deep-dive research into global data processing trends.
+    - Employed **NotebookLM** for high-speed synthesis of public technical documentation to accelerate discovery phases.
+    - Integrated **Microsoft Copilot** to streamline the creation of user stories and acceptance criteria.
 
 ### NVSSoft | Riyadh, Saudi Arabia
 
 **Account Project Manager / Team Lead** | *June 2013 – May 2018*
-- Led cross-functional teams of 30+ to deliver enterprise document management solutions
-- Negotiated with external suppliers and managed vendor relationships
-- Implemented rigorous document control and traceability processes
+- Led cross-functional teams of 30+ to deliver enterprise **Document Manager System** and **Document Archiving** solutions including **Arcmate**, **Tarasol**, and **Arcmate Capture**.
+- Negotiated with external suppliers and managed vendor relationships.
+- Implemented rigorous document control and traceability processes.
+- Achieved 100% on-time delivery rate for critical enterprise projects.
 
 ### APTECH EUROPE / QATAR | Slovakia & Qatar
 
 **Training Manager / Assistant Academic Head** | *August 2008 – April 2012*
-- Managed a team of 7 certified trainers across multiple locations
-- Designed curricula for programming and project management courses
-- Awarded "Best Trainer of Aptech Qatar" (2008-2009)
+- Managed a team of 7 certified trainers across multiple locations.
+- Designed curricula for programming and project management courses.
+- Awarded "Best Trainer of Aptech Qatar" (2008-2009).
 
 ---
 
 ## EDUCATION
 
 **Bachelor of Science in Computer Science**  
-University Name | 2000 – 2004
+University | 2000 – 2004
 
 ---
 
@@ -91,24 +84,7 @@ University Name | 2000 – 2004
 - **Microsoft Certified Trainer (MCT)** – Microsoft
 - **Microsoft Certified Application Developer (MCAD: .NET)** – Microsoft
 - **Scrum Fundamentals Certified** – Udemy
-- **ICDL (International Computer Driving License)** – ICDL Foundation
-
----
-
-## TECHNICAL SKILLS SUMMARY
-
-**Languages & Frameworks:** .NET, C#, ASP.NET, JavaScript, HTML, Java, Python  
-**Databases:** PostgreSQL, MS SQL Server, Oracle, MongoDB  
-**Tools & Platforms:** Jira, Trello, MURAL, IBM Cloud, SharePoint, Jupyter, Pandas  
-**Methodologies:** Agile/Scrum, Kanban, DevOps, Waterfall, SDLC
-
----
-
-## LANGUAGES
-
-- **English:** Fluent (Professional Working Proficiency)
-- **Hindi:** Native
-- **Malayalam:** Native
+- **Certified Arcmate Administrator** – Arcmate (7.2, 8 Enterprise, Capture 2.0)
 
 ---
 
