@@ -2,10 +2,10 @@
 const currentPath = Astro.url.pathname;
 
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'Contact', path: '/contact' },
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Portfolio", path: "/portfolio" },
+  { name: "Contact", path: "/contact" },
 ];
 ---
 
@@ -14,50 +14,55 @@ const navItems = [
     <a href="/" class="logo">
       <span class="logo-text">Prasanth K Ramesh</span>
     </a>
-    
+
     <button class="mobile-menu-toggle" aria-label="Toggle menu" id="menuToggle">
       <span class="hamburger"></span>
     </button>
-    
+
     <ul class="nav-links" id="navLinks">
-      {navItems.map((item) => (
-        <li>
-          <a 
-            href={item.path} 
-            class={currentPath === item.path ? 'active' : ''}
-            aria-current={currentPath === item.path ? 'page' : undefined}
-          >
-            {item.name}
-          </a>
-        </li>
-      ))}
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.path}
+              class={currentPath === item.path ? "active" : ""}
+              aria-current={currentPath === item.path ? "page" : undefined}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </header>
 
 <script>
   // Mobile menu toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  
-  menuToggle?.addEventListener('click', () => {
-    navLinks?.classList.toggle('active');
-    menuToggle?.classList.toggle('active');
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  menuToggle?.addEventListener("click", () => {
+    navLinks?.classList.toggle("active");
+    menuToggle?.classList.toggle("active");
   });
-  
+
   // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!menuToggle?.contains(e.target as Node) && !navLinks?.contains(e.target as Node)) {
-      navLinks?.classList.remove('active');
-      menuToggle?.classList.remove('active');
+  document.addEventListener("click", (e) => {
+    if (
+      !menuToggle?.contains(e.target as Node) &&
+      !navLinks?.contains(e.target as Node)
+    ) {
+      navLinks?.classList.remove("active");
+      menuToggle?.classList.remove("active");
     }
   });
-  
+
   // Close menu when clicking a link
-  navLinks?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks?.classList.remove('active');
-      menuToggle?.classList.remove('active');
+  navLinks?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks?.classList.remove("active");
+      menuToggle?.classList.remove("active");
     });
   });
 </script>
@@ -67,19 +72,20 @@ const navItems = [
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-color: var(--background);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-sm);
   }
-  
+
   .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: var(--header-height);
   }
-  
+
   .logo {
     font-size: var(--text-xl);
     font-weight: 700;
@@ -87,18 +93,24 @@ const navItems = [
     text-decoration: none;
     transition: color var(--transition-fast);
   }
-  
+
   .logo:hover {
     color: var(--primary);
   }
-  
+
   .logo-text {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
+    background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: inline-block;
+    transition: transform var(--transition-base);
   }
-  
+
+  .logo:hover .logo-text {
+    transform: scale(1.05);
+  }
+
   .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -112,7 +124,7 @@ const navItems = [
     padding: 0;
     z-index: 1001;
   }
-  
+
   .hamburger,
   .hamburger::before,
   .hamburger::after {
@@ -121,47 +133,47 @@ const navItems = [
     background-color: var(--secondary);
     transition: all var(--transition-fast);
   }
-  
+
   .hamburger {
     position: relative;
   }
-  
+
   .hamburger::before,
   .hamburger::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
   }
-  
+
   .hamburger::before {
     top: -0.5rem;
   }
-  
+
   .hamburger::after {
     bottom: -0.5rem;
   }
-  
+
   .mobile-menu-toggle.active .hamburger {
     background-color: transparent;
   }
-  
+
   .mobile-menu-toggle.active .hamburger::before {
     top: 0;
     transform: rotate(45deg);
   }
-  
+
   .mobile-menu-toggle.active .hamburger::after {
     bottom: 0;
     transform: rotate(-45deg);
   }
-  
+
   .nav-links {
     display: flex;
     gap: var(--space-6);
     list-style: none;
     margin: 0;
   }
-  
+
   .nav-links a {
     color: var(--text);
     font-weight: 500;
@@ -171,9 +183,9 @@ const navItems = [
     position: relative;
     transition: color var(--transition-fast);
   }
-  
+
   .nav-links a::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
@@ -182,23 +194,23 @@ const navItems = [
     background-color: var(--primary);
     transition: width var(--transition-fast);
   }
-  
+
   .nav-links a:hover,
   .nav-links a.active {
     color: var(--primary);
   }
-  
+
   .nav-links a:hover::after,
   .nav-links a.active::after {
     width: 100%;
   }
-  
+
   /* Mobile Styles */
   @media (max-width: 768px) {
     .mobile-menu-toggle {
       display: flex;
     }
-    
+
     .nav-links {
       position: fixed;
       top: var(--header-height);
@@ -214,21 +226,21 @@ const navItems = [
       transition: right var(--transition-base);
       box-shadow: var(--shadow-xl);
     }
-    
+
     .nav-links.active {
       right: 0;
     }
-    
+
     .nav-links li {
       width: 100%;
     }
-    
+
     .nav-links a {
       display: block;
       padding: var(--space-3) var(--space-2);
       border-bottom: 1px solid var(--border);
     }
-    
+
     .nav-links a::after {
       display: none;
     }

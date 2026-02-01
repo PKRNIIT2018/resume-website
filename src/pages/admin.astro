@@ -1,0 +1,552 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Check if user is authenticated
+const isAuthenticated = Astro.cookies.get('admin_auth')?.value === 'true';
+let loginError = '';
+
+// Handle logout
+if (Astro.url.searchParams.get('logout') === 'true') {
+  Astro.cookies.delete('admin_auth', { path: '/' });
+  return Astro.redirect('/admin');
+}
+
+// If not authenticated, show login form
+if (!isAuthenticated) {
+  // Handle login POST request
+  if (Astro.request.method === 'POST') {
+    try {
+      const formData = await Astro.request.formData();
+      const password = formData.get('password');
+      const adminPassword = import.meta.env.ADMIN_PASSWORD;
+      
+      if (!adminPassword) {
+        loginError = 'Admin password not configured in environment.';
+      } else if (password === adminPassword) {
+        Astro.cookies.set('admin_auth', 'true', {
+          path: '/',
+          maxAge: 60 * 60 * 24, // 24 hours
+          httpOnly: true,
+          secure: import.meta.env.PROD,
+          sameSite: 'strict'
+        });
+        return Astro.redirect('/admin');
+      } else {
+        loginError = 'Invalid password. Please try again.';
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      loginError = 'An error occurred during login. Please try again.';
+    }
+  }
+}
+---
+
+{!isAuthenticated ? (
+  <BaseLayout title="Admin Login - Prasanth K Ramesh">
+    <main class="login-container">
+      <div class="login-box">
+        <h1>Admin Login</h1>
+        <p class="login-description">Enter your password to access the admin panel</p>
+        {loginError && (
+          <div class="error-message">
+            {loginError}
+          </div>
+        )}
+        <form method="POST" class="login-form">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              autofocus
+              placeholder="Enter admin password"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </main>
+  </BaseLayout>
+) : (
+  <BaseLayout title="Admin Panel - Resume & Cover Letter Generator">
+    <main class="admin-container">
+      <div class="admin-header">
+        <h1>Resume & Cover Letter Generator</h1>
+        <a href="/admin?logout=true" class="btn btn-secondary">Logout</a>
+      </div>
+
+      <div class="admin-content">
+        <div class="instructions">
+          <h2>Instructions</h2>
+          <p>Paste a job description URL or enter the job description text below. The system will generate a customized resume and cover letter tailored to the job requirements.</p>
+        </div>
+
+        <form id="generatorForm" class="generator-form">
+          <div class="form-group">
+            <label for="jobUrl">Job Description URL (Optional)</label>
+            <input 
+              type="url" 
+              id="jobUrl" 
+              name="jobUrl" 
+              placeholder="https://example.com/job-posting"
+            />
+            <small>Or paste the job description text below</small>
+          </div>
+
+          <div class="form-group">
+            <label for="jobDescription">Job Description</label>
+            <textarea 
+              id="jobDescription" 
+              name="jobDescription" 
+              rows="15"
+              placeholder="Paste the complete job description here..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="generateBtn">
+              <span class="btn-text">Generate Resume & Cover Letter</span>
+              <span class="btn-loader" style="display: none;">Generating...</span>
+            </button>
+          </div>
+        </form>
+
+        <div id="results" class="results" style="display: none;">
+          <h2>Generated Documents</h2>
+          
+          <div class="document-section">
+            <div class="document-header">
+              <h3>Resume</h3>
+              <button class="btn btn-secondary" onclick="downloadResume()">Download Resume (PDF)</button>
+            </div>
+            <div id="resumeContent" class="document-content"></div>
+          </div>
+
+          <div class="document-section">
+            <div class="document-header">
+              <h3>Cover Letter</h3>
+              <button class="btn btn-secondary" onclick="downloadCoverLetter()">Download Cover Letter (PDF)</button>
+            </div>
+            <div id="coverLetterContent" class="document-content"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      import jsPDF from 'jspdf';
+
+      const form = document.getElementById('generatorForm') as HTMLFormElement | null;
+      const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement | null;
+      const btnText = generateBtn?.querySelector('.btn-text') as HTMLElement | null;
+      const btnLoader = generateBtn?.querySelector('.btn-loader') as HTMLElement | null;
+      const results = document.getElementById('results') as HTMLElement | null;
+      const resumeContent = document.getElementById('resumeContent') as HTMLElement | null;
+      const coverLetterContent = document.getElementById('coverLetterContent') as HTMLElement | null;
+
+      let generatedResume = '';
+      let generatedCoverLetter = '';
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const jobUrl = (document.getElementById('jobUrl') as HTMLInputElement | null)?.value || '';
+        const jobDescription = (document.getElementById('jobDescription') as HTMLTextAreaElement | null)?.value || '';
+
+        if (!jobDescription.trim()) {
+          alert('Please enter a job description');
+          return;
+        }
+
+        // Show loading state
+        if (generateBtn) generateBtn.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnLoader) btnLoader.style.display = 'inline';
+        if (results) results.style.display = 'none';
+
+        try {
+          const response = await fetch('/api/generate-documents', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              jobUrl,
+              jobDescription
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to generate documents');
+          }
+
+          const data = await response.json();
+
+          // Store generated content
+          generatedResume = data.resume;
+          generatedCoverLetter = data.coverLetter;
+
+          // Display results
+          if (resumeContent) resumeContent.innerHTML = `<pre>${escapeHtml(data.resume)}</pre>`;
+          if (coverLetterContent) coverLetterContent.innerHTML = `<pre>${escapeHtml(data.coverLetter)}</pre>`;
+          if (results) results.style.display = 'block';
+
+          // Scroll to results
+          results?.scrollIntoView({ behavior: 'smooth' });
+
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Failed to generate documents. Please try again.');
+        } finally {
+          // Reset button state
+          if (generateBtn) generateBtn.disabled = false;
+          if (btnText) btnText.style.display = 'inline';
+          if (btnLoader) btnLoader.style.display = 'none';
+        }
+      });
+
+      function escapeHtml(text: string) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      (window as any).downloadResume = function() {
+        generatePDF(generatedResume, 'Prasanth_K_Ramesh_Resume.pdf');
+      };
+
+      (window as any).downloadCoverLetter = function() {
+        generatePDF(generatedCoverLetter, 'Prasanth_K_Ramesh_Cover_Letter.pdf');
+      };
+
+      function generatePDF(content: string, filename: string) {
+        const doc = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        // Set font
+        doc.setFont('helvetica');
+        
+        // Page dimensions
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const margin = 20;
+        const maxWidth = pageWidth - (margin * 2);
+        
+        // Split content into lines
+        const lines = content.split('\n');
+        let y = margin;
+        
+        lines.forEach((line) => {
+          // Check if we need a new page
+          if (y > pageHeight - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          
+          // Handle different text styles based on markdown-like patterns
+          if (line.startsWith('# ')) {
+            // Main heading
+            doc.setFontSize(20);
+            doc.setFont('helvetica', 'bold');
+            const text = line.substring(2);
+            doc.text(text, margin, y);
+            y += 10;
+          } else if (line.startsWith('## ')) {
+            // Section heading
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            const text = line.substring(3);
+            doc.text(text, margin, y);
+            y += 8;
+          } else if (line.startsWith('### ')) {
+            // Subsection heading
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
+            const text = line.substring(4);
+            doc.text(text, margin, y);
+            y += 7;
+          } else if (line.startsWith('**') && line.endsWith('**')) {
+            // Bold text
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            const text = line.replace(/\*\*/g, '');
+            doc.text(text, margin, y);
+            y += 6;
+          } else if (line.startsWith('- ') || line.startsWith('* ')) {
+            // Bullet points
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            const text = line.substring(2);
+            const wrappedText = doc.splitTextToSize(text, maxWidth - 5);
+            doc.text('•', margin, y);
+            doc.text(wrappedText, margin + 5, y);
+            y += wrappedText.length * 5;
+          } else if (line.trim() === '---') {
+            // Horizontal line
+            doc.setLineWidth(0.5);
+            doc.line(margin, y, pageWidth - margin, y);
+            y += 5;
+          } else if (line.trim() === '') {
+            // Empty line
+            y += 4;
+          } else {
+            // Regular text
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            const wrappedText = doc.splitTextToSize(line, maxWidth);
+            doc.text(wrappedText, margin, y);
+            y += wrappedText.length * 5;
+          }
+        });
+        
+        // Save the PDF
+        doc.save(filename);
+      }
+    </script>
+  </BaseLayout>
+)}
+
+<style>
+  /* Login Styles */
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--surface) 0%, white 100%);
+    padding: var(--space-4);
+  }
+
+  .login-box {
+    background: white;
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .login-box h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+    text-align: center;
+  }
+
+  .login-description {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .error-message {
+    background-color: #fee;
+    border: 1px solid #fcc;
+    color: #c33;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+    text-align: center;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Admin Panel Styles */
+  .admin-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .admin-header h1 {
+    font-size: var(--text-4xl);
+    color: var(--primary);
+  }
+
+  .admin-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .instructions {
+    background: var(--surface);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary);
+  }
+
+  .instructions h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .instructions p {
+    color: var(--text-light);
+    line-height: var(--leading-relaxed);
+  }
+
+  .generator-form {
+    background: white;
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-group {
+    margin-bottom: var(--space-4);
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+    color: var(--text);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--space-3);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    font-family: inherit;
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    font-family: 'Courier New', monospace;
+  }
+
+  .form-group small {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--text-light);
+    font-size: var(--text-sm);
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-6);
+  }
+
+  .btn-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .btn-loader::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .results {
+    margin-top: var(--space-8);
+  }
+
+  .results > h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-6);
+    text-align: center;
+  }
+
+  .document-section {
+    background: white;
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-6);
+  }
+
+  .document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .document-header h3 {
+    font-size: var(--text-2xl);
+    color: var(--primary);
+  }
+
+  .document-content {
+    background: var(--surface);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  .document-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .admin-header {
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: flex-start;
+    }
+
+    .admin-header h1 {
+      font-size: var(--text-2xl);
+    }
+
+    .document-header {
+      flex-direction: column;
+      gap: var(--space-3);
+      align-items: flex-start;
+    }
+
+    .document-header .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -10,43 +10,63 @@
 }
 
 :root {
-  /* Color Palette */
+  /* Color Palette - Refined */
   --primary: #2563eb;
+  --primary-gradient: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
   --secondary: #0f172a;
   --accent: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
   --text: #1e293b;
   --text-light: #64748b;
   --background: #ffffff;
   --surface: #f8fafc;
+  --glass: rgba(255, 255, 255, 0.7);
   --border: #e2e8f0;
   --success: #10b981;
   --warning: #f59e0b;
   --error: #ef4444;
 
   /* Spacing System (8px base) */
-  --space-1: 0.5rem;   /* 8px */
-  --space-2: 1rem;     /* 16px */
-  --space-3: 1.5rem;   /* 24px */
-  --space-4: 2rem;     /* 32px */
-  --space-5: 2.5rem;   /* 40px */
-  --space-6: 3rem;     /* 48px */
-  --space-8: 4rem;     /* 64px */
-  --space-10: 5rem;    /* 80px */
+  --space-1: 0.5rem;
+  /* 8px */
+  --space-2: 1rem;
+  /* 16px */
+  --space-3: 1.5rem;
+  /* 24px */
+  --space-4: 2rem;
+  /* 32px */
+  --space-5: 2.5rem;
+  /* 40px */
+  --space-6: 3rem;
+  /* 48px */
+  --space-8: 4rem;
+  /* 64px */
+  --space-10: 5rem;
+  /* 80px */
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Font Sizes */
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 1.875rem;  /* 30px */
-  --text-4xl: 2.25rem;   /* 36px */
-  --text-5xl: 3rem;      /* 48px */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.875rem;
+  /* 14px */
+  --text-base: 1rem;
+  /* 16px */
+  --text-lg: 1.125rem;
+  /* 18px */
+  --text-xl: 1.25rem;
+  /* 20px */
+  --text-2xl: 1.5rem;
+  /* 24px */
+  --text-3xl: 1.875rem;
+  /* 30px */
+  --text-4xl: 2.25rem;
+  /* 36px */
+  --text-5xl: 3rem;
+  /* 48px */
 
   /* Line Heights */
   --leading-tight: 1.25;
@@ -94,7 +114,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: var(--leading-tight);
   color: var(--secondary);
@@ -142,7 +167,8 @@ a:hover {
 }
 
 /* Lists */
-ul, ol {
+ul,
+ol {
   margin-left: var(--space-4);
   margin-bottom: var(--space-2);
 }
@@ -274,6 +300,7 @@ button {
 }
 
 @media (max-width: 640px) {
+
   .grid-cols-2,
   .grid-cols-3 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -295,30 +322,37 @@ button {
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background: var(--primary-gradient);
   color: white;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
 }
 
 .btn-primary:hover {
-  background-color: var(--accent);
+  background: var(--primary-gradient);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  filter: brightness(1.1);
 }
 
 .btn-secondary {
-  background-color: var(--surface);
+  background-color: var(--glass);
+  backdrop-filter: blur(8px);
   color: var(--secondary);
-  border: 2px solid var(--border);
+  border: 1px solid var(--border);
 }
 
 .btn-secondary:hover {
   border-color: var(--primary);
   color: var(--primary);
+  background-color: white;
 }
 
-/* Card Styles */
+/* Card Styles - Glassmorphism */
 .card {
-  background-color: white;
+  background-color: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-lg);
   padding: var(--space-4);
   box-shadow: var(--shadow-md);
@@ -326,8 +360,9 @@ button {
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.01);
   box-shadow: var(--shadow-xl);
+  border-color: var(--primary);
 }
 
 /* Badge Styles */
@@ -344,9 +379,12 @@ button {
 /* Responsive Typography */
 @media (max-width: 768px) {
   :root {
-    --text-5xl: 2.25rem;  /* 36px */
-    --text-4xl: 1.875rem; /* 30px */
-    --text-3xl: 1.5rem;   /* 24px */
+    --text-5xl: 2.25rem;
+    /* 36px */
+    --text-4xl: 1.875rem;
+    /* 30px */
+    --text-3xl: 1.5rem;
+    /* 24px */
   }
 }
 
@@ -366,5 +404,3 @@ button {
 html {
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
-
-/* Made with Bob */
