@@ -1,4 +1,4 @@
-# Prasanth K Ramesh - Professional Resume Website
+# Prasanth Kunnumal Ramesh - Professional Resume Website
 
 A modern, professional resume and portfolio website built with Astro. Features a clean design, fast performance, and an AI-powered resume and cover letter generator.
 

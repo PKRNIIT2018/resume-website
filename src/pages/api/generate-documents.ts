@@ -117,7 +117,7 @@ University Name | 2000 – 2004
 export const POST: APIRoute = async ({ request, cookies }) => {
   // Check authentication
   const isAuthenticated = cookies.get('admin_auth')?.value === 'true';
-  
+
   if (!isAuthenticated) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
@@ -139,8 +139,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const apiKey = import.meta.env.PERPLEXITY_API_KEY;
 
     if (!apiKey) {
-      return new Response(JSON.stringify({ 
-        error: 'API key not configured. Please set PERPLEXITY_API_KEY in your .env file' 
+      return new Response(JSON.stringify({
+        error: 'API key not configured. Please set PERPLEXITY_API_KEY in your .env file'
       }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
@@ -165,7 +165,7 @@ Please provide a customized version of the resume that:
 
 Return only the customized resume text without any additional commentary.`;
 
-    const coverLetterPrompt = `Based on the following job description and resume, write a compelling cover letter for Prasanth K Ramesh.
+    const coverLetterPrompt = `Based on the following job description and resume, write a compelling cover letter for Prasanth Kunnumal Ramesh.
 
 Job Description:
 ${jobDescription}
@@ -261,7 +261,7 @@ Return only the cover letter text without any additional commentary.`;
 
   } catch (error) {
     console.error('Error generating documents:', error);
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       error: 'Failed to generate documents',
       details: error instanceof Error ? error.message : 'Unknown error'
     }), {

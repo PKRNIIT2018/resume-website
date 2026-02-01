@@ -1,22 +1,23 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout
-  title="Contact Me - Prasanth K Ramesh, PMP® | Get In Touch"
+  title="Contact Me - Prasanth Kunnumal Ramesh, PMP® | Get In Touch"
   description="Get in touch with me for project inquiries, collaborations, or professional opportunities."
 >
   <Header />
-  
+
   <main>
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="container">
         <h1>Get In Touch</h1>
         <p class="lead">
-          I'd love to hear from you. Whether you have a question or just want to say hi, feel free to reach out!
+          I'd love to hear from you. Whether you have a question or just want to
+          say hi, feel free to reach out!
         </p>
       </div>
     </section>
@@ -31,67 +32,76 @@ import Footer from '../components/Footer.astro';
             <form class="contact-form" id="contactForm">
               <div class="form-group">
                 <label for="name">Name *</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
                   placeholder="Your name"
                 />
               </div>
 
               <div class="form-group">
                 <label for="email">Email *</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  required 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
                   placeholder="your.email@example.com"
                 />
               </div>
 
               <div class="form-group">
                 <label for="subject">Subject *</label>
-                <input 
-                  type="text" 
-                  id="subject" 
-                  name="subject" 
-                  required 
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  required
                   placeholder="What's this about?"
                 />
               </div>
 
               <div class="form-group">
                 <label for="message">Message *</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  rows="6" 
-                  required 
-                  placeholder="Your message here..."
-                ></textarea>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  placeholder="Your message here..."></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary full-width">
                 Send Message
               </button>
             </form>
-            
+
             <script>
-              const form = document.getElementById('contactForm') as HTMLFormElement;
-              
-              form?.addEventListener('submit', function(e) {
+              const form = document.getElementById(
+                "contactForm",
+              ) as HTMLFormElement;
+
+              form?.addEventListener("submit", function (e) {
                 e.preventDefault();
-                
-                const name = (document.getElementById('name') as HTMLInputElement)?.value || '';
-                const email = (document.getElementById('email') as HTMLInputElement)?.value || '';
-                const subject = (document.getElementById('subject') as HTMLInputElement)?.value || '';
-                const message = (document.getElementById('message') as HTMLTextAreaElement)?.value || '';
-                
+
+                const name =
+                  (document.getElementById("name") as HTMLInputElement)
+                    ?.value || "";
+                const email =
+                  (document.getElementById("email") as HTMLInputElement)
+                    ?.value || "";
+                const subject =
+                  (document.getElementById("subject") as HTMLInputElement)
+                    ?.value || "";
+                const message =
+                  (document.getElementById("message") as HTMLTextAreaElement)
+                    ?.value || "";
+
                 // Construct the mailto link
                 const mailtoLink = `mailto:prasanth.k.ramesh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-                
+
                 // Open the user's email client
                 window.location.href = mailtoLink;
               });
@@ -101,13 +111,15 @@ import Footer from '../components/Footer.astro';
           <!-- Contact Info -->
           <div class="contact-info">
             <h2>Contact Information</h2>
-            
+
             <div class="info-card">
               <div class="info-item">
                 <div class="info-icon">📧</div>
                 <div class="info-content">
                   <h3>Email</h3>
-                  <a href="mailto:prasanth.k.ramesh@gmail.com">prasanth.k.ramesh@gmail.com</a>
+                  <a href="mailto:prasanth.k.ramesh@gmail.com"
+                    >prasanth.k.ramesh@gmail.com</a
+                  >
                 </div>
               </div>
 
@@ -139,11 +151,19 @@ import Footer from '../components/Footer.astro';
             <div class="social-links-section">
               <h3>Connect With Me</h3>
               <div class="social-links">
-                <a href="https://linkedin.com/in/prasanthkr" target="_blank" rel="noopener noreferrer" class="social-link">
+                <a
+                  href="https://linkedin.com/in/prasanthkr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                >
                   <span class="social-icon">in</span>
                   <span>LinkedIn</span>
                 </a>
-                <a href="mailto:prasanth.k.ramesh@gmail.com" class="social-link">
+                <a
+                  href="mailto:prasanth.k.ramesh@gmail.com"
+                  class="social-link"
+                >
                   <span class="social-icon">@</span>
                   <span>Email</span>
                 </a>
@@ -165,45 +185,49 @@ import Footer from '../components/Footer.astro';
       <div class="container">
         <h2 class="section-title">Frequently Asked Questions</h2>
         <div class="faq-grid">
-        <div class="faq-item">
-          <h3>What is your area of expertise?</h3>
-          <p>
-            I specialize in Product Ownership, Technical Business Analysis, and Project Management
-            with 20+ years of IT experience. I combine technical depth in software development and
-            data science with leadership excellence.
-          </p>
-        </div>
+          <div class="faq-item">
+            <h3>What is your area of expertise?</h3>
+            <p>
+              I specialize in Product Ownership, Technical Business Analysis,
+              and Project Management with 20+ years of IT experience. I combine
+              technical depth in software development and data science with
+              leadership excellence.
+            </p>
+          </div>
 
-        <div class="faq-item">
-          <h3>Are you available for new opportunities?</h3>
-          <p>
-            Yes! I'm open to discussing new opportunities, consulting engagements, and
-            collaborations. Feel free to reach out to discuss how I can add value to your organization.
-          </p>
-        </div>
+          <div class="faq-item">
+            <h3>Are you available for new opportunities?</h3>
+            <p>
+              Yes! I'm open to discussing new opportunities, consulting
+              engagements, and collaborations. Feel free to reach out to discuss
+              how I can add value to your organization.
+            </p>
+          </div>
 
-        <div class="faq-item">
-          <h3>What certifications do you hold?</h3>
-          <p>
-            I'm a PMP® certified professional and Microsoft Certified Trainer with multiple
-            certifications including MCAD, MCTS, Scrum Fundamentals, and specialized certifications
-            in Arcmate and document management systems.
-          </p>
-        </div>
+          <div class="faq-item">
+            <h3>What certifications do you hold?</h3>
+            <p>
+              I'm a PMP® certified professional and Microsoft Certified Trainer
+              with multiple certifications including MCAD, MCTS, Scrum
+              Fundamentals, and specialized certifications in Arcmate and
+              document management systems.
+            </p>
+          </div>
 
-        <div class="faq-item">
-          <h3>Do you work with distributed teams?</h3>
-          <p>
-            Absolutely! I have extensive experience managing cross-functional teams of 30+ members
-            and collaborating with distributed teams across different time zones, particularly in
-            my roles at IBM and NVSSoft.
-          </p>
+          <div class="faq-item">
+            <h3>Do you work with distributed teams?</h3>
+            <p>
+              Absolutely! I have extensive experience managing cross-functional
+              teams of 30+ members and collaborating with distributed teams
+              across different time zones, particularly in my roles at IBM and
+              NVSSoft.
+            </p>
+          </div>
         </div>
-      </div>
       </div>
     </section>
   </main>
-  
+
   <Footer />
 </BaseLayout>
 
@@ -214,12 +238,12 @@ import Footer from '../components/Footer.astro';
     background: linear-gradient(135deg, var(--surface) 0%, white 100%);
     text-align: center;
   }
-  
+
   .page-hero h1 {
     font-size: var(--text-5xl);
     margin-bottom: var(--space-2);
   }
-  
+
   .lead {
     font-size: var(--text-xl);
     color: var(--text-light);
