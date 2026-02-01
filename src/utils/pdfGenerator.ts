@@ -14,10 +14,16 @@ export function generateDynamicResumePDF() {
     const maxWidth = pageWidth - (margin * 2);
     let y = margin;
 
+    // Constants for IBM-brand feel and ATS optimization
+    const FONT_BODY = 'helvetica';
+    const SIZE_HEADER = 14;
+    const SIZE_SUBHEADER = 12;
+    const SIZE_BODY = 11;
+
     // Helper for adding text with auto page breaks
-    const addText = (text: string, fontSize: number, style: 'normal' | 'bold' | 'italic' = 'normal', color: [number, number, number] = [0, 0, 0], marginBottom: number = 5) => {
+    const addText = (text: string, fontSize: number, style: 'normal' | 'bold' | 'italic' = 'normal', color: [number, number, number] = [0, 0, 0], marginBottom: number = 4) => {
         doc.setFontSize(fontSize);
-        doc.setFont('helvetica', style);
+        doc.setFont(FONT_BODY, style);
         doc.setTextColor(color[0], color[1], color[2]);
 
         const lines = doc.splitTextToSize(text, maxWidth);
@@ -30,18 +36,18 @@ export function generateDynamicResumePDF() {
         y += (lines.length * (fontSize / 2.8)) + marginBottom;
     };
 
-    // Header
-    addText(resumeData.personalInfo.name, 22, 'bold', [0, 102, 204], 2);
-    addText(resumeData.personalInfo.title, 14, 'bold', [100, 100, 100], 4);
+    // Header - Name
+    addText(resumeData.personalInfo.name, 22, 'bold', [0, 0, 0], 2);
 
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
-    const contactInfo = `${resumeData.personalInfo.location} | ${resumeData.personalInfo.email} | ${resumeData.personalInfo.phone}`;
-    doc.text(contactInfo, margin, y);
-    y += 5;
-    doc.text(resumeData.personalInfo.linkedin, margin, y);
-    y += 8;
+    // Title & Subtitle
+    addText(resumeData.personalInfo.title, SIZE_HEADER, 'bold', [100, 100, 100], 4);
+
+    // Contact Info - Clean Vertical Flow
+    doc.setFontSize(SIZE_BODY);
+    doc.setFont(FONT_BODY, 'normal');
+    doc.setTextColor(80, 80, 80);
+    addText(`${resumeData.personalInfo.location} | ${resumeData.personalInfo.email}`, SIZE_BODY, 'normal', [80, 80, 80], 2);
+    addText(`${resumeData.personalInfo.phone} | ${resumeData.personalInfo.linkedin}`, SIZE_BODY, 'normal', [80, 80, 80], 6);
 
     // Horizontal Line
     doc.setDrawColor(200, 200, 200);
@@ -49,65 +55,57 @@ export function generateDynamicResumePDF() {
     y += 8;
 
     // Executive Summary
-    addText('EXECUTIVE SUMMARY', 14, 'bold', [0, 102, 204], 4);
-    addText(resumeData.executiveSummary.replace(/\*\*/g, ''), 10, 'normal', [0, 0, 0], 8);
+    addText('EXECUTIVE SUMMARY', SIZE_HEADER, 'bold', [0, 102, 204], 4);
+    addText(resumeData.executiveSummary.replace(/\*\*/g, ''), SIZE_BODY, 'normal', [0, 0, 0], 8);
 
     // Core Competencies
-    addText('CORE COMPETENCIES', 14, 'bold', [0, 102, 204], 4);
+    addText('CORE COMPETENCIES', SIZE_HEADER, 'bold', [0, 102, 204], 4);
     resumeData.skills.forEach(cat => {
-        addText(cat.category, 11, 'bold', [50, 50, 50], 2);
-        addText(cat.items.join(' • '), 10, 'normal', [0, 0, 0], 5);
+        addText(cat.category, SIZE_SUBHEADER, 'bold', [50, 50, 50], 2);
+        addText(cat.items.join(' • '), SIZE_BODY, 'normal', [0, 0, 0], 6);
     });
-    y += 3;
+    y += 2;
 
     // Professional Experience
-    addText('PROFESSIONAL EXPERIENCE', 14, 'bold', [0, 102, 204], 6);
+    addText('PROFESSIONAL EXPERIENCE', SIZE_HEADER, 'bold', [0, 102, 204], 6);
     resumeData.experience.forEach(exp => {
-        // Role and Date
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(0, 0, 0);
-        doc.text(exp.role, margin, y);
-        doc.setFont('helvetica', 'normal');
-        const dateWidth = doc.getTextWidth(exp.period);
-        doc.text(exp.period, pageWidth - margin - dateWidth, y);
-        y += 6;
-
+        // Role
+        addText(exp.role, SIZE_SUBHEADER, 'bold', [0, 0, 0], 1);
         // Company and Location
-        addText(`${exp.company} | ${exp.location}`, 11, 'italic', [0, 102, 204], 4);
+        addText(`${exp.company} | ${exp.location} | ${exp.period}`, SIZE_BODY, 'bold', [0, 102, 204], 4);
 
         if (exp.description) {
-            addText(exp.description.replace(/\*\*/g, ''), 10, 'normal', [0, 0, 0], 4);
+            addText(exp.description.replace(/\*\*/g, ''), SIZE_BODY, 'normal', [0, 0, 0], 4);
         }
 
         exp.achievements.forEach(ach => {
             if (typeof ach === 'string') {
-                doc.setFontSize(10);
-                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(SIZE_BODY);
+                doc.setFont(FONT_BODY, 'normal');
                 doc.setTextColor(0, 0, 0);
                 const bulletText = doc.splitTextToSize(ach.replace(/\*\*/g, ''), maxWidth - 5);
-                if (y + (bulletText.length * 4) > pageHeight - margin) {
+                if (y + (bulletText.length * 5) > pageHeight - margin) {
                     doc.addPage();
                     y = margin;
                 }
                 doc.text('•', margin, y);
                 doc.text(bulletText, margin + 5, y);
-                y += (bulletText.length * 4) + 2;
+                y += (bulletText.length * 5) + 2;
             } else {
                 // Nested AI highlight
                 y += 2;
-                addText(ach.title, 10, 'bold', [0, 0, 0], 3);
+                addText(ach.title, SIZE_BODY, 'bold', [0, 0, 0], 3);
                 ach.items.forEach(item => {
-                    doc.setFontSize(10);
-                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(SIZE_BODY);
+                    doc.setFont(FONT_BODY, 'normal');
                     const itemText = doc.splitTextToSize(item.replace(/\*\*/g, ''), maxWidth - 10);
-                    if (y + (itemText.length * 4) > pageHeight - margin) {
+                    if (y + (itemText.length * 5) > pageHeight - margin) {
                         doc.addPage();
                         y = margin;
                     }
                     doc.text('-', margin + 5, y);
                     doc.text(itemText, margin + 10, y);
-                    y += (itemText.length * 4) + 2;
+                    y += (itemText.length * 5) + 2;
                 });
             }
         });
@@ -115,16 +113,16 @@ export function generateDynamicResumePDF() {
     });
 
     // Education
-    addText('EDUCATION', 14, 'bold', [0, 102, 204], 4);
+    addText('EDUCATION', SIZE_HEADER, 'bold', [0, 102, 204], 4);
     resumeData.education.forEach(edu => {
-        addText(`${edu.degree} - ${edu.institution} (${edu.year})`, 11, 'normal', [0, 0, 0], 4);
+        addText(`${edu.degree} - ${edu.institution} (${edu.year})`, SIZE_BODY, 'normal', [0, 0, 0], 4);
     });
     y += 4;
 
     // Certifications
-    addText('LICENSES & CERTIFICATIONS', 14, 'bold', [0, 102, 204], 4);
+    addText('LICENSES & CERTIFICATIONS', SIZE_HEADER, 'bold', [0, 102, 204], 4);
     resumeData.certifications.forEach(cert => {
-        addText(`• ${cert}`, 10, 'normal', [0, 0, 0], 2);
+        addText(`• ${cert}`, SIZE_BODY, 'normal', [0, 0, 0], 2);
     });
 
     // Save the PDF

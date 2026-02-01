@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { resumeData } from '../data/resumeData';
 
 // Check if user is authenticated
 const isAuthenticated = Astro.cookies.get('admin_auth')?.value === 'true';
 let loginError = '';
+
+const totalSkillsCount = resumeData.skills.flatMap((s: { items: string[] }) => s.items).length;
 
 // Handle logout
 if (Astro.url.searchParams.get('logout') === 'true') {
@@ -114,6 +117,20 @@ if (!isAuthenticated) {
             </button>
           </div>
         </form>
+        
+        <!-- LinkedIn Skill Optimizer Section -->
+        <div class="document-section linkedin-optimizer">
+          <div class="document-header">
+            <h3>LinkedIn Profile Optimizer (2026 Edition)</h3>
+            <button class="btn btn-secondary" id="copyAllSkillsBtn">Copy All Skills</button>
+          </div>
+          <div class="instructions" style="margin-bottom: var(--space-4); border-left-color: var(--accent);">
+            <p>Paste these into your LinkedIn profile to maximize recruiter hits. Individual buttons copy the name, "Copy All" gives you a comma-separated list.</p>
+          </div>
+          <div id="linkedinSkillsList" class="skills-grid admin-skills-grid">
+            <!-- Skills will be injected here -->
+          </div>
+        </div>
 
         <div id="results" class="results" style="display: none;">
           <h2>Generated Documents</h2>
@@ -139,6 +156,86 @@ if (!isAuthenticated) {
 
     <script>
       import jsPDF from 'jspdf';
+      import { resumeData } from '../data/resumeData';
+
+      // --- LinkedIn Skill Optimizer Logic ---
+      const linkedinSkillsList = document.getElementById('linkedinSkillsList');
+      const copyAllSkillsBtn = document.getElementById('copyAllSkillsBtn');
+
+      const metaSkills = [
+        "Strategic Planning", 
+        "Cross-functional Team Leadership", 
+        "Software Development Life Cycle (SDLC)",
+        "Enterprise Architecture",
+        "Digital Transformation",
+        "IT Strategy"
+      ];
+
+      const allSkills = [...new Set([
+        ...resumeData.skills.flatMap(category => category.items),
+        ...metaSkills
+      ])].sort();
+
+      function renderLinkedInSkills() {
+        if (!linkedinSkillsList) return;
+        
+        linkedinSkillsList.innerHTML = allSkills.map(skill => `
+          <div class="skill-item">
+            <span class="skill-name">${skill}</span>
+            <button class="copy-skill-btn" title="Copy ${skill}">
+              <span class="copy-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </span>
+              <span class="copy-success" style="display: none; color: #10b981; font-weight: bold; font-size: 10px;">COPIED!</span>
+            </button>
+          </div>
+        `).join('');
+
+        // Add event listeners to individual copy buttons
+        document.querySelectorAll('.skill-item').forEach(item => {
+          const btn = item.querySelector('.copy-skill-btn');
+          const skillName = item.querySelector('.skill-name')?.textContent;
+          const icon = btn?.querySelector('.copy-icon') as HTMLElement;
+          const success = btn?.querySelector('.copy-success') as HTMLElement;
+
+          btn?.addEventListener('click', () => {
+            if (skillName) {
+              navigator.clipboard.writeText(skillName).then(() => {
+                console.log(`[Admin] Copied skill: "${skillName}"`);
+                if (icon) icon.style.display = 'none';
+                if (success) success.style.display = 'inline';
+                
+                setTimeout(() => {
+                  if (icon) icon.style.display = 'inline';
+                  if (success) success.style.display = 'none';
+                }, 1500);
+              });
+            }
+          });
+        });
+      }
+
+      copyAllSkillsBtn?.addEventListener('click', () => {
+        const textToCopy = allSkills.join(', ');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          console.log(`[Admin] Copied all skills (${allSkills.length} total)`);
+          const btn = copyAllSkillsBtn as HTMLButtonElement | null;
+          if (btn) {
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied All!';
+            btn.classList.add('btn-success');
+            
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.classList.remove('btn-success');
+            }, 2000);
+          }
+        });
+      });
+
+      renderLinkedInSkills();
+
+      // --- Resume & Cover Letter Generator Logic ---
 
       const form = document.getElementById('generatorForm') as HTMLFormElement | null;
       const generateBtn = document.getElementById('generateBtn') as HTMLButtonElement | null;
@@ -525,6 +622,61 @@ if (!isAuthenticated) {
     font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
     margin: 0;
+  }
+
+  .btn-success {
+    background-color: #10b981 !important;
+    border-color: #10b981 !important;
+    color: white !important;
+  }
+
+  /* LinkedIn Optimizer Specific Styles */
+  .linkedin-optimizer {
+    border-top: 4px solid var(--accent);
+  }
+
+  .admin-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    transition: all var(--transition-fast);
+  }
+
+  .skill-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .skill-name {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .copy-skill-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    transition: color var(--transition-fast);
+  }
+
+  .copy-skill-btn:hover {
+    color: var(--primary);
   }
 
   /* Responsive Design */
