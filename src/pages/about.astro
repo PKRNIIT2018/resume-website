@@ -104,7 +104,7 @@ const formatBold = (text: string) =>
         <h2 class="section-title">Professional Experience</h2>
         <div class="timeline">
           {
-            resumeData.experience.map((exp) => (
+            resumeData.experience.map((exp: any) => (
               <div class="timeline-item">
                 <div class="timeline-marker" />
                 <div class="timeline-content">
@@ -122,14 +122,14 @@ const formatBold = (text: string) =>
                     />
                   )}
                   <ul class="achievements">
-                    {exp.achievements.map((ach) =>
+                    {exp.achievements.map((ach: any) =>
                       typeof ach === "string" ? (
                         <li set:html={formatBold(ach)} />
                       ) : (
                         <li class="ai-highlight">
                           <strong>{ach.title}</strong>
                           <ul>
-                            {ach.items.map((item) => (
+                            {ach.items.map((item: string) => (
                               <li set:html={formatBold(item)} />
                             ))}
                           </ul>
@@ -150,49 +150,18 @@ const formatBold = (text: string) =>
       <div class="container">
         <h2 class="section-title">Licenses & Certifications</h2>
         <div class="certifications-grid">
-          <div class="cert-card card">
-            <h4>PMP® - Project Management Professional</h4>
-            <p class="cert-issuer">Project Management Institute (PMI)</p>
-            <p class="cert-id">ID: 3696499</p>
-            <p class="cert-date">Current</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Microsoft Certified Trainer (MCT)</h4>
-            <p class="cert-issuer">Microsoft</p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Microsoft Certified Application Developer</h4>
-            <p class="cert-issuer">Microsoft (MCAD: .NET)</p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Microsoft Certified Technology Specialist</h4>
-            <p class="cert-issuer">Microsoft (MCTS)</p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Scrum Fundamentals Certified</h4>
-            <p class="cert-issuer">Udemy</p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>ICDL - International Computer Driving License</h4>
-            <p class="cert-issuer">ICDL Foundation</p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Certified Arcmate Administrator</h4>
-            <p class="cert-issuer">
-              Arcmate (7.2, 8 Enterprise, Capture 2.0, EziFlow)
-            </p>
-            <p class="cert-date">Certified</p>
-          </div>
-          <div class="cert-card card">
-            <h4>Kodak Scanner Maintenance Specialist</h4>
-            <p class="cert-issuer">Kodak</p>
-            <p class="cert-date">Certified</p>
-          </div>
+          {
+            resumeData.certifications.map((cert) => {
+              const [title, rest] = cert.split(" – ");
+              return (
+                <div class="cert-card card">
+                  <h4>{title}</h4>
+                  {rest && <p class="cert-issuer">{rest}</p>}
+                  <p class="cert-date">Certified</p>
+                </div>
+              );
+            })
+          }
         </div>
       </div>
     </section>
@@ -231,8 +200,8 @@ const formatBold = (text: string) =>
       </div>
     </section>
 
-    <!-- Volunteering & Additional Activities -->
-    <section class="section bg-surface">
+    <!-- Volunteering & Leadership -->
+    <section class="section">
       <div class="container">
         <h2 class="section-title">Volunteering & Leadership</h2>
         <div class="activities-grid">
@@ -242,8 +211,9 @@ const formatBold = (text: string) =>
               Competent Communicator (CC) & Competent Leader (CL)
             </p>
             <p class="activity-description">
-              Served as VP Membership, developing public speaking and leadership
-              skills while helping others grow in their communication abilities.
+              Actively participated in Toastmasters to refine public speaking
+              and leadership, eventually achieving the status of Competent
+              Communicator and Competent Leader.
             </p>
           </div>
         </div>
