@@ -1,5 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { resumeData } from "../data/resumeData";
+
+// Helper to render markdown bolding in HTML
+const formatBold = (text: string) =>
+  text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
@@ -15,25 +20,18 @@ import Footer from "../components/Footer.astro";
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
-            Hi, I'm <span class="highlight">Prasanth Kunnumal Ramesh, PMP®</span
+            Hi, I'm <span class="highlight">{resumeData.personalInfo.name}</span
             >
           </h1>
           <p class="hero-subtitle">
-            Senior Technical Business Analyst @ IBM | Agile Leader | Boosting
-            Productivity with AI
+            {resumeData.personalInfo.title} @ IBM | Agile Leader | {
+              resumeData.hero.highlightLine
+            }
           </p>
-          <p class="hero-description">
-            Experience is valuable, but experience multiplied by AI is a
-            superpower. By self-initiating a workflow that includes <strong
-              >Gemini</strong
-            >,
-            <strong>Copilot</strong>, and <strong
-              >IBM’s internal AI tools</strong
-            >, I’ve transformed my daily Business Analyst tasks into a
-            high-velocity delivery engine. This is my blueprint for staying at
-            the cutting edge of technical leadership after two decades in the
-            industry.
-          </p>
+          <p
+            class="hero-description"
+            set:html={formatBold(resumeData.hero.description)}
+          />
           <div class="hero-actions">
             <a href="/portfolio" class="btn btn-primary">View My Work</a>
             <a href="/contact" class="btn btn-secondary">Get In Touch</a>
@@ -53,13 +51,7 @@ import Footer from "../components/Footer.astro";
         </div>
         <div class="about-content">
           <div class="about-text">
-            <p>
-              I'm a Senior Technical Business Analyst at IBM with over 6 years
-              of experience bridging the gap between complex business needs and
-              technical execution. I specialize in Agile Project Management,
-              data enrichment, and technical documentation within large-scale
-              enterprise environments.
-            </p>
+            <p set:html={formatBold(resumeData.executiveSummary)} />
             <p>
               My "secret sauce" is the integration of a self-initiated AI
               productivity stack, including <strong
@@ -78,14 +70,11 @@ import Footer from "../components/Footer.astro";
           <div class="skills-preview">
             <h3>Core Skills</h3>
             <div class="skills-grid">
-              <span class="badge">Agile/Scrum</span>
-              <span class="badge">IBM watsonx Code Assistant</span>
-              <span class="badge">IBM BOB</span>
-              <span class="badge">Jira & Confluence</span>
-              <span class="badge">Git Documentation</span>
-              <span class="badge">Markup</span>
-              <span class="badge">Vulnerability Management</span>
-              <span class="badge">Vibe Coding</span>
+              {
+                resumeData.skills
+                  .flatMap((category) => category.items)
+                  .map((skill) => <span class="badge">{skill}</span>)
+              }
             </div>
           </div>
         </div>
@@ -103,9 +92,9 @@ import Footer from "../components/Footer.astro";
           </p>
           <div class="cta-actions">
             <a href="/contact" class="btn btn-outline-white">Get In Touch</a>
-            <a href="/resume.pdf" download class="btn btn-outline-white"
-              >Download Resume</a
-            >
+            <button id="downloadResumeBtn" class="btn btn-outline-white">
+              Download Resume
+            </button>
           </div>
         </div>
       </div>
@@ -113,6 +102,17 @@ import Footer from "../components/Footer.astro";
   </main>
 
   <Footer />
+
+  <script>
+    import { generateDynamicResumePDF } from "../utils/pdfGenerator";
+
+    const downloadBtn = document.getElementById("downloadResumeBtn");
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", () => {
+        generateDynamicResumePDF();
+      });
+    }
+  </script>
 </BaseLayout>
 
 <style>

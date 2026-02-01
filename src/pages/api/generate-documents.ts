@@ -1,94 +1,54 @@
 import type { APIRoute } from 'astro';
 
 // Resume template based on RESUME.md
-const RESUME_TEMPLATE = `# PRASANTH KUNNUMAL RAMESH, PMP®
+import { resumeData } from '../../data/resumeData';
 
-**Product Owner | Senior Technical Business Analyst | Project Manager**
+// Generate raw markdown template from resumeData
+const generateRawTemplate = () => {
+  let template = `# ${resumeData.personalInfo.name}\n\n`;
+  template += `**${resumeData.personalInfo.title}**\n\n`;
+  template += `📍 ${resumeData.personalInfo.location}  \n`;
+  template += `📧 ${resumeData.personalInfo.email}  \n`;
+  template += `📱 ${resumeData.personalInfo.phone}  \n`;
+  template += `🔗 [linkedin.com/in/prasanthkr](${resumeData.personalInfo.linkedin})\n\n`;
+  template += `---\n\n## EXECUTIVE SUMMARY\n\n${resumeData.executiveSummary}\n\n---\n\n## CORE COMPETENCIES\n\n`;
 
-📍 Pezinok, Slovakia  
-📧 prasanth.k.ramesh@gmail.com  
-📱 +421 944 016 820  
-🔗 [linkedin.com/in/prasanthkr](https://linkedin.com/in/prasanthkr)
+  resumeData.skills.forEach(cat => {
+    template += `### ${cat.category}\n- ${cat.items.join('\n- ')}\n\n`;
+  });
 
----
+  template += `---\n\n## PROFESSIONAL EXPERIENCE\n\n`;
 
-## EXECUTIVE SUMMARY
+  resumeData.experience.forEach(exp => {
+    template += `### ${exp.company} | ${exp.location}\n\n`;
+    template += `**${exp.role}** | *${exp.period}*\n`;
+    if (exp.description) template += `${exp.description}\n`;
+    exp.achievements.forEach(ach => {
+      if (typeof ach === 'string') {
+        template += `- ${ach}\n`;
+      } else {
+        template += `\n**${ach.title}**\n`;
+        ach.items.forEach(item => template += `- ${item}\n`);
+      }
+    });
+    template += `\n`;
+  });
 
-Experience is valuable, but experience multiplied by AI is a superpower. By self-initiating a workflow that includes Gemini, Copilot, and IBM’s internal AI tools, I’ve transformed my daily Business Analyst tasks into a high-velocity delivery engine. This is my blueprint for staying at the cutting edge of technical leadership after two decades in the industry.
+  template += `---\n\n## EDUCATION\n\n`;
+  resumeData.education.forEach(edu => {
+    template += `**${edu.degree}**  \n${edu.institution} | ${edu.year}\n\n`;
+  });
 
----
+  template += `---\n\n## LICENSES & CERTIFICATIONS\n\n`;
+  resumeData.certifications.forEach(cert => {
+    template += `- ${cert}\n`;
+  });
 
-## CORE COMPETENCIES
+  template += `\n---\n\n*References available upon request*`;
+  return template;
+};
 
-### Strategic Leadership & Management
-- Agile (Scrum/Kanban), Jira & Confluence, Git Documentation
-- Team Leadership (30+ members), Stakeholder Management
-- Vulnerability Management, Change Management, Negotiation
-- Process Improvement, Markup, Vibe Coding
-
-### Technical & Product Ownership
-- Product Vision & Strategy, Backlog Prioritization
-- User Story Mapping, Technical Documentation
-- IBM watsonx Code Assistant, IBM BOB, Perplexity
-- Gemini & Copilot, NotebookLM, Prompt Engineering
-
-### Technical & Data Analysis
-- Python, Pandas, Jupyter Notebooks
-- PostgreSQL, SQL Server, IBM Cloud
-- Data Enrichment & Analysis, Knowledge Synthesis
-
----
-
-## PROFESSIONAL EXPERIENCE
-
-### IBM | Bratislava, Slovakia
-
-**Senior Technical Business Analyst / Product Owner** | *April 2019 – Present*
-- Leading on-site Scrum initiatives and project management for strategic business units.
-- Facilitating agile transformation, process improvements, and managing complex backlogs using **Jira** for worldwide IBM applications.
-- Documenting and translating business requirements into precise technical specifications, bridging the gap between stakeholders and developers.
-- Conducting regular vulnerability checks for applications and infrastructure to ensure enterprise-grade security compliance.
-- **AI-Enhanced Productivity (Self-Initiated):**
-    - Leveraged **watsonx Code Assistant** and **IBM BOB** to interpret complex logic, ensuring 100% alignment between business goals and implementation.
-    - Utilized **Perplexity** and **Gemini** to conduct deep-dive research into global data processing trends.
-    - Employed **NotebookLM** for high-speed synthesis of public technical documentation to accelerate discovery phases.
-    - Integrated **Microsoft Copilot** to streamline the creation of user stories and acceptance criteria.
-
-### NVSSoft | Riyadh, Saudi Arabia
-
-**Account Project Manager / Team Lead** | *June 2013 – May 2018*
-- Led cross-functional teams of 30+ to deliver enterprise **Document Manager System** and **Document Archiving** solutions including **Arcmate**, **Tarasol**, and **Arcmate Capture**.
-- Negotiated with external suppliers and managed vendor relationships.
-- Implemented rigorous document control and traceability processes.
-- Achieved 100% on-time delivery rate for critical enterprise projects.
-
-### APTECH EUROPE / QATAR | Slovakia & Qatar
-
-**Training Manager / Assistant Academic Head** | *August 2008 – April 2012*
-- Managed a team of 7 certified trainers across multiple locations.
-- Designed curricula for programming and project management courses.
-- Awarded "Best Trainer of Aptech Qatar" (2008-2009).
-
----
-
-## EDUCATION
-
-**Bachelor of Science in Computer Science**  
-University | 2000 – 2004
-
----
-
-## LICENSES & CERTIFICATIONS
-
-- **PMP® (Project Management Professional)** – Project Management Institute (PMI)
-- **Microsoft Certified Trainer (MCT)** – Microsoft
-- **Microsoft Certified Application Developer (MCAD: .NET)** – Microsoft
-- **Scrum Fundamentals Certified** – Udemy
-- **Certified Arcmate Administrator** – Arcmate (7.2, 8 Enterprise, Capture 2.0)
-
----
-
-*References available upon request*`;
+const RESUME_TEMPLATE = generateRawTemplate();
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   // Check authentication
