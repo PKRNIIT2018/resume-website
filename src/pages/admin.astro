@@ -340,9 +340,9 @@ if (!isAuthenticated) {
           const trimmed = line.trim();
           if (trimmed.startsWith('-') || trimmed.startsWith('*') || /^\d+\./.test(trimmed)) {
             const content = trimmed.replace(/^[-*]|\d+\.\s*/, '').trim();
-            if (content) html += `<li>${content}</li>`;
+            if (content) html += `<li>${escapeHtml(content)}</li>`;
           } else if (trimmed) {
-            html += `<p>${trimmed}</p>`;
+            html += `<p>${escapeHtml(trimmed)}</p>`;
           }
         });
         
