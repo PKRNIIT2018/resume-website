@@ -144,13 +144,18 @@ if (!isAuthenticated) {
         <div class="document-section linkedin-optimizer">
           <div class="document-header">
             <h3>LinkedIn Profile Optimizer (2026 Edition)</h3>
-            <button class="btn btn-secondary" id="copyAllSkillsBtn">Copy All Skills</button>
+            <button class="btn btn-secondary" id="toggleLinkedinBtn">Show Optimizer</button>
           </div>
-          <div class="instructions" style="margin-bottom: var(--space-4); border-left-color: var(--accent);">
-            <p>Paste these into your LinkedIn profile to maximize recruiter hits. Individual buttons copy the name, "Copy All" gives you a comma-separated list.</p>
-          </div>
-          <div id="linkedinSkillsList" class="skills-grid admin-skills-grid">
-            <!-- Skills will be injected here -->
+          <div id="linkedinContent" style="display: none;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+              <button class="btn btn-secondary" id="copyAllSkillsBtn">Copy All Skills</button>
+            </div>
+            <div class="instructions" style="margin-bottom: var(--space-4); border-left-color: var(--accent);">
+              <p>Paste these into your LinkedIn profile to maximize recruiter hits. Individual buttons copy the name, "Copy All" gives you a comma-separated list.</p>
+            </div>
+            <div id="linkedinSkillsList" class="skills-grid admin-skills-grid">
+              <!-- Skills will be injected here -->
+            </div>
           </div>
         </div>
 
@@ -194,6 +199,20 @@ if (!isAuthenticated) {
       // --- LinkedIn Skill Optimizer Logic ---
       const linkedinSkillsList = document.getElementById('linkedinSkillsList');
       const copyAllSkillsBtn = document.getElementById('copyAllSkillsBtn');
+      const toggleLinkedinBtn = document.getElementById('toggleLinkedinBtn');
+      const linkedinContent = document.getElementById('linkedinContent');
+
+      toggleLinkedinBtn?.addEventListener('click', () => {
+        if (!linkedinContent) return;
+        
+        if (linkedinContent.style.display === 'none') {
+          linkedinContent.style.display = 'block';
+          toggleLinkedinBtn.textContent = 'Hide Optimizer';
+        } else {
+          linkedinContent.style.display = 'none';
+          toggleLinkedinBtn.textContent = 'Show Optimizer';
+        }
+      });
 
       const metaSkills = [
         "Strategic Planning", 
