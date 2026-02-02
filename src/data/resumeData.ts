@@ -8,7 +8,7 @@ export const resumeData = {
         email: "prasanth.k.ramesh@gmail.com",
         phone: "+421 944 016 820",
         linkedin: "linkedin.com/in/prasanthkr",
-        website: "https://resume-website-git-main-prasanth-kunnumal-rameshs-projects.vercel.app"
+        website: "https://resume-prasanthkr.vercel.app"
     },
 
     hero: {
@@ -37,25 +37,32 @@ export const resumeData = {
         {
             category: "AI & Automation",
             items: [
-                "Agentic Workflows (AntiGravity)",
+                "Agentic AI Workflows (AntiGravity)",
                 "Prompt Engineering",
                 "IBM watsonx Code Assistant",
                 "IBM BOB",
                 "Local LLMs (Ollama)",
+                "Local LLM Privacy Strategy (Ollama)",
                 "NotebookLM (Research & Synthesis)",
                 "Perplexity",
                 "Microsoft Copilot"
             ]
         },
         {
-            category: "Product & Analysis",
+            category: "Product & Strategy",
             items: [
-                "Technical Business Analysis",
                 "Product Ownership",
+                "Technical Business Analysis",
                 "Agile Delivery",
-                "Jira & Confluence",
+                "Strategic Planning",
+                "IT Strategy",
+                "Digital Transformation",
+                "Enterprise Architecture",
+                "Cross-functional Team Leadership",
+                "Stakeholder Communication",
                 "Requirements Documentation",
-                "Stakeholder Communication"
+                "Jira & Confluence",
+                "Software Development Life Cycle (SDLC)"
             ]
         },
         {
