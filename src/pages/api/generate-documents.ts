@@ -124,6 +124,7 @@ Legal Status: Permanent resident of Slovakia (No permit needed for SK; sponsorsh
 Constraint & Style Guidelines:
 
 - Tone: Adaptive. Match the brand's energy (e.g., bold and direct for Red Bull, corporate and secure for IBM, innovative for a media house).
+- Clean Text: Strictly avoid all bracketed citations, footnotes, or source references (e.g., [1], [2], [resume]). The letter must be clean and ready for submission.
 - Structure: Use a "Problem/Solution" approach. Don't just list duties; explain how my skills solve the company’s specific pain points (e.g., PLM transformation, high-traffic scaling).
 - Formatting: Use bolding for key technologies and bullet points for high-impact achievements to ensure scannability.
 - The "Hook": Include a subtle, professional nod to the company’s culture or slogan in the closing.
