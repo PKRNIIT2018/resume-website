@@ -133,6 +133,25 @@ Goal: Create a letter that proves I am a "low-risk, high-reward" candidate who b
 
 Return only the cover letter text without any additional commentary.`;
 
+    const gapAnalysisPrompt = `Act as a sharp Technical Recruiter and Risk Analyst. Compare the following Job Description with the Candidate's Resume. 
+    
+    Identify specific "Gaps" or "Mismatches" where the candidate does NOT meet the requirements.
+    Focus on:
+    1. Mandatory skills or technologies mentioned in the JD but missing from the resume.
+    2. Language requirements (e.g., German, French) mentioned in the JD but not found in the candidate's languages.
+    3. Years of experience in specific areas if the candidate falls short.
+    4. Certifications required by the JD that the candidate doesn't have.
+
+    Job Description:
+    ${jobDescription}
+
+    Candidate Resume:
+    ${RESUME_TEMPLATE}
+
+    Return the results as a concise, bulleted list of "Gaps Detected". If no major gaps are found, say "No significant gaps detected."
+    
+    Keep it professional but direct. Return ONLY the bulleted list.`;
+
     // Call Perplexity API for resume
     const resumeResponse = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
@@ -199,9 +218,41 @@ Return only the cover letter text without any additional commentary.`;
     const coverLetterApiResponse = await coverLetterResponse.json();
     const customizedCoverLetter = coverLetterApiResponse.choices[0].message.content;
 
+    // Call Perplexity API for gap analysis
+    const gapAnalysisResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'sonar-pro',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a sharp Technical Recruiter and Risk Analyst. Your goal is to identify mismatches between a candidate and a job description.'
+          },
+          {
+            role: 'user',
+            content: gapAnalysisPrompt
+          }
+        ],
+        temperature: 0.5,
+        max_tokens: 1000
+      })
+    });
+
+    if (!gapAnalysisResponse.ok) {
+      console.warn('Gap analysis failed, but continuing with other documents');
+    }
+
+    const gapAnalysisData = gapAnalysisResponse.ok ? await gapAnalysisResponse.json() : null;
+    const gapAnalysis = gapAnalysisData ? gapAnalysisData.choices[0].message.content : 'Analysis unavailable.';
+
     return new Response(JSON.stringify({
       resume: customizedResume,
       coverLetter: customizedCoverLetter,
+      gapAnalysis: gapAnalysis,
       jobUrl: jobUrl || null
     }), {
       status: 200,

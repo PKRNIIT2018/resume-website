@@ -135,6 +135,14 @@ if (!isAuthenticated) {
         <div id="results" class="results" style="display: none;">
           <h2>Generated Documents</h2>
           
+          <!-- Gap Analysis Section -->
+          <div class="document-section gap-analysis">
+            <div class="document-header" style="border-bottom-color: #ef4444;">
+              <h3 style="color: #ef4444;">Recruiter Risk Assessment (Gap Analysis)</h3>
+            </div>
+            <div id="gapAnalysisContent" class="document-content" style="background: #fef2f2; border: 1px solid #fee2e2;"></div>
+          </div>
+          
           <div class="document-section">
             <div class="document-header">
               <h3>Resume</h3>
@@ -246,9 +254,11 @@ if (!isAuthenticated) {
       const results = document.getElementById('results') as HTMLElement | null;
       const resumeContent = document.getElementById('resumeContent') as HTMLElement | null;
       const coverLetterContent = document.getElementById('coverLetterContent') as HTMLElement | null;
+      const gapAnalysisContent = document.getElementById('gapAnalysisContent') as HTMLElement | null;
 
       let generatedResume = '';
       let generatedCoverLetter = '';
+      let generatedGapAnalysis = '';
 
       form?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -288,10 +298,12 @@ if (!isAuthenticated) {
           // Store generated content
           generatedResume = data.resume;
           generatedCoverLetter = data.coverLetter;
+          generatedGapAnalysis = data.gapAnalysis;
 
           // Display results
           if (resumeContent) resumeContent.innerHTML = `<pre>${escapeHtml(data.resume)}</pre>`;
           if (coverLetterContent) coverLetterContent.innerHTML = `<pre>${escapeHtml(data.coverLetter)}</pre>`;
+          if (gapAnalysisContent) gapAnalysisContent.innerHTML = `<div class="gap-list">${formatGapAnalysis(data.gapAnalysis)}</div>`;
           if (results) results.style.display = 'block';
 
           // Scroll to results
@@ -312,6 +324,27 @@ if (!isAuthenticated) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+      }
+
+      function formatGapAnalysis(text: string) {
+        if (!text) return 'Analysis unavailable.';
+        
+        // Convert the bulleted list into pretty HTML
+        const lines = text.split('\n');
+        let html = '<ul>';
+        
+        lines.forEach(line => {
+          const trimmed = line.trim();
+          if (trimmed.startsWith('-') || trimmed.startsWith('*') || /^\d+\./.test(trimmed)) {
+            const content = trimmed.replace(/^[-*]|\d+\.\s*/, '').trim();
+            if (content) html += `<li>${content}</li>`;
+          } else if (trimmed) {
+            html += `<p>${trimmed}</p>`;
+          }
+        });
+        
+        html += '</ul>';
+        return html;
       }
 
       (window as any).downloadResume = function() {
@@ -733,6 +766,35 @@ if (!isAuthenticated) {
 
   .copy-skill-btn:hover {
     color: var(--primary);
+  }
+
+  /* Gap Analysis Styles */
+  .gap-analysis .document-content {
+    color: #991b1b;
+  }
+
+  .gap-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gap-list li {
+    position: relative;
+    padding-left: var(--space-6);
+    margin-bottom: var(--space-2);
+    font-weight: 500;
+  }
+
+  .gap-list li::before {
+    content: '⚠️';
+    position: absolute;
+    left: 0;
+  }
+
+  .gap-list p {
+    font-weight: 600;
+    margin-bottom: var(--space-3);
   }
 
   /* Responsive Design */
