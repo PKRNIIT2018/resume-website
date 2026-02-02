@@ -12,11 +12,11 @@ export const resumeData = {
         highlightLine: "Bridging 20+ Years of IT Excellence with AI Innovation",
         description: "Experience is valuable, but experience augmented by AI is a superpower. By leveraging internal innovations like IBM BOB and watsonx alongside external tools like Gemini for research, I have transformed traditional Business Analyst tasks into a high-velocity delivery engine.",
     },
-    executiveSummary: "Strategic IT Leader with 20+ years of expertise in Software Development, Data Science, and Product Ownership. Currently driving high-impact global initiatives at IBM, I combine deep foundational knowledge with modern AI-augmented workflows. Expert in Agile transformation, technical requirement synthesis, and leveraging Generative AI to optimize the product lifecycle while maintaining strict enterprise security standards.",
+    executiveSummary: "Strategic IT Leader with 20+ years of expertise in Software Development, Data Science, and Product Ownership. Currently driving high-impact global initiatives at IBM, I combine deep foundational knowledge with modern AI-augmented workflows. Expert in Agile transformation, technical requirement synthesis, and orchestrating agentic workflows (AntiGravity) to optimize the product lifecycle while maintaining strict enterprise security standards.",
     skills: [
-        { category: "AI Orchestration", items: ["IBM watsonx Code Assistant", "IBM BOB", "Prompt Engineering", "NotebookLM (Research)", "Perplexity", "Microsoft Copilot", "Vibe Coding"] },
+        { category: "AI Orchestration", items: ["AntiGravity (Agentic Workflow)", "Ollama (Local LLMs)", "IBM watsonx Code Assistant", "IBM BOB", "Prompt Engineering", "NotebookLM (Research)", "Perplexity", "Microsoft Copilot", "Vibe Coding"] },
         { category: "Product & Analysis", items: ["Technical Business Analysis", "Product Ownership", "Agile (Scrum/Kanban)", "Jira & Confluence", "Stakeholder Management", "Requirements Synthesis"] },
-        { category: "Technical Stack", items: ["Python (Pandas/Jupyter)", "C#.NET / ASP.NET", "PostgreSQL/SQL Server", "Git Documentation", "Vulnerability Management", "IBM Cloud"] },
+        { category: "Technical Stack", items: ["Python (Pandas/Jupyter)", "Node.js", "Astro", "Streamlit", "C#.NET / ASP.NET", "PostgreSQL/SQL Server", "Git Documentation", "Vulnerability Management", "IBM Cloud"] },
     ],
     experience: [
         {
@@ -34,7 +34,8 @@ export const resumeData = {
                     items: [
                         "Integrated watsonx Code Assistant and IBM BOB to analyze legacy system logic, accelerating requirement synthesis.",
                         "Utilized Perplexity and Gemini for deep-dive research into global data trends and public compliance frameworks.",
-                        "Leveraged NotebookLM to synthesize public-facing technical documentation, accelerating project discovery phases."
+                        "Leveraged NotebookLM to synthesize public-facing technical documentation, accelerating project discovery phases.",
+                        "Developing agentic workflows with AntiGravity for high-velocity requirement synthesis and data mapping."
                     ]
                 }
             ]
