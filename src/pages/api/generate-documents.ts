@@ -126,7 +126,7 @@ Legal Status: Permanent resident of Slovakia (No permit needed for SK; sponsorsh
 
 Constraint & Style Guidelines:
 
-- Tone: Adaptive. Match the brand's energy (e.g., bold and direct for Red Bull, corporate and secure for IBM, innovative for a media house).
+- Tone: Natural & Conversational. Write in a clear, standard professional voice—as if a human is speaking. Avoid overly formal, robotic, or stiff AI language. Ensure perfect grammar. Match the brand's energy (e.g., bold for Red Bull, steady for IBM), but keep it grounded and authentic.
 - Personalization: Address "${hiringManager || 'Hiring Manager'}" directly. If the manager's name is known, use it to create a warm opening.
 - Clean Text: Strictly avoid all bracketed citations, footnotes, or source references (e.g., [1], [2], [resume]). The letter must be clean and ready for submission.
 - Structure: Use a "Problem/Solution" approach. Don't just list duties; explain how my skills solve ${companyName || 'the company'}'s specific pain points (e.g., PLM transformation, high-traffic scaling).
