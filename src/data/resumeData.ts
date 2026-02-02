@@ -23,7 +23,7 @@ export const resumeData = {
             company: "IBM",
             location: "Bratislava, Slovakia",
             role: "Senior Technical Business Analyst / Product Owner",
-            period: "April 2019 – Present",
+            period: "04/2019 – Present",
             achievements: [
                 "Directing on-site Scrum initiatives and product roadmap management for strategic global business units.",
                 "Facilitating enterprise-wide agile transformation and process improvements, managing high-complexity backlogs.",
@@ -44,7 +44,7 @@ export const resumeData = {
             company: "NVSSoft",
             location: "Riyadh, Saudi Arabia",
             role: "Account Project Manager / Team Lead",
-            period: "June 2013 – May 2018",
+            period: "06/2013 – 05/2018",
             achievements: [
                 "Directed cross-functional delivery teams of 30+ members for enterprise-scale Document Management Systems (DMS).",
                 "Orchestrated end-to-end project lifecycles, encompassing strategic planning, resource allocation, and risk mitigation.",
@@ -56,7 +56,7 @@ export const resumeData = {
             company: "APTECH EUROPE",
             location: "Bratislava, Slovakia",
             role: "Training Manager",
-            period: "August 2010 – April 2012",
+            period: "08/2010 – 04/2012",
             achievements: [
                 "Directed the design and delivery of advanced training modules focusing on SDLC, programming, and project management.",
                 "Managed a multidisciplinary team of certified trainers, ensuring high-quality instructional standards.",
@@ -67,7 +67,7 @@ export const resumeData = {
             company: "Alamana Training and Education (Aptech Qatar)",
             location: "Doha, Qatar",
             role: "Corporate Trainer / Assistant Academic Head",
-            period: "August 2008 – July 2010",
+            period: "08/2008 – 07/2010",
             achievements: [
                 "Led a team of 7 certified trainers, overseeing daily academic operations and technical interviewing for new faculty.",
                 "Managed the Electronic Course Management (ECM) department, ensuring seamless delivery of digital learning solutions.",
