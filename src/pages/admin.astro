@@ -99,6 +99,28 @@ if (!isAuthenticated) {
             <small>Or paste the job description text below</small>
           </div>
 
+          <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+            <div class="form-group">
+              <label for="companyName">Company Name (Required)</label>
+              <input 
+                type="text" 
+                id="companyName" 
+                name="companyName" 
+                placeholder="e.g. IBM"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="hiringManager">Hiring Manager (Optional)</label>
+              <input 
+                type="text" 
+                id="hiringManager" 
+                name="hiringManager" 
+                placeholder="e.g. John Doe"
+              />
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="jobDescription">Job Description</label>
             <textarea 
@@ -268,6 +290,8 @@ if (!isAuthenticated) {
         
         const jobUrl = (document.getElementById('jobUrl') as HTMLInputElement | null)?.value || '';
         const jobDescription = (document.getElementById('jobDescription') as HTMLTextAreaElement | null)?.value || '';
+        const companyName = (document.getElementById('companyName') as HTMLInputElement | null)?.value || '';
+        const hiringManager = (document.getElementById('hiringManager') as HTMLInputElement | null)?.value || '';
 
         if (!jobDescription.trim()) {
           alert('Please enter a job description');
@@ -288,7 +312,9 @@ if (!isAuthenticated) {
             },
             body: JSON.stringify({
               jobUrl,
-              jobDescription
+              jobDescription,
+              companyName,
+              hiringManager
             })
           });
 
@@ -350,16 +376,34 @@ if (!isAuthenticated) {
         return html;
       }
 
+      function getFormattedFilename(extension: string) {
+        const companyInput = (document.getElementById('companyName') as HTMLInputElement | null)?.value || 'Company';
+        // Sanitize company name: replace spaces/special chars with underscores
+        const safeCompanyName = companyInput.replace(/[^a-zA-Z0-9]/g, '_');
+        
+        // Get date in DDMMYY format
+        const date = new Date();
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = String(date.getFullYear()).slice(-2);
+        const ddmmyy = `${day}${month}${year}`;
+        
+        // Pattern: Company_Name_Cover_Letter_DDMMYY.docx
+        return `${safeCompanyName}_Cover_Letter_${ddmmyy}.${extension}`;
+      }
+
       (window as any).downloadResume = function() {
         generatePDF(generatedResume, 'Prasanth_K_Ramesh_Resume.pdf');
       };
 
       (window as any).downloadCoverLetter = function() {
-        generatePDF(generatedCoverLetter, 'Prasanth_K_Ramesh_Cover_Letter.pdf');
+        const filename = getFormattedFilename('pdf');
+        generatePDF(generatedCoverLetter, filename);
       };
 
       (window as any).downloadCoverLetterDocx = function() {
-        generateDocx(generatedCoverLetter, 'Prasanth_K_Ramesh_Cover_Letter.docx');
+        const filename = getFormattedFilename('docx');
+        generateDocx(generatedCoverLetter, filename);
       };
 
       async function generateDocx(content: string, filename: string) {

@@ -63,7 +63,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   }
 
   try {
-    const { jobUrl, jobDescription } = await request.json();
+    const { jobUrl, jobDescription, companyName, hiringManager } = await request.json();
 
     if (!jobDescription || jobDescription.trim() === '') {
       return new Response(JSON.stringify({ error: 'Job description is required' }), {
@@ -114,6 +114,9 @@ ${RESUME_TEMPLATE}
 Target Job Description:
 ${jobDescription}
 
+Target Company: ${companyName || 'the company'}
+Hiring Manager: ${hiringManager || 'Hiring Manager'}
+
 The Tech Stack:
 ${TECH_STACK}
 
@@ -124,10 +127,11 @@ Legal Status: Permanent resident of Slovakia (No permit needed for SK; sponsorsh
 Constraint & Style Guidelines:
 
 - Tone: Adaptive. Match the brand's energy (e.g., bold and direct for Red Bull, corporate and secure for IBM, innovative for a media house).
+- Personalization: Address "${hiringManager || 'Hiring Manager'}" directly. If the manager's name is known, use it to create a warm opening.
 - Clean Text: Strictly avoid all bracketed citations, footnotes, or source references (e.g., [1], [2], [resume]). The letter must be clean and ready for submission.
-- Structure: Use a "Problem/Solution" approach. Don't just list duties; explain how my skills solve the company’s specific pain points (e.g., PLM transformation, high-traffic scaling).
+- Structure: Use a "Problem/Solution" approach. Don't just list duties; explain how my skills solve ${companyName || 'the company'}'s specific pain points (e.g., PLM transformation, high-traffic scaling).
 - Formatting: Use bolding for key technologies and bullet points for high-impact achievements to ensure scannability.
-- The "Hook": Include a subtle, professional nod to the company’s culture or slogan in the closing.
+- The "Hook": Include a subtle, professional nod to ${companyName || 'the company'}'s culture or slogan in the closing.
 - Technical Accuracy: Use LaTeX only for complex formulas; otherwise, keep it clean and professional.
 
 Goal: Create a letter that proves I am a "low-risk, high-reward" candidate who bridges the gap between R&D/Business and Technical execution.
