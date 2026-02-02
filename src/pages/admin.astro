@@ -154,7 +154,8 @@ if (!isAuthenticated) {
           <div class="document-section">
             <div class="document-header">
               <h3>Cover Letter</h3>
-              <button class="btn btn-secondary" onclick="downloadCoverLetter()">Download Cover Letter (PDF)</button>
+              <button class="btn btn-secondary" onclick="downloadCoverLetter()">Download PDF</button>
+              <button class="btn btn-secondary" onclick="downloadCoverLetterDocx()" style="margin-left: 10px;">Download Word</button>
             </div>
             <div id="coverLetterContent" class="document-content"></div>
           </div>
@@ -164,6 +165,8 @@ if (!isAuthenticated) {
 
     <script>
       import jsPDF from 'jspdf';
+      import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
+      import { saveAs } from 'file-saver';
       import { resumeData } from '../data/resumeData';
 
       // --- LinkedIn Skill Optimizer Logic ---
@@ -354,6 +357,81 @@ if (!isAuthenticated) {
       (window as any).downloadCoverLetter = function() {
         generatePDF(generatedCoverLetter, 'Prasanth_K_Ramesh_Cover_Letter.pdf');
       };
+
+      (window as any).downloadCoverLetterDocx = function() {
+        generateDocx(generatedCoverLetter, 'Prasanth_K_Ramesh_Cover_Letter.docx');
+      };
+
+      async function generateDocx(content: string, filename: string) {
+        if (!content) return;
+
+        const lines = content.split('\n');
+        const children = [];
+
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          
+          if (!line) {
+             children.push(new Paragraph({ text: "" })); // Empty line
+             continue;
+          }
+
+          let paragraph;
+
+          if (line.startsWith('# ')) {
+            paragraph = new Paragraph({
+              text: line.substring(2),
+              heading: HeadingLevel.HEADING_1,
+              spacing: { after: 200 }
+            });
+          } else if (line.startsWith('## ')) {
+             paragraph = new Paragraph({
+              text: line.substring(3),
+              heading: HeadingLevel.HEADING_2,
+              spacing: { after: 150, before: 150 }
+            });
+          } else if (line.startsWith('### ')) {
+             paragraph = new Paragraph({
+              text: line.substring(4),
+              heading: HeadingLevel.HEADING_3,
+              spacing: { after: 120, before: 120 }
+            });
+          } else if (line.startsWith('- ') || line.startsWith('* ')) {
+             paragraph = new Paragraph({
+              text: line.substring(2),
+              bullet: { level: 0 }
+            });
+          } else {
+            // Handle bold text (**text**)
+            const parts = line.split(/(\*\*.*?\*\*)/g);
+            const textRuns = parts.map(part => {
+              if (part.startsWith('**') && part.endsWith('**')) {
+                return new TextRun({
+                  text: part.substring(2, part.length - 2),
+                  bold: true
+                });
+              }
+              return new TextRun(part);
+            });
+
+            paragraph = new Paragraph({
+              children: textRuns,
+              spacing: { after: 120 }
+            });
+          }
+          children.push(paragraph);
+        }
+
+        const doc = new Document({
+          sections: [{
+            properties: {},
+            children: children
+          }]
+        });
+
+        const blob = await Packer.toBlob(doc);
+        saveAs(blob, filename);
+      }
 
       function generatePDF(content: string, filename: string) {
         const doc = new jsPDF({
