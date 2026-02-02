@@ -3,8 +3,28 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+import { resumeData } from "../data/resumeData";
+
 // Projects based on Prasanth's experience
 const projects = [
+  {
+    id: 0,
+    title: "AI-Augmented Requirement Analysis",
+    description:
+      "Designed and executed agentic workflows using AntiGravity and IBM watsonx to automate requirement synthesis, data mapping, and documentation. Improved analysis throughput by 40% and reduced dependency on SME availability for legacy system understanding.",
+    image: "/images/projects/ai-analysis.jpg",
+    tags: [
+      "AntiGravity",
+      "IBM watsonx",
+      "Prompt Engineering",
+      "Ollama",
+      "AI Agents",
+    ],
+    github: null,
+    demo: null,
+    featured: true,
+    category: "innovation",
+  },
   {
     id: 1,
     title: "IBM Global Invoice Access Application",
@@ -108,8 +128,7 @@ const projects = [
       <div class="container">
         <h1>My Portfolio</h1>
         <p class="lead">
-          A showcase of enterprise projects, product initiatives, and leadership
-          achievements from my 20+ year career in IT
+          {resumeData.hero.description}
         </p>
       </div>
     </section>
@@ -236,44 +255,18 @@ const projects = [
       <div class="container">
         <h2 class="section-title">Technologies & Tools</h2>
         <div class="tech-categories">
-          <div class="tech-category">
-            <h3>Product & Project Management</h3>
-            <div class="tech-list">
-              <span class="tech-badge">Jira</span>
-              <span class="tech-badge">Trello</span>
-              <span class="tech-badge">MURAL</span>
-              <span class="tech-badge">monday.com</span>
-              <span class="tech-badge">SharePoint</span>
-            </div>
-          </div>
-          <div class="tech-category">
-            <h3>Data & Analytics</h3>
-            <div class="tech-list">
-              <span class="tech-badge">Python</span>
-              <span class="tech-badge">Pandas</span>
-              <span class="tech-badge">Jupyter</span>
-              <span class="tech-badge">PostgreSQL</span>
-              <span class="tech-badge">MS SQL Server</span>
-            </div>
-          </div>
-          <div class="tech-category">
-            <h3>Cloud & Platforms</h3>
-            <div class="tech-list">
-              <span class="tech-badge">IBM Cloud</span>
-              <span class="tech-badge">IBM Cloud Object Storage</span>
-              <span class="tech-badge">Enterprise Software</span>
-            </div>
-          </div>
-          <div class="tech-category">
-            <h3>Development</h3>
-            <div class="tech-list">
-              <span class="tech-badge">.NET</span>
-              <span class="tech-badge">C#</span>
-              <span class="tech-badge">ASP.NET</span>
-              <span class="tech-badge">JavaScript</span>
-              <span class="tech-badge">Java</span>
-            </div>
-          </div>
+          {
+            resumeData.skills.map((category) => (
+              <div class="tech-category">
+                <h3>{category.category}</h3>
+                <div class="tech-list">
+                  {category.items.map((skill) => (
+                    <span class="tech-badge">{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
