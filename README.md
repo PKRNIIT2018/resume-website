@@ -1,97 +1,78 @@
-# Prasanth Kunnumal Ramesh - Professional Resume Website
+# 👔 Prasanth Kunnumal Ramesh - AI-Augmented Professional Portfolio
 
-A modern, professional resume and portfolio website built with Astro. Features a clean design, fast performance, and an AI-powered resume and cover letter generator.
+A state-of-the-art, professional resume and portfolio website designed as a **High-Velocity Delivery Engine**. Built with **Astro** and **Vercel**, this platform bridges 20+ years of IT excellence with modern **Agentic AI workflows**.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Core Features & AI Strategy
 
-Get your website running locally in 2 minutes:
+This is not just a static portfolio; it's an **intelligent career platform**:
 
-1.  **Clone and Install**:
+- **Expert AI Document Generator**: Leverages a bespoke **Executive Career Coach & Technical Recruiter** persona to generate highly refined, persona-driven resumes and cover letters.
+- **Recruiter Risk Assessment (Gap Analysis)**: Automatically identifies mismatches between Job Descriptions and the candidate's profile (e.g., language gaps, missing tools) *before* applying.
+- **Agentic Workflow Integration**: Highlights expertise in **AntiGravity**, **IBM BOB**, and local LLMs via **Ollama** for privacy-first AI orchestration.
+- **LinkedIn Skill Optimizer**: A one-click tool to synchronize your technical skills and meta-skills with recruiter-friendly keywords.
+- **Legal Status Integrated**: Transparently manages EU hiring requirements (Permanent Resident of Slovakia).
+
+---
+
+## 🏗️ Technical Architecture
+
+The site uses a robust **Server-Side Rendering (SSR)** approach powered by **Astro** and **Vercel Serverless**.
+
+### How it Works:
+1.  **Astro (Frontend/Orchestration)**: 
+    - **Islands Architecture**: Public pages are pre-rendered for maximum speed, while the Admin Panel uses interactive components.
+    - **Single Source of Truth**: All dynamic content is driven by a central `src/data/resumeData.ts` file, ensuring consistency across the UI, generated PDFs, and AI prompts.
+2.  **Vercel (Compute/Hosting)**:
+    - **Edge & Serverless**: API routes run on Vercel Serverless Functions (Node.js 24), handling secure authentication and AI API calls.
+    - **Global CDN**: Static assets and public pages are delivered via Vercel's global edge network.
+3.  **AI Orchestration**:
+    - Calls the **Perplexity Sonar Pro (Llama 3.1 based)** model for deep research and document customization.
+    - Uses multi-step prompts for **Gap Analysis -> Resume Tailoring -> Cover Letter Hooking**.
+
+---
+
+## 📂 Key Pages & Functionality
+
+| Page | URL | Description |
+| :--- | :--- | :--- |
+| **Home** | `/` | Luxury hero section with dynamic glassmorphism and core CTA. |
+| **About** | `/about` | Professional deep-dive including "AI-Augmented Workflows" and detailed experience. |
+| **Portfolio** | `/portfolio` | Visual showcase of strategic projects and engineering impact. |
+| **Admin Panel** | `/admin` | **Secured Dashboard** for generating documents and profile optimization. |
+
+---
+
+## 🛠️ API Reference
+
+### `POST /api/generate-documents`
+The backbone of the AI generation feature.
+- **Payload**: `{ jobUrl: string, jobDescription: string }`
+- **Output**: 
+  - `resume`: Customized Markdown resume.
+  - `coverLetter`: Persona-driven "Problem/Solution" letter.
+  - `gapAnalysis`: List of mismatches and recruiter risks.
+- **Auth**: Protected by `admin_auth` httpOnly cookies.
+
+---
+
+## ⚙️ Setup & Customization
+
+1.  **Environment Variables**:
+    Create a `.env` file with:
+    ```env
+    ADMIN_PASSWORD=your_secure_password
+    PERPLEXITY_API_KEY=pplx-your-key
+    ```
+2.  **Run Locally**:
     ```bash
     npm install
-    ```
-2.  **Start Development Server**:
-    ```bash
     npm run dev
     ```
-3.  **View Site**: Open `http://localhost:4321` in your browser.
+3.  **Deploy**:
+    Push to GitHub -> Link to Vercel. Ensure environment variables are added in Vercel Dashboard.
 
 ---
 
-## 📁 Project Structure
-
-```
-resume-website/
-├── public/
-│   ├── favicon.svg
-│   ├── resume.pdf          # Your resume PDF (to be added)
-│   └── images/             # Profile and project images
-├── src/
-│   ├── components/         # Reusable UI components (Header, Footer)
-│   ├── layouts/            # BaseLayout for all pages
-│   ├── pages/              # Individual pages (Home, About, Portfolio, Contact)
-│   │   ├── admin.astro     # Admin panel for doc generation
-│   │   └── api/            # Backend API routes
-│   └── styles/             # Global CSS and design tokens
-├── astro.config.mjs        # Astro configuration
-└── package.json            # Project dependencies
-```
-
----
-
-## ✏️ Customization Guide
-
-Update these files with your personal details:
-
-1.  **Identity**: Update your name in `src/components/Header.astro` and `src/components/Footer.astro`.
-2.  **Work History**: Modify `src/pages/about.astro` to reflect your experience, education, and certifications.
-3.  **Portfolio**: Update the `projects` array in `src/pages/portfolio.astro`.
-4.  **Contact**: Add your Formspree ID to `src/pages/contact.astro` (Line 28).
-
----
-
-## 📄 Resume PDF Creation
-
-The easiest way to create your resume PDF is to use the dedicated print-ready layout:
-
-1.  Start the dev server (`npm run dev`).
-2.  Navigate to `http://localhost:4321/resume.html` (if available) or simply use the "Print" function on any page.
-3.  Press `Cmd+P` (Mac) or `Ctrl+P` (Windows).
-4.  Select **"Save as PDF"** as the destination.
-5.  Enable **"Background graphics"** and save as `public/resume.pdf`.
-
----
-
-## 🛠️ Admin Panel (AI Document Generator)
-
-This website includes a private admin panel (`/admin`) that helps you customize your resume and cover letter for specific job applications using AI.
-
-### Setup:
-1.  Set `ADMIN_PASSWORD` in your `.env` file for secure access.
-2.  Set `PERPLEXITY_API_KEY` to enable the AI generation feature.
-3.  Access the panel at `your-site.com/admin` to tailor your profile to any job description.
-
----
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-1.  Push your code to a GitHub repository.
-2.  Import the repository into [Vercel](https://vercel.com).
-3.  Vercel will auto-detect Astro and deploy your site instantly.
-4.  Add your environment variables (`ADMIN_PASSWORD`, `PERPLEXITY_API_KEY`) in the Vercel dashboard.
-
-### Alternatives
-You can also deploy to **Netlify**, **Cloudflare Pages**, or **GitHub Pages**. See the respective documentation for specific build settings (`npm run build`).
-
----
-
-## 🆘 Support & Troubleshooting
-
-- **Build Errors**: Ensure you are using Node is 18+.
-- **Port Conflict**: If port 4321 is busy, run `npm run dev -- --port 3000`.
-- **Form Issues**: Double-check your Formspree ID in the contact page.
-
-Built with ❤️ using [Astro](https://astro.build)
+Built with ❤️ using [Astro](https://astro.build) & [Vercel](https://vercel.com)
