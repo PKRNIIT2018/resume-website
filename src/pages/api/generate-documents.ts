@@ -152,8 +152,8 @@ Return only the cover letter text without any additional commentary.`;
     
     Keep it professional but direct. Return ONLY the bulleted list.`;
 
-    // Call Perplexity API for resume
-    const resumeResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+    // Create promise factories for parallel execution
+    const generateResume = () => fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -174,19 +174,13 @@ Return only the cover letter text without any additional commentary.`;
         temperature: 0.7,
         max_tokens: 4000
       })
+    }).then(async res => {
+      if (!res.ok) throw new Error(`Resume generation failed: ${res.status}`);
+      const data = await res.json();
+      return data.choices[0].message.content;
     });
 
-    if (!resumeResponse.ok) {
-      const errorText = await resumeResponse.text();
-      console.error('Perplexity API error (resume):', errorText);
-      throw new Error(`Failed to generate resume: ${resumeResponse.status}`);
-    }
-
-    const resumeApiResponse = await resumeResponse.json();
-    const customizedResume = resumeApiResponse.choices[0].message.content;
-
-    // Call Perplexity API for cover letter
-    const coverLetterResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+    const generateCoverLetter = () => fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -207,19 +201,13 @@ Return only the cover letter text without any additional commentary.`;
         temperature: 0.7,
         max_tokens: 2000
       })
+    }).then(async res => {
+      if (!res.ok) throw new Error(`Cover letter generation failed: ${res.status}`);
+      const data = await res.json();
+      return data.choices[0].message.content;
     });
 
-    if (!coverLetterResponse.ok) {
-      const errorText = await coverLetterResponse.text();
-      console.error('Perplexity API error (cover letter):', errorText);
-      throw new Error(`Failed to generate cover letter: ${coverLetterResponse.status}`);
-    }
-
-    const coverLetterApiResponse = await coverLetterResponse.json();
-    const customizedCoverLetter = coverLetterApiResponse.choices[0].message.content;
-
-    // Call Perplexity API for gap analysis
-    const gapAnalysisResponse = await fetch('https://api.perplexity.ai/chat/completions', {
+    const generateGapAnalysis = () => fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -240,14 +228,27 @@ Return only the cover letter text without any additional commentary.`;
         temperature: 0.5,
         max_tokens: 1000
       })
+    }).then(async res => {
+      if (!res.ok) return 'Analysis unavailable (API Error).';
+      const data = await res.json();
+      return data.choices[0].message.content;
     });
 
-    if (!gapAnalysisResponse.ok) {
-      console.warn('Gap analysis failed, but continuing with other documents');
-    }
+    // Execute in parallel
+    const [resumeResult, coverLetterResult, gapAnalysisResult] = await Promise.allSettled([
+      generateResume(),
+      generateCoverLetter(),
+      generateGapAnalysis()
+    ]);
 
-    const gapAnalysisData = gapAnalysisResponse.ok ? await gapAnalysisResponse.json() : null;
-    const gapAnalysis = gapAnalysisData ? gapAnalysisData.choices[0].message.content : 'Analysis unavailable.';
+    // Handle results
+    const customizedResume = resumeResult.status === 'fulfilled' ? resumeResult.value : 'Failed to generate resume.';
+    const customizedCoverLetter = coverLetterResult.status === 'fulfilled' ? coverLetterResult.value : 'Failed to generate cover letter.';
+    const gapAnalysis = gapAnalysisResult.status === 'fulfilled' ? gapAnalysisResult.value : 'Analysis unavailable.';
+
+    // Log errors if any critical ones failed
+    if (resumeResult.status === 'rejected') console.error('Resume Error:', resumeResult.reason);
+    if (coverLetterResult.status === 'rejected') console.error('Cover Letter Error:', coverLetterResult.reason);
 
     return new Response(JSON.stringify({
       resume: customizedResume,
