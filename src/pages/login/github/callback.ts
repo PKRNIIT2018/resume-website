@@ -15,13 +15,20 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     const storedState = cookies.get("github_oauth_state")?.value ?? null;
 
     if (!code || !state || !storedState || state !== storedState) {
-        console.error("OAuth Callback Error: Invalid state or code", {
-            codeReceived: !!code,
-            stateReceived: !!state,
-            storedStateReceived: !!storedState,
+        const errorDetails = {
+            hasCode: !!code,
+            hasState: !!state,
+            hasStoredState: !!storedState,
             stateMatch: state === storedState
-        });
-        return new Response("Invalid request: State mismatch or missing parameters", {
+        };
+        console.error("OAuth Callback Error:", errorDetails);
+
+        // Return detailed error for debugging
+        return new Response(`Invalid request: State mismatch or missing parameters. Debug details: 
+        Code: ${errorDetails.hasCode}, 
+        State: ${errorDetails.hasState}, 
+        Stored State: ${errorDetails.hasStoredState}, 
+        Match: ${errorDetails.stateMatch}`, {
             status: 400,
         });
     }
