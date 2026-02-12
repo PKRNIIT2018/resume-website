@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ cookies, redirect }) => {
 
         cookies.set("github_oauth_state", state, {
             path: "/",
-            secure: import.meta.env.PROD,
+            secure: true, // Force Secure for Vercel (Production is HTTPS)
             httpOnly: true,
             maxAge: 60 * 10,
             sameSite: "lax",

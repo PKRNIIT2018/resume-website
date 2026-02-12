@@ -14,21 +14,29 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     const state = url.searchParams.get("state");
     const storedState = cookies.get("github_oauth_state")?.value ?? null;
 
-    if (!code || !state || !storedState || state !== storedState) {
-        const errorDetails = {
-            hasCode: !!code,
-            hasState: !!state,
-            hasStoredState: !!storedState,
-            stateMatch: state === storedState
-        };
-        console.error("OAuth Callback Error:", errorDetails);
+    // Debug Logging
+    const cookieHeader = url.searchParams.get("mock_cookie") || "not-available-in-astro-cookies-obj";
 
-        // Return detailed error for debugging
-        return new Response(`Invalid request: State mismatch or missing parameters. Debug details: 
-        Code: ${errorDetails.hasCode}, 
-        State: ${errorDetails.hasState}, 
-        Stored State: ${errorDetails.hasStoredState}, 
-        Match: ${errorDetails.stateMatch}`, {
+    console.log("Debug Cookie Check:", {
+        hasCode: !!code,
+        hasState: !!state,
+        hasStoredState: !!storedState,
+        storedStateValue: storedState ? storedState.substring(0, 5) + "..." : "null",
+    });
+
+    if (!code || !state || !storedState || state !== storedState) {
+        console.error("OAuth Callback Error: Invalid state or code", {
+            codeReceived: !!code,
+            stateReceived: !!state,
+            storedStateReceived: !!storedState,
+            stateMatch: state === storedState,
+            redirectStatus: "Possible Cookie Mismatch"
+        });
+
+        return new Response(`Invalid request: State mismatch. 
+        Stored State: ${storedState ? 'Present' : 'Missing'}. 
+        Received State: ${state ? 'Present' : 'Missing'}.
+        Ensure you are accessing via HTTPS and Cookies are enabled.`, {
             status: 400,
         });
     }
