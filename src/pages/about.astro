@@ -19,8 +19,8 @@ const formatBold = (text: string) =>
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="container">
-        <h1>About Me</h1>
-        <p class="lead">
+        <h1 class="animate-on-scroll">About Me</h1>
+        <p class="lead animate-on-scroll">
           {resumeData.personalInfo.title} @ IBM | Agile Leader | {
             resumeData.hero.highlightLine
           }
@@ -32,7 +32,7 @@ const formatBold = (text: string) =>
     <section class="section">
       <div class="container">
         <div class="content-grid">
-          <div class="main-content">
+          <div class="main-content animate-on-scroll">
             <h2>Executive Summary</h2>
             <p set:html={formatBold(resumeData.executiveSummary)} />
             <p>
@@ -41,8 +41,8 @@ const formatBold = (text: string) =>
               production.
             </p>
           </div>
-          <div class="sidebar">
-            <div class="info-card">
+          <div class="sidebar animate-on-scroll">
+            <div class="info-card glass-panel">
               <h3>Quick Info</h3>
               <ul class="info-list">
                 <li><strong>Location:</strong> Pezinok, Slovakia</li>
@@ -80,8 +80,10 @@ const formatBold = (text: string) =>
     <!-- Skills Section -->
     <section class="section bg-surface">
       <div class="container">
-        <h2 class="section-title">Core Competencies & Skills</h2>
-        <div class="skills-container">
+        <h2 class="section-title animate-on-scroll">
+          Core Competencies & Skills
+        </h2>
+        <div class="skills-container animate-on-scroll">
           {
             resumeData.skills.map((category) => (
               <div class="skill-category">
@@ -101,7 +103,7 @@ const formatBold = (text: string) =>
     <!-- Experience Section -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">Professional Experience</h2>
+        <h2 class="section-title animate-on-scroll">Professional Experience</h2>
         <div class="timeline">
           {
             resumeData.experience.map((exp: any) => (
@@ -148,11 +150,11 @@ const formatBold = (text: string) =>
     <!-- Visual Career Journey -->
     <section class="section infographic-section">
       <div class="container text-center">
-        <h2 class="section-title">Visual Career Journey</h2>
+        <h2 class="section-title animate-on-scroll">Visual Career Journey</h2>
         <p class="section-subtitle">
           A strategy-to-execution overview of my global professional impact.
         </p>
-        <div class="infographic-preview-container">
+        <div class="infographic-preview-container animate-on-scroll">
           <div class="infographic-preview" id="openInfographic">
             <img
               src="/images/career-journey.jpg"
@@ -182,8 +184,10 @@ const formatBold = (text: string) =>
     <!-- Certifications Section -->
     <section class="section bg-surface">
       <div class="container">
-        <h2 class="section-title">Licenses & Certifications</h2>
-        <div class="certifications-grid">
+        <h2 class="section-title animate-on-scroll">
+          Licenses & Certifications
+        </h2>
+        <div class="certifications-grid animate-on-scroll">
           {
             resumeData.certifications.map((cert) => {
               const [title, rest] = cert.split(" – ");
@@ -203,8 +207,10 @@ const formatBold = (text: string) =>
     <!-- Professional Endorsements -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">Professional Endorsements</h2>
-        <div class="endorsements-grid">
+        <h2 class="section-title animate-on-scroll">
+          Professional Endorsements
+        </h2>
+        <div class="endorsements-grid animate-on-scroll">
           <div class="endorsement-card card">
             <h4>"The Solution Finder"</h4>
             <p>
@@ -237,8 +243,10 @@ const formatBold = (text: string) =>
     <!-- Volunteering & Leadership -->
     <section class="section">
       <div class="container">
-        <h2 class="section-title">Volunteering & Leadership</h2>
-        <div class="activities-grid">
+        <h2 class="section-title animate-on-scroll">
+          Volunteering & Leadership
+        </h2>
+        <div class="activities-grid animate-on-scroll">
           <div class="activity-card card">
             <h4>Toastmasters International</h4>
             <p class="activity-role">
@@ -257,7 +265,7 @@ const formatBold = (text: string) =>
     <!-- CTA Section -->
     <section class="section cta-section">
       <div class="container">
-        <div class="cta-content">
+        <div class="cta-content animate-on-scroll">
           <h2>Let's Connect</h2>
           <p>
             I'm always interested in discussing new opportunities,

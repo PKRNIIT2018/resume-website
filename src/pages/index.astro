@@ -18,7 +18,7 @@ import Footer from "../components/Footer.astro";
     <!-- Hero Section -->
     <section class="hero">
       <div class="container">
-        <div class="hero-content">
+        <div class="hero-content animate-on-scroll">
           <h1 class="hero-title">
             Hi, I'm <span class="highlight">{resumeData.personalInfo.name}</span
             >
@@ -43,13 +43,13 @@ import Footer from "../components/Footer.astro";
     <!-- About Preview Section -->
     <section class="section about-preview">
       <div class="container">
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
           <h2>About Me</h2>
           <p class="section-description">
             A brief introduction to who I am and what I do
           </p>
         </div>
-        <div class="about-content">
+        <div class="about-content animate-on-scroll">
           <div class="about-text">
             <p set:html={formatBold(resumeData.executiveSummary)} />
             <p>
@@ -69,7 +69,7 @@ import Footer from "../components/Footer.astro";
           </div>
           <div class="skills-preview">
             <h3>Core Skills</h3>
-            <div class="skills-grid">
+            <div class="skills-grid animate-on-scroll">
               {
                 resumeData.skills
                   .flatMap((category) => category.items)
@@ -84,7 +84,7 @@ import Footer from "../components/Footer.astro";
     <!-- CTA Section -->
     <section class="section cta-section">
       <div class="container">
-        <div class="cta-content">
+        <div class="cta-content animate-on-scroll">
           <h2>Let's Work Together</h2>
           <p>
             I'm always interested in hearing about new projects and

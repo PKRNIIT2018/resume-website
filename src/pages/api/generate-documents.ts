@@ -2,6 +2,9 @@ import type { APIRoute } from 'astro';
 
 // Resume template based on RESUME.md
 import { resumeData } from '../../data/resumeData';
+import { verifySession } from '../../utils/auth';
+import { apiRateLimiter } from '../../utils/rateLimit';
+import { AUTH_COOKIE_NAME } from '../../utils/constants';
 
 // Generate raw markdown template from resumeData
 const generateRawTemplate = () => {
@@ -51,9 +54,30 @@ const generateRawTemplate = () => {
 const RESUME_TEMPLATE = generateRawTemplate();
 const TECH_STACK = resumeData.skills.flatMap(cat => cat.items).join(', ');
 
-export const POST: APIRoute = async ({ request, cookies }) => {
-  // Check authentication
-  const isAuthenticated = cookies.get('admin_auth')?.value === 'true';
+export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
+  // 1. CSRF Protection
+  const origin = request.headers.get('Origin');
+  const allowedOrigin = new URL(request.url).origin;
+
+  if (origin && origin !== allowedOrigin) {
+    return new Response(JSON.stringify({ error: 'Forbidden: Invalid Origin' }), { status: 403 });
+  }
+
+  // 2. Rate Limiting
+  // In development, clientAddress might be undefined or localhost. 
+  // In production (Vercel), it should be populated or use 'x-forwarded-for'.
+  const ip = clientAddress || request.headers.get('x-forwarded-for') || 'unknown';
+
+  if (apiRateLimiter.isRateLimited(ip)) {
+    return new Response(JSON.stringify({ error: 'Too Many Requests' }), {
+      status: 429,
+      headers: { 'Retry-After': '60', 'Content-Type': 'application/json' }
+    });
+  }
+
+  // 3. Authentication (JWT verification)
+  const token = cookies.get(AUTH_COOKIE_NAME)?.value;
+  const isAuthenticated = await verifySession(token);
 
   if (!isAuthenticated) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
