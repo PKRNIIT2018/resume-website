@@ -8,6 +8,20 @@ import { resumeData } from "../data/resumeData";
 // Projects based on Prasanth's experience
 const projects = [
   {
+    id: 6,
+    title: "Indians In Slovakia",
+    role: "Founder & Lead Developer",
+    description:
+      "A comprehensive community platform for Indians in Slovakia, featuring integration guides, legal resources, and community networking. Built with Astro, Tailwind CSS, and MDX.",
+    icon: "🇸🇰",
+    gradient: "from-blue-600 to-red-600",
+    tags: ["Astro", "Tailwind CSS", "MDX", "Community", "React"],
+    featured: true,
+    category: "innovation",
+    metric: "Community Platform",
+    link: "https://ins-pearl.vercel.app",
+  },
+  {
     id: 0,
     title: "AI-Augmented Requirement Analysis",
     role: "AI Strategy & Implementation",
@@ -146,6 +160,11 @@ const projects = [
                       <span class="badge">{tag}</span>
                     ))}
                   </div>
+                  {project.link && (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
+                      View Live Project <span class="arrow">→</span>
+                    </a>
+                  )}
                 </div>
               </article>
             ))
@@ -320,6 +339,7 @@ const projects = [
   .gradient-3 { background: linear-gradient(135deg, #f97316, #f59e0b); }
   .gradient-4 { background: linear-gradient(135deg, #ec4899, #f43f5e); }
   .gradient-5 { background: linear-gradient(135deg, #6366f1, #3b82f6); }
+  .gradient-6 { background: linear-gradient(135deg, #2563eb, #dc2626); }
 
   .project-icon {
     font-size: 3.5rem;
@@ -406,6 +426,7 @@ const projects = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+    margin-bottom: var(--space-4);
   }
 
   .badge {
@@ -415,6 +436,30 @@ const projects = [
     border-radius: var(--radius-sm);
     font-size: 0.7rem;
     font-weight: 600;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    color: var(--primary);
+    margin-top: auto;
+    transition: all var(--transition-fast);
+  }
+
+  .project-link:hover {
+    color: var(--accent);
+    gap: 0.75rem;
+  }
+
+  .arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .project-link:hover .arrow {
+    transform: translateX(2px);
   }
 
   /* Achievements Section */
