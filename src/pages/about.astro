@@ -42,24 +42,118 @@ const formatBold = (text: string) =>
             <div class="ai-specialization-block animate-on-scroll">
               <div class="ai-header">
                 <span class="ai-icon">🤖</span>
-                <h3>The AI-Augmented Advantage</h3>
+                <div>
+                  <h3>The AI-Augmented Advantage</h3>
+                  <p class="ai-subheading">A practitioner-built stack — not a buzzword list</p>
+                </div>
               </div>
-              <p>
-                In today's landscape, experience is the foundation, but AI is the accelerator. I leverage a self-initiated productivity stack to transform traditional analysis into high-velocity delivery.
+              <p class="ai-intro">
+                In today's landscape, experience is the foundation, but AI is the accelerator. I've built and actively use a multi-model productivity stack that compresses weeks of analysis into days — while maintaining enterprise-grade accuracy and compliance.
               </p>
-              <div class="ai-workflow-grid">
-                <div class="workflow-item">
-                  <span class="workflow-label">Discovery</span>
-                  <p>Using <strong>NotebookLM</strong> and <strong>Gemini</strong> to synthesize complex legacy documentation.</p>
+
+              <!-- Tool Grid -->
+              <div class="ai-tools-grid">
+                <div class="ai-tool-card ibm-card">
+                  <div class="tool-logo">🔵</div>
+                  <div class="tool-info">
+                    <span class="tool-name">IBM Watson Orchestrate</span>
+                    <span class="tool-use">Agentic workflow automation & task orchestration across enterprise systems</span>
+                  </div>
                 </div>
-                <div class="workflow-item">
-                  <span class="workflow-label">Analysis</span>
-                  <p>Leveraging <strong>watsonx Code Assistant</strong> to understand legacy logic without SME bottlenecks.</p>
+                <div class="ai-tool-card ibm-card">
+                  <div class="tool-logo">💡</div>
+                  <div class="tool-info">
+                    <span class="tool-name">IBM watsonx</span>
+                    <span class="tool-use">Code analysis, legacy system understanding & requirement acceleration</span>
+                  </div>
                 </div>
-                <div class="workflow-item">
-                  <span class="workflow-label">Delivery</span>
-                  <p>Automating requirement drafting and mapping with <strong>Agentic Workflows</strong>.</p>
+                <div class="ai-tool-card ibm-card">
+                  <div class="tool-logo">🧠</div>
+                  <div class="tool-info">
+                    <span class="tool-name">IBM BOB</span>
+                    <span class="tool-use">Internal AI assistant for enterprise knowledge retrieval & documentation</span>
+                  </div>
                 </div>
+                <div class="ai-tool-card google-card">
+                  <div class="tool-logo">✨</div>
+                  <div class="tool-info">
+                    <span class="tool-name">Google Gemini</span>
+                    <span class="tool-use">Research synthesis, regulatory analysis & cross-domain requirement drafting</span>
+                  </div>
+                </div>
+                <div class="ai-tool-card google-card">
+                  <div class="tool-logo">📚</div>
+                  <div class="tool-info">
+                    <span class="tool-name">NotebookLM</span>
+                    <span class="tool-use">Synthesizing large technical documents, RFPs & legacy specs at speed</span>
+                  </div>
+                </div>
+                <div class="ai-tool-card anthropic-card">
+                  <div class="tool-logo">🔶</div>
+                  <div class="tool-info">
+                    <span class="tool-name">Claude (Anthropic)</span>
+                    <span class="tool-use">Deep reasoning, BRD/FRD drafting, acceptance criteria & gap analysis</span>
+                  </div>
+                </div>
+                <div class="ai-tool-card ms-card">
+                  <div class="tool-logo">🪟</div>
+                  <div class="tool-info">
+                    <span class="tool-name">Microsoft Copilot</span>
+                    <span class="tool-use">Enterprise productivity — meeting summaries, Jira/Confluence drafting</span>
+                  </div>
+                </div>
+                <div class="ai-tool-card local-card">
+                  <div class="tool-logo">🔒</div>
+                  <div class="tool-info">
+                    <span class="tool-name">Ollama (Local LLMs)</span>
+                    <span class="tool-use">Privacy-first analysis of sensitive data — runs fully offline, zero cloud exposure</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Workflow Stages -->
+              <div class="workflow-pipeline">
+                <div class="pipeline-stage">
+                  <span class="pipeline-label">Discovery</span>
+                  <div class="pipeline-tools">
+                    <span class="ptag">NotebookLM</span>
+                    <span class="ptag">Gemini</span>
+                    <span class="ptag">Perplexity</span>
+                  </div>
+                  <p>Synthesize legacy docs, RFPs & domain knowledge in minutes</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                  <span class="pipeline-label">Analysis</span>
+                  <div class="pipeline-tools">
+                    <span class="ptag">watsonx</span>
+                    <span class="ptag">Claude</span>
+                    <span class="ptag">IBM BOB</span>
+                  </div>
+                  <p>Understand legacy code & draft requirements without SME dependency</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                  <span class="pipeline-label">Orchestration</span>
+                  <div class="pipeline-tools">
+                    <span class="ptag">Watson Orchestrate</span>
+                    <span class="ptag">AntiGravity</span>
+                  </div>
+                  <p>Automate multi-step workflows across enterprise tools end-to-end</p>
+                </div>
+                <div class="pipeline-arrow">→</div>
+                <div class="pipeline-stage">
+                  <span class="pipeline-label">Delivery</span>
+                  <div class="pipeline-tools">
+                    <span class="ptag">Copilot</span>
+                    <span class="ptag">Ollama</span>
+                  </div>
+                  <p>Draft BRDs, FRDs & user stories at 40% higher throughput</p>
+                </div>
+              </div>
+
+              <div class="ai-impact-note">
+                <strong>Net result:</strong> Analysis throughput improved by an estimated 30–40% · Legacy system onboarding reduced from weeks to days · Zero SME bottlenecks on documented systems
               </div>
             </div>
           </div>
@@ -306,48 +400,169 @@ const formatBold = (text: string) =>
 
   .ai-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.75rem;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
   }
 
   .ai-icon {
     font-size: 2rem;
+    line-height: 1;
+    margin-top: 2px;
   }
 
   .ai-header h3 {
-    margin: 0;
+    margin: 0 0 0.25rem;
     font-size: var(--text-xl);
     color: var(--primary);
   }
 
-  .ai-workflow-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
-    margin-top: var(--space-5);
+  .ai-subheading {
+    margin: 0;
+    font-size: var(--text-xs);
+    color: var(--text-light);
+    font-style: italic;
   }
 
-  .workflow-item {
-    background: white;
-    padding: var(--space-4);
+  .ai-intro {
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: var(--space-5);
+  }
+
+  /* Tool Grid */
+  .ai-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .ai-tool-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
     border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background: white;
+    transition: all var(--transition-fast);
+  }
+
+  .ai-tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .ibm-card     { border-color: #dbeafe; }
+  .ibm-card:hover { border-color: #3b82f6; }
+  .google-card  { border-color: #dcfce7; }
+  .google-card:hover { border-color: #22c55e; }
+  .anthropic-card { border-color: #fef3c7; }
+  .anthropic-card:hover { border-color: #f59e0b; }
+  .ms-card      { border-color: #ede9fe; }
+  .ms-card:hover { border-color: #8b5cf6; }
+  .local-card   { border-color: #f1f5f9; }
+  .local-card:hover { border-color: #64748b; }
+
+  .tool-logo {
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .tool-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tool-name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--secondary);
+  }
+
+  .tool-use {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  /* Workflow Pipeline */
+  .workflow-pipeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: var(--space-5);
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+  }
+
+  .pipeline-stage {
+    flex: 1;
+    min-width: 130px;
+    background: white;
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
     border: 1px solid #e2e8f0;
   }
 
-  .workflow-label {
+  .pipeline-label {
     display: block;
     font-size: var(--text-xs);
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.06em;
     color: var(--primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-1);
   }
 
-  .workflow-item p {
-    font-size: var(--text-xs);
+  .pipeline-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: var(--space-1);
+  }
+
+  .ptag {
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .pipeline-stage p {
+    font-size: 0.7rem;
+    color: var(--text-light);
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.4;
+  }
+
+  .pipeline-arrow {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-top: var(--space-4);
+    flex-shrink: 0;
+    opacity: 0.4;
+  }
+
+  .ai-impact-note {
+    background: linear-gradient(135deg, #1e3a8a10, #0ea5e910);
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--secondary);
+    line-height: 1.6;
+  }
+
+  .ai-impact-note strong {
+    color: var(--primary);
   }
 
   /* Timeline Refined */
@@ -600,5 +815,21 @@ const formatBold = (text: string) =>
     .timeline-info { text-align: left; margin-bottom: 1rem; }
     .timeline-details { border-left: none; padding-left: 0; }
     .timeline-details::before { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .ai-tools-grid {
+      grid-template-columns: 1fr;
+    }
+    .workflow-pipeline {
+      flex-direction: column;
+    }
+    .pipeline-arrow {
+      transform: rotate(90deg);
+      margin: 0 auto;
+    }
+    .ai-workflow-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

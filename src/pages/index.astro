@@ -110,7 +110,15 @@ import Footer from "../components/Footer.astro";
           <div class="focus-card animate-on-scroll highlight-card">
             <div class="focus-icon">🤖</div>
             <h3>AI-Augmented</h3>
-            <p>Accelerating discovery and delivery using enterprise AI (watsonx, Gemini).</p>
+            <p>Multi-model stack across IBM, Google & Anthropic — accelerating delivery by 40%.</p>
+            <div class="ai-tool-chips">
+              <span class="ai-chip">Watson Orchestrate</span>
+              <span class="ai-chip">watsonx</span>
+              <span class="ai-chip">Gemini</span>
+              <span class="ai-chip">Claude</span>
+              <span class="ai-chip">Copilot</span>
+              <span class="ai-chip">Ollama</span>
+            </div>
             <div class="pulse-badge">High Velocity</div>
           </div>
         </div>
@@ -412,6 +420,29 @@ import Footer from "../components/Footer.astro";
     border-color: var(--primary);
     position: relative;
     overflow: hidden;
+  }
+
+  .ai-tool-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    justify-content: center;
+    margin-top: var(--space-2);
+  }
+
+  .ai-chip {
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--primary);
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+  }
+
+  .highlight-card .ai-chip {
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(37, 99, 235, 0.3);
   }
 
   .pulse-badge {
