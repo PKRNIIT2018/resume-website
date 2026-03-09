@@ -1,4 +1,60 @@
-export const resumeData = {
+export interface SkillCategory {
+    category: string;
+    items: string[];
+}
+
+export interface AchievementGroup {
+    title: string;
+    items: string[];
+}
+
+export type Achievement = string | AchievementGroup;
+
+export interface Experience {
+    company: string;
+    location: string;
+    role: string;
+    period: string;
+    achievements: Achievement[];
+}
+
+export interface Education {
+    degree: string;
+    institution: string;
+    year: string;
+}
+
+export interface Language {
+    language: string;
+    level: string;
+}
+
+export interface ResumeData {
+    targetRole: string;
+    personalInfo: {
+        name: string;
+        title: string;
+        location: string;
+        email: string;
+        phone: string;
+        linkedin: string;
+        website: string;
+    };
+    hero: {
+        highlightLine: string;
+        description: string;
+    };
+    executiveSummary: string;
+    coreCompetencies: string[];
+    skills: SkillCategory[];
+    experience: Experience[];
+    education: Education[];
+    certifications: string[];
+    languages: Language[];
+    keywords: string[];
+}
+
+export const resumeData: ResumeData = {
     targetRole: "Senior Technical Business Analyst | Product Owner",
 
     personalInfo: {

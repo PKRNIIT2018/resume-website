@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+import careerJourney from "../assets/career-journey.jpg";
 import { resumeData } from "../data/resumeData";
 
 // Helper to render markdown bolding in HTML
@@ -156,9 +158,12 @@ const formatBold = (text: string) =>
         </p>
         <div class="infographic-preview-container animate-on-scroll">
           <div class="infographic-preview" id="openInfographic">
-            <img
-              src="/images/career-journey.jpg"
+            <Image
+              src={careerJourney}
               alt="Career Journey Infographic"
+              width={900}
+              quality={80}
+              loading="lazy"
             />
             <div class="overlay">
               <span class="btn btn-primary">Project Visual Journey</span>
@@ -173,10 +178,12 @@ const formatBold = (text: string) =>
       <div class="modal-overlay" id="closeInfographicArea"></div>
       <div class="modal-content">
         <button class="close-btn" id="closeInfographicBtn">&times;</button>
-        <img
-          src="/images/career-journey.jpg"
+        <Image
+          src={careerJourney}
           alt="Career Journey Full View"
           class="modal-image"
+          quality={90}
+          loading="eager"
         />
       </div>
     </div>
@@ -406,11 +413,7 @@ const formatBold = (text: string) =>
   }
 
   /* Section Title */
-  .section-title {
-    font-size: var(--text-4xl);
-    text-align: center;
-    margin-bottom: var(--space-6);
-  }
+
 
   /* Skills */
   .skills-container {

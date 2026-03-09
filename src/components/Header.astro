@@ -33,11 +33,22 @@ const navItems = [
           </li>
         ))
       }
+      <li class="nav-resume-li">
+        <button id="navDownloadBtn" class="btn-resume-nav" aria-label="Download Resume">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume
+        </button>
+      </li>
     </ul>
   </nav>
 </header>
 
 <script>
+  import { generateDynamicResumePDF } from "../utils/pdfGenerator";
+  document.getElementById("navDownloadBtn")?.addEventListener("click", () => {
+    generateDynamicResumePDF();
+  });
+
   // Mobile menu toggle
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
@@ -205,6 +216,29 @@ const navItems = [
     width: 100%;
   }
 
+  .btn-resume-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.45rem 1rem;
+    background: var(--primary-gradient);
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    white-space: nowrap;
+  }
+
+  .btn-resume-nav:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  }
+
   /* Mobile Styles */
   @media (max-width: 768px) {
     .mobile-menu-toggle {
@@ -243,6 +277,27 @@ const navItems = [
 
     .nav-links a::after {
       display: none;
+    }
+
+    .nav-links a.active {
+      color: var(--primary);
+      background-color: rgba(37, 99, 235, 0.06);
+      border-radius: var(--radius-md);
+      padding-left: var(--space-3);
+      font-weight: 700;
+    }
+
+    .nav-resume-li {
+      width: 100%;
+      padding: var(--space-2);
+      border-top: 1px solid var(--border);
+      margin-top: var(--space-2);
+    }
+
+    .btn-resume-nav {
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem 1rem;
     }
   }
 </style>
