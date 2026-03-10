@@ -19,6 +19,18 @@ import Footer from "../components/Footer.astro";
             Fill in the form below and I'll get back to you within 24–48 hours.
           </p>
 
+          <div class="alt-contact alt-contact--top">
+            <p>Prefer to connect directly?</p>
+            <a
+              href="https://linkedin.com/in/prasanthkr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline"
+            >
+              <span class="linkedin-icon">in</span> Message me on LinkedIn
+            </a>
+          </div>
+
           <form class="contact-form" id="contactForm" novalidate>
             <!-- Honeypot -->
             <div class="hp-field" aria-hidden="true">
@@ -79,17 +91,6 @@ import Footer from "../components/Footer.astro";
             <p class="form-status" id="formStatus" aria-live="polite"></p>
           </form>
 
-          <div class="alt-contact">
-            <p>Prefer to connect directly?</p>
-            <a
-              href="https://linkedin.com/in/prasanthkr"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-outline"
-            >
-              <span class="linkedin-icon">in</span> Message me on LinkedIn
-            </a>
-          </div>
         </div>
       </div>
     </section>
@@ -368,8 +369,12 @@ import Footer from "../components/Footer.astro";
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--border);
+  }
+
+  .alt-contact--top {
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--space-2);
   }
 
   .alt-contact p {
