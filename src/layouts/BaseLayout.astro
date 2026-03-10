@@ -99,12 +99,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       if (cookieBanner && !localStorage.getItem("cookies-accepted")) {
         cookieBanner.classList.add("visible");
         cookieBanner.setAttribute("aria-hidden", "false");
+        scrollBtn?.classList.add("cookie-offset");
       }
 
       acceptBtn?.addEventListener("click", () => {
         localStorage.setItem("cookies-accepted", "true");
         cookieBanner?.classList.remove("visible");
         cookieBanner?.setAttribute("aria-hidden", "true");
+        scrollBtn?.classList.remove("cookie-offset");
       });
 
       // Scroll-to-top

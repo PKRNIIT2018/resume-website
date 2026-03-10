@@ -18,6 +18,7 @@
   --accent-gradient: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
   --text: #1e293b;
   --text-light: #64748b;
+  --text-muted: #94a3b8;
   --background: #ffffff;
   --surface: #f8fafc;
   --glass: rgba(255, 255, 255, 0.7);
@@ -421,6 +422,20 @@ button {
     --text-3xl: 1.5rem;
     /* 24px */
   }
+
+  .container {
+    padding: 0 var(--space-2); /* 16px sides instead of 32px */
+  }
+
+  .section {
+    padding: var(--space-6) 0; /* 48px instead of 80px */
+  }
+
+  /* Badge readability on mobile */
+  .badge {
+    font-size: var(--text-sm);
+    padding: 0.35rem 0.875rem;
+  }
 }
 
 /* Focus Styles for Accessibility */
@@ -525,6 +540,20 @@ html {
     width: 100%;
     padding: 0.75rem;
   }
+
+  /* Trust bar: shrink gap so logos fit on one row */
+  .trust-logos {
+    gap: var(--space-3);
+  }
+
+  .trust-logo {
+    font-size: var(--text-base);
+  }
+
+  /* Scroll-to-top: lift above cookie banner on first visit */
+  #scrollToTop.cookie-offset {
+    bottom: 7rem;
+  }
 }
 
 /* Shared Section Title */
@@ -566,4 +595,15 @@ html {
 #scrollToTop:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
+}
+
+/* Touch feedback for buttons */
+.btn:active,
+.btn-resume-nav:active {
+  transform: scale(0.97);
+  transition: transform 80ms ease;
+}
+
+.btn-outline-white:active {
+  background-color: rgba(255, 255, 255, 0.2);
 }

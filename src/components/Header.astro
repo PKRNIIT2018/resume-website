@@ -9,6 +9,7 @@ const navItems = [
 ];
 ---
 
+<div class="nav-overlay" id="navOverlay"></div>
 <header class="header">
   <nav class="nav container">
     <a href="/" class="logo">
@@ -52,29 +53,41 @@ const navItems = [
   // Mobile menu toggle
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
+  const overlay = document.getElementById("navOverlay");
+
+  const openMenu = () => {
+    navLinks?.classList.add("active");
+    menuToggle?.classList.add("active");
+    overlay?.classList.add("active");
+  };
+
+  const closeMenu = () => {
+    navLinks?.classList.remove("active");
+    menuToggle?.classList.remove("active");
+    overlay?.classList.remove("active");
+  };
 
   menuToggle?.addEventListener("click", () => {
-    navLinks?.classList.toggle("active");
-    menuToggle?.classList.toggle("active");
+    navLinks?.classList.contains("active") ? closeMenu() : openMenu();
   });
+
+  // Close menu when clicking the overlay
+  overlay?.addEventListener("click", closeMenu);
 
   // Close menu when clicking outside
   document.addEventListener("click", (e) => {
     if (
       !menuToggle?.contains(e.target as Node) &&
-      !navLinks?.contains(e.target as Node)
+      !navLinks?.contains(e.target as Node) &&
+      !overlay?.contains(e.target as Node)
     ) {
-      navLinks?.classList.remove("active");
-      menuToggle?.classList.remove("active");
+      closeMenu();
     }
   });
 
   // Close menu when clicking a link
   navLinks?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks?.classList.remove("active");
-      menuToggle?.classList.remove("active");
-    });
+    link.addEventListener("click", closeMenu);
   });
 </script>
 
@@ -239,8 +252,36 @@ const navItems = [
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
   }
 
+  /* Overlay backdrop for mobile menu */
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Shrink logo on small phones */
+  @media (max-width: 480px) {
+    .logo {
+      font-size: var(--text-sm);
+    }
+  }
+
   /* Mobile Styles */
   @media (max-width: 768px) {
+    .nav-overlay {
+      display: block;
+    }
+
     .mobile-menu-toggle {
       display: flex;
     }
