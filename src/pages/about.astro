@@ -17,7 +17,7 @@ const formatBold = (text: string) =>
 >
   <Header />
 
-  <main>
+  <main id="main-content">
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="container">
@@ -166,13 +166,14 @@ const formatBold = (text: string) =>
                 <li><strong>Certified:</strong> PMP®, MCT, Scrum</li>
                 <li><strong>Global Exp:</strong> 5 Countries</li>
                 <li><strong>Impact:</strong> 30+ Member Teams</li>
+                <li><strong>Notice Period:</strong> {resumeData.personalInfo.noticePeriod}</li>
                 <li>
                   <span class="work-auth-badge">
-                    🇸🇰 PR Holder · No Work Permit Required in Slovakia
+                    🇸🇰 {resumeData.personalInfo.workAuthorization}
                   </span>
                 </li>
                 <li>
-                  <span class="status-badge">Open to Strategic Roles</span>
+                  <span class="status-badge">{resumeData.personalInfo.availability}</span>
                 </li>
               </ul>
               <div class="sidebar-actions">

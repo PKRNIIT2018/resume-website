@@ -39,6 +39,9 @@ export interface ResumeData {
         phone: string;
         linkedin: string;
         website: string;
+        workAuthorization: string;
+        noticePeriod: string;
+        availability: string;
     };
     hero: {
         highlightLine: string;
@@ -64,7 +67,10 @@ export const resumeData: ResumeData = {
         email: "prasanth.k.ramesh@gmail.com",
         phone: "+421 944 016 820",
         linkedin: "linkedin.com/in/prasanthkr",
-        website: "https://resume-prasanthkr.vercel.app"
+        website: "https://resume-prasanthkr.vercel.app",
+        workAuthorization: "Slovak Permanent Residence (EU Work Authorization)",
+        noticePeriod: "2 Months (Negotiable)",
+        availability: "Open to Strategic Roles"
     },
 
     hero: {

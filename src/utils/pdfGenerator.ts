@@ -47,7 +47,11 @@ export function generateDynamicResumePDF() {
     doc.setFont(FONT_BODY, 'normal');
     doc.setTextColor(80, 80, 80);
     addText(`${resumeData.personalInfo.location} | ${resumeData.personalInfo.email}`, SIZE_BODY, 'normal', [80, 80, 80], 2);
-    addText(`${resumeData.personalInfo.phone} | ${resumeData.personalInfo.linkedin}`, SIZE_BODY, 'normal', [80, 80, 80], 6);
+    addText(`${resumeData.personalInfo.phone} | ${resumeData.personalInfo.linkedin}`, SIZE_BODY, 'normal', [80, 80, 80], 4);
+    
+    // Work Auth & Status
+    addText(`Status: ${resumeData.personalInfo.availability} | Notice: ${resumeData.personalInfo.noticePeriod}`, SIZE_BODY, 'italic', [0, 102, 204], 2);
+    addText(`Work Auth: ${resumeData.personalInfo.workAuthorization}`, SIZE_BODY, 'italic', [0, 102, 204], 6);
 
     // Horizontal Line
     doc.setDrawColor(200, 200, 200);

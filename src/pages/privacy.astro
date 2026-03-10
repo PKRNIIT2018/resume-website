@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout 
+  title="Privacy Policy | Prasanth Kunnumal Ramesh" 
+  description="Privacy Policy for the professional resume website of Prasanth Kunnumal Ramesh."
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-content animate-on-scroll">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last Updated: March 10, 2026</p>
+
+        <section>
+          <h2>1. Introduction</h2>
+          <p>Welcome to my professional resume website. I respect your privacy and am committed to protecting your personal data. This privacy policy informs you about how I look after your personal data when you visit my website and tells you about your privacy rights and how the law protects you.</p>
+        </section>
+
+        <section>
+          <h2>2. Data I Collect</h2>
+          <p>I may collect, use, store and transfer different kinds of personal data about you which I have grouped together as follows:</p>
+          <ul>
+            <li><strong>Identity Data:</strong> If you contact me via the contact form, I collect your name.</li>
+            <li><strong>Contact Data:</strong> Your email address and any other contact information you provide in your message.</li>
+            <li><strong>Technical Data:</strong> Includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. How I Use Your Data</h2>
+          <p>I will only use your personal data when the law allows me to. Most commonly, I will use your personal data in the following circumstances:</p>
+          <ul>
+            <li>To respond to your inquiries submitted via the contact form.</li>
+            <li>To improve my website, services, marketing, and user experience.</li>
+            <li>To comply with a legal or regulatory obligation.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Data Security</h2>
+          <p>I have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed. In addition, I limit access to your personal data to those who have a business need to know.</p>
+        </section>
+
+        <section>
+          <h2>5. Your Legal Rights</h2>
+          <p>Under certain circumstances, you have rights under data protection laws (GDPR) in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, or to object to processing.</p>
+        </section>
+
+        <section>
+          <h2>6. Contact Me</h2>
+          <p>If you have any questions about this privacy policy or my privacy practices, please contact me at: <a href="mailto:prasanth.k.ramesh@gmail.com">prasanth.k.ramesh@gmail.com</a></p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: var(--space-8) 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  .legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .last-updated {
+    color: var(--text-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-2);
+    color: var(--secondary);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-4);
+    color: var(--primary);
+  }
+
+  section {
+    margin-bottom: var(--space-6);
+  }
+
+  ul {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-4);
+  }
+
+  li {
+    margin-bottom: var(--space-2);
+  }
+
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .legal-content {
+      padding: var(--space-4);
+    }
+  }
+</style>

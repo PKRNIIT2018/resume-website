@@ -1,0 +1,6 @@
+# http://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://resume-prasanthkr.vercel.app/sitemap-index.xml

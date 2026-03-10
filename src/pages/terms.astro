@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout 
+  title="Terms of Use | Prasanth Kunnumal Ramesh" 
+  description="Terms of Use for the professional resume website of Prasanth Kunnumal Ramesh."
+>
+  <Header />
+
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-content animate-on-scroll">
+        <h1>Terms of Use</h1>
+        <p class="last-updated">Last Updated: March 10, 2026</p>
+
+        <section>
+          <h2>1. Agreement to Terms</h2>
+          <p>By accessing this website, you agree to be bound by these Terms of Use and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+        </section>
+
+        <section>
+          <h2>2. Use License</h2>
+          <p>Permission is granted to temporarily download one copy of the materials (information or software) on this website for personal, non-commercial transitory viewing only.</p>
+          <p>This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+          <ul>
+            <li>Modify or copy the materials;</li>
+            <li>Use the materials for any commercial purpose, or for any public display (commercial or non-commercial);</li>
+            <li>Attempt to decompile or reverse engineer any software contained on the website;</li>
+            <li>Remove any copyright or other proprietary notations from the materials; or</li>
+            <li>Transfer the materials to another person or "mirror" the materials on any other server.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Disclaimer</h2>
+          <p>The materials on this website are provided on an 'as is' basis. I make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+        </section>
+
+        <section>
+          <h2>4. Limitations</h2>
+          <p>In no event shall Prasanth Kunnumal Ramesh or his suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website.</p>
+        </section>
+
+        <section>
+          <h2>5. Accuracy of Materials</h2>
+          <p>The materials appearing on this website could include technical, typographical, or photographic errors. I do not warrant that any of the materials on its website are accurate, complete or current. I may make changes to the materials contained on its website at any time without notice.</p>
+        </section>
+
+        <section>
+          <h2>6. Governing Law</h2>
+          <p>These terms and conditions are governed by and construed in accordance with the laws of Slovakia and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: var(--space-8) 0;
+    line-height: var(--leading-relaxed);
+  }
+
+  .legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .last-updated {
+    color: var(--text-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-2);
+    color: var(--secondary);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-4);
+    color: var(--primary);
+  }
+
+  section {
+    margin-bottom: var(--space-6);
+  }
+
+  ul {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-4);
+  }
+
+  li {
+    margin-bottom: var(--space-2);
+  }
+
+  @media (max-width: 768px) {
+    .legal-content {
+      padding: var(--space-4);
+    }
+  }
+</style>

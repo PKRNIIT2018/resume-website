@@ -10,7 +10,7 @@ import Footer from "../components/Footer.astro";
 >
   <Header />
 
-  <main>
+  <main id="main-content">
     <!-- Hero Section -->
     <section class="page-hero">
       <div class="container">
@@ -73,6 +73,16 @@ import Footer from "../components/Footer.astro";
                   placeholder="Your message here..."></textarea>
               </div>
 
+              <!-- Honeypot field for spam protection -->
+              <div class="hp-field" aria-hidden="true">
+                <input type="text" name="_honey" id="hp" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="form-group checkbox-group">
+                <input type="checkbox" id="privacy" name="privacy" required />
+                <label for="privacy">I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to the processing of my data. *</label>
+              </div>
+
               <button type="submit" class="btn btn-primary full-width">
                 Send Message
               </button>
@@ -85,6 +95,18 @@ import Footer from "../components/Footer.astro";
 
               form?.addEventListener("submit", function (e) {
                 e.preventDefault();
+
+                const hp = (document.getElementById("hp") as HTMLInputElement)?.value;
+                if (hp) {
+                  console.warn("Spam detected");
+                  return;
+                }
+
+                const privacy = (document.getElementById("privacy") as HTMLInputElement)?.checked;
+                if (!privacy) {
+                  alert("Please agree to the Privacy Policy.");
+                  return;
+                }
 
                 const name =
                   (document.getElementById("name") as HTMLInputElement)
@@ -100,7 +122,7 @@ import Footer from "../components/Footer.astro";
                     ?.value || "";
 
                 // Construct the mailto link
-                const mailtoLink = `mailto:prasanth.k.ramesh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+                const mailtoLink = `mailto:prasanth.k.ramesh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
 
                 // Open the user's email client
                 window.location.href = mailtoLink;
@@ -305,6 +327,36 @@ import Footer from "../components/Footer.astro";
 
   .full-width {
     width: 100%;
+  }
+
+  .hp-field {
+    display: none;
+    visibility: hidden;
+  }
+
+  .checkbox-group {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .checkbox-group input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.25rem;
+    cursor: pointer;
+  }
+
+  .checkbox-group label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .checkbox-group a {
+    color: var(--primary);
+    text-decoration: underline;
   }
 
   /* Contact Info */

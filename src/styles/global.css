@@ -429,6 +429,23 @@ button {
   outline-offset: 2px;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+  z-index: 10000;
+  transition: top 0.3s;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 /* Selection Styles */
 ::selection {
   background-color: var(--primary);
@@ -438,6 +455,62 @@ button {
 /* Smooth Scrolling for Anchor Links */
 html {
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
+}
+
+/* Cookie Banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 0;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.cookie-banner.visible {
+  transform: translateY(0);
+}
+
+.cookie-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cookie-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+.cookie-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cookie-actions {
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  .cookie-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
 }
 
 /* Shared Section Title */
