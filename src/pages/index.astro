@@ -189,9 +189,9 @@ import Footer from "../components/Footer.astro";
           </p>
           <div class="cta-actions">
             <a href="/contact" class="btn btn-outline-white">Get In Touch</a>
-            <button id="downloadResumeBtn" class="btn btn-outline-white">
-              Download Resume
-            </button>
+            <a href="/contact" class="btn btn-outline-white">
+              Request CV
+            </a>
           </div>
         </div>
       </div>
@@ -200,16 +200,6 @@ import Footer from "../components/Footer.astro";
 
   <Footer />
 
-  <script>
-    import { generateDynamicResumePDF } from "../utils/pdfGenerator";
-
-    const downloadBtn = document.getElementById("downloadResumeBtn");
-    if (downloadBtn) {
-      downloadBtn.addEventListener("click", () => {
-        generateDynamicResumePDF();
-      });
-    }
-  </script>
 </BaseLayout>
 
 <style>
