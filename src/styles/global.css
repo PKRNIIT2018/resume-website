@@ -480,12 +480,12 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .cookie-content p {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--text-light);
   line-height: 1.5;
 }
@@ -501,15 +501,29 @@ html {
 }
 
 .btn-sm {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   font-size: 0.8rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .cookie-banner {
+    padding: 1rem 0;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .cookie-content {
     flex-direction: column;
     text-align: center;
-    gap: 1rem;
+    gap: 0.75rem;
+  }
+
+  .cookie-actions {
+    width: 100%;
+  }
+
+  .cookie-actions .btn {
+    width: 100%;
+    padding: 0.75rem;
   }
 }
 
