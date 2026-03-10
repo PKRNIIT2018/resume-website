@@ -11,8 +11,9 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const { name, email, message } = body as Record<string, string>;
-  const subject = "Contact from Resume Website";
+  const { name, email, message, requestCV } = body as Record<string, string>;
+  const cvRequested = requestCV === true || requestCV === "true";
+  const subject = cvRequested ? "CV Request from Resume Website" : "Contact from Resume Website";
 
   if (!name || !email || !message) {
     return new Response(JSON.stringify({ error: "All fields are required" }), {
@@ -60,7 +61,7 @@ export const POST: APIRoute = async ({ request }) => {
     to: recipient,
     replyTo: email,
     subject: `[Resume Site] ${subject}`,
-    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    text: `Name: ${name}\nEmail: ${email}\n${cvRequested ? "CV Requested: Yes\n" : ""}\nMessage:\n${message}`,
   });
 
   if (error) {

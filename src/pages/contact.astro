@@ -61,6 +61,11 @@ import Footer from "../components/Footer.astro";
             </div>
 
             <div class="form-group checkbox-group">
+              <input type="checkbox" id="requestCV" name="requestCV" />
+              <label for="requestCV">I am requesting a copy of your CV.</label>
+            </div>
+
+            <div class="form-group checkbox-group">
               <input type="checkbox" id="privacy" name="privacy" />
               <label for="privacy">
                 I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to the processing of my data. <span class="required">*</span>
@@ -196,12 +201,13 @@ import Footer from "../components/Footer.astro";
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const message = messageInput.value.trim();
+    const requestCV = (document.getElementById("requestCV") as HTMLInputElement)?.checked;
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, requestCV }),
       });
 
       if (res.ok) {
