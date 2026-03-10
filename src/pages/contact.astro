@@ -2,263 +2,88 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { resumeData } from "../data/resumeData";
-const { phone, location } = resumeData.personalInfo;
 ---
 
 <BaseLayout
-  title="Contact Me - Prasanth Kunnumal Ramesh, PMP® | Get In Touch"
+  title="Contact Me - Prasanth Kunnumal Ramesh, PMP®"
   description="Get in touch with me for project inquiries, collaborations, or professional opportunities."
 >
   <Header />
 
   <main id="main-content">
-    <!-- Hero Section -->
-    <section class="page-hero">
+    <section class="contact-section">
       <div class="container">
-        <h1>Get In Touch</h1>
-        <p class="lead">
-          I'd love to hear from you. Whether you have a question or just want to
-          say hi, feel free to reach out!
-        </p>
-      </div>
-    </section>
+        <div class="contact-wrapper">
+          <h1>Get In Touch</h1>
+          <p class="lead">
+            Fill in the form below and I'll get back to you within 24–48 hours.
+          </p>
 
-    <!-- Contact Section -->
-    <section class="section">
-      <div class="container">
-        <div class="contact-grid">
-          <!-- Contact Form -->
-          <div class="contact-form-container">
-            <h2>Send Me a Message</h2>
-            <form class="contact-form" id="contactForm">
-              <div class="form-group">
-                <label for="name">Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="your.email@example.com"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="subject">Subject *</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  placeholder="What's this about?"
-                />
-              </div>
-
-              <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="6"
-                  required
-                  placeholder="Your message here..."></textarea>
-              </div>
-
-              <!-- Honeypot field for spam protection -->
-              <div class="hp-field" aria-hidden="true">
-                <input type="text" name="_honey" id="hp" tabindex="-1" autocomplete="off" />
-              </div>
-
-              <div class="form-group checkbox-group">
-                <input type="checkbox" id="privacy" name="privacy" required />
-                <label for="privacy">I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to the processing of my data. *</label>
-              </div>
-
-              <button type="submit" class="btn btn-primary full-width">
-                Send Message
-              </button>
-            </form>
-
-            <script>
-              const form = document.getElementById("contactForm") as HTMLFormElement;
-              const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
-
-              form?.addEventListener("submit", async function (e) {
-                e.preventDefault();
-
-                const hp = (document.getElementById("hp") as HTMLInputElement)?.value;
-                if (hp) return; // honeypot triggered
-
-                const privacy = (document.getElementById("privacy") as HTMLInputElement)?.checked;
-                if (!privacy) {
-                  alert("Please agree to the Privacy Policy.");
-                  return;
-                }
-
-                const name = (document.getElementById("name") as HTMLInputElement)?.value || "";
-                const email = (document.getElementById("email") as HTMLInputElement)?.value || "";
-                const subject = (document.getElementById("subject") as HTMLInputElement)?.value || "";
-                const message = (document.getElementById("message") as HTMLTextAreaElement)?.value || "";
-
-                if (submitBtn) {
-                  submitBtn.disabled = true;
-                  submitBtn.textContent = "Sending…";
-                }
-
-                try {
-                  const res = await fetch("/api/contact", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, subject, message }),
-                  });
-
-                  if (res.ok) {
-                    form.reset();
-                    if (submitBtn) submitBtn.textContent = "Message Sent ✓";
-                  } else {
-                    throw new Error("API error");
-                  }
-                } catch {
-                  // Fallback: open mailto if API is unavailable
-                  const recipient = "prasanth.k.ramesh" + "\u0040" + "gmail.com";
-                  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
-                  window.location.href = mailtoLink;
-                  if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = "Send Message";
-                  }
-                }
-              });
-            </script>
-          </div>
-
-          <!-- Contact Info -->
-          <div class="contact-info">
-            <h2>Contact Information</h2>
-
-            <div class="info-card">
-              <div class="info-item">
-                <div class="info-icon">📧</div>
-                <div class="info-content">
-                  <h3>Email</h3>
-                  <a href="#" data-u="prasanth.k.ramesh" data-d="gmail.com" data-show-email
-                    >prasanth.k.ramesh@gmail.com</a
-                  >
-                </div>
-              </div>
-
-              <div class="info-item">
-                <div class="info-icon">📱</div>
-                <div class="info-content">
-                  <h3>Phone</h3>
-                  <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
-                </div>
-              </div>
-
-              <div class="info-item">
-                <div class="info-icon">📍</div>
-                <div class="info-content">
-                  <h3>Location</h3>
-                  <p>Pezinok, Slovakia</p>
-                </div>
-              </div>
-
-              <div class="info-item">
-                <div class="info-icon">💼</div>
-                <div class="info-content">
-                  <h3>Availability</h3>
-                  <p>Open to opportunities</p>
-                </div>
-              </div>
+          <form class="contact-form" id="contactForm" novalidate>
+            <!-- Honeypot -->
+            <div class="hp-field" aria-hidden="true">
+              <input type="text" name="_honey" id="hp" tabindex="-1" autocomplete="off" />
             </div>
 
-            <div class="social-links-section">
-              <h3>Connect With Me</h3>
-              <div class="social-links">
-                <a
-                  href="https://linkedin.com/in/prasanthkr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="social-link"
-                >
-                  <span class="social-icon">in</span>
-                  <span>LinkedIn</span>
-                </a>
-                <a
-                  href="#"
-                  data-u="prasanth.k.ramesh"
-                  data-d="gmail.com"
-                  class="social-link"
-                >
-                  <span class="social-icon">@</span>
-                  <span>Email</span>
-                </a>
-              </div>
+            <div class="form-group">
+              <label for="name">Name <span class="required">*</span></label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your full name"
+                autocomplete="name"
+              />
+              <span class="field-error" id="nameError"></span>
             </div>
 
-            <div class="response-time">
-              <p>
-                <strong>Response Time:</strong> I typically respond within 24-48 hours.
-              </p>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="your.email@example.com"
+                autocomplete="email"
+              />
+              <span class="field-error" id="emailError"></span>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- FAQ Section -->
-    <section class="section bg-surface">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>What is your area of expertise?</h3>
-            <p>
-              I specialize in Product Ownership, Technical Business Analysis,
-              and Project Management with 20+ years of IT experience. I combine
-              technical depth in software development and data science with
-              leadership excellence.
-            </p>
-          </div>
+            <div class="form-group">
+              <label for="message">Message <span class="required">*</span></label>
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                placeholder="How can I help you?"
+              ></textarea>
+              <span class="field-error" id="messageError"></span>
+            </div>
 
-          <div class="faq-item">
-            <h3>Are you available for new opportunities?</h3>
-            <p>
-              Yes! I'm open to discussing new opportunities, consulting
-              engagements, and collaborations. Feel free to reach out to discuss
-              how I can add value to your organization.
-            </p>
-          </div>
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="privacy" name="privacy" />
+              <label for="privacy">
+                I agree to the <a href="/privacy" target="_blank">Privacy Policy</a> and consent to the processing of my data. <span class="required">*</span>
+              </label>
+            </div>
 
-          <div class="faq-item">
-            <h3>What certifications do you hold?</h3>
-            <p>
-              I'm a PMP® certified professional and Microsoft Certified Trainer
-              with multiple certifications including MCAD, MCTS, Scrum
-              Fundamentals, and specialized certifications in Arcmate and
-              document management systems.
-            </p>
-          </div>
+            <button type="submit" class="btn btn-primary full-width" id="submitBtn" disabled>
+              Send Message
+            </button>
 
-          <div class="faq-item">
-            <h3>Do you work with distributed teams?</h3>
-            <p>
-              Absolutely! I have extensive experience managing cross-functional
-              teams of 30+ members and collaborating with distributed teams
-              across different time zones, particularly in my roles at IBM and
-              NVSSoft.
-            </p>
+            <p class="form-status" id="formStatus" aria-live="polite"></p>
+          </form>
+
+          <div class="alt-contact">
+            <p>Prefer to connect directly?</p>
+            <a
+              href="https://linkedin.com/in/prasanthkr"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline"
+            >
+              <span class="linkedin-icon">in</span> Message me on LinkedIn
+            </a>
           </div>
         </div>
       </div>
@@ -268,44 +93,166 @@ const { phone, location } = resumeData.personalInfo;
   <Footer />
 </BaseLayout>
 
+<script>
+  const form = document.getElementById("contactForm") as HTMLFormElement;
+  const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
+  const formStatus = document.getElementById("formStatus") as HTMLParagraphElement;
+
+  const nameInput = document.getElementById("name") as HTMLInputElement;
+  const emailInput = document.getElementById("email") as HTMLInputElement;
+  const messageInput = document.getElementById("message") as HTMLTextAreaElement;
+  const privacyInput = document.getElementById("privacy") as HTMLInputElement;
+
+  const nameError = document.getElementById("nameError") as HTMLSpanElement;
+  const emailError = document.getElementById("emailError") as HTMLSpanElement;
+  const messageError = document.getElementById("messageError") as HTMLSpanElement;
+
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const FREE_DOMAINS = new Set([
+    "gmail.com","googlemail.com","yahoo.com","yahoo.co.uk","yahoo.co.in","yahoo.fr",
+    "yahoo.de","yahoo.es","yahoo.it","yahoo.ca","yahoo.com.au","ymail.com","rocketmail.com",
+    "hotmail.com","hotmail.co.uk","hotmail.fr","hotmail.de","hotmail.it","hotmail.es",
+    "outlook.com","outlook.co.uk","outlook.fr","outlook.de","live.com","live.co.uk",
+    "live.fr","live.de","msn.com","icloud.com","me.com","mac.com","aol.com","aim.com",
+    "protonmail.com","proton.me","protonmail.ch","tutanota.com","tutanota.de","tuta.io",
+    "mail.com","email.com","gmx.com","gmx.net","gmx.de","gmx.at","gmx.ch",
+    "zohomail.com","zoho.com","yandex.com","yandex.ru","mail.ru","inbox.ru","bk.ru",
+    "list.ru","rambler.ru","rediffmail.com","sify.com","indiatimes.com",
+    "fastmail.com","fastmail.fm","hushmail.com","guerrillamail.com","temp-mail.org",
+    "dispostable.com","mailinator.com","trashmail.com","sharklasers.com","guerrillamailblock.com",
+  ]);
+
+  const ALLOWED_EMAILS = new Set(["pkrniit@gmail.com"]);
+
+  function isFreeDomain(email: string): boolean {
+    if (ALLOWED_EMAILS.has(email.toLowerCase())) return false;
+    const domain = email.split("@")[1]?.toLowerCase();
+    return domain ? FREE_DOMAINS.has(domain) : false;
+  }
+
+  function validateName(): boolean {
+    const v = nameInput.value.trim();
+    if (!v) { nameError.textContent = "Name is required."; return false; }
+    if (v.length < 2) { nameError.textContent = "Name must be at least 2 characters."; return false; }
+    nameError.textContent = "";
+    return true;
+  }
+
+  function validateEmail(): boolean {
+    const v = emailInput.value.trim();
+    if (!v) { emailError.textContent = "Email is required."; return false; }
+    if (!EMAIL_RE.test(v)) { emailError.textContent = "Please enter a valid email address."; return false; }
+    if (isFreeDomain(v)) { emailError.textContent = "Please use a work or business email address."; return false; }
+    emailError.textContent = "";
+    return true;
+  }
+
+  function validateMessage(): boolean {
+    const v = messageInput.value.trim();
+    if (!v) { messageError.textContent = "Message is required."; return false; }
+    if (v.length < 10) { messageError.textContent = "Message must be at least 10 characters."; return false; }
+    messageError.textContent = "";
+    return true;
+  }
+
+  function isEmailValid(): boolean {
+    const v = emailInput.value.trim();
+    return EMAIL_RE.test(v) && !isFreeDomain(v);
+  }
+
+  function checkForm() {
+    const nameOk = nameInput.value.trim().length >= 2;
+    const emailOk = isEmailValid();
+    const messageOk = messageInput.value.trim().length >= 10;
+    const privacyOk = privacyInput.checked;
+    submitBtn.disabled = !(nameOk && emailOk && messageOk && privacyOk);
+  }
+
+  nameInput.addEventListener("input", () => { validateName(); checkForm(); });
+  emailInput.addEventListener("input", () => { validateEmail(); checkForm(); });
+  messageInput.addEventListener("input", () => { validateMessage(); checkForm(); });
+  privacyInput.addEventListener("change", checkForm);
+
+  // Show errors on blur only (not while typing)
+  nameInput.addEventListener("blur", validateName);
+  emailInput.addEventListener("blur", validateEmail);
+  messageInput.addEventListener("blur", validateMessage);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const hp = (document.getElementById("hp") as HTMLInputElement)?.value;
+    if (hp) return;
+
+    const allValid = validateName() && validateEmail() && validateMessage() && privacyInput.checked;
+    if (!allValid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    formStatus.textContent = "";
+    formStatus.className = "form-status";
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (res.ok) {
+        form.reset();
+        submitBtn.textContent = "Message Sent";
+        formStatus.textContent = "Thanks! I'll get back to you within 24–48 hours.";
+        formStatus.classList.add("success");
+      } else {
+        throw new Error("API error");
+      }
+    } catch {
+      formStatus.textContent = "Something went wrong. Please try again or reach out on LinkedIn.";
+      formStatus.classList.add("error");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    }
+  });
+</script>
+
 <style>
-  /* Page Hero */
-  .page-hero {
-    padding: var(--space-8) 0 var(--space-6);
-    background: linear-gradient(135deg, var(--surface) 0%, white 100%);
+  .contact-section {
+    padding: var(--space-12) 0 var(--space-10);
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .contact-wrapper {
+    max-width: 560px;
+    margin: 0 auto;
     text-align: center;
   }
 
-  .page-hero h1 {
+  .contact-wrapper h1 {
     font-size: var(--text-5xl);
     margin-bottom: var(--space-2);
   }
 
   .lead {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--text-light);
-    max-width: 700px;
-    margin: 0 auto;
+    margin-bottom: var(--space-6);
   }
 
-  /* Contact Grid */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: var(--space-8);
-    align-items: start;
-  }
-
-  /* Contact Form */
-  .contact-form-container h2 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-4);
-  }
-
+  /* Form */
   .contact-form {
+    text-align: left;
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
   .form-group {
@@ -316,16 +263,22 @@ const { phone, location } = resumeData.personalInfo;
 
   .form-group label {
     font-weight: 600;
+    font-size: var(--text-sm);
     color: var(--secondary);
+  }
+
+  .required {
+    color: var(--primary);
   }
 
   .form-group input,
   .form-group textarea {
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3);
     border: 2px solid var(--border);
     border-radius: var(--radius-md);
     font-family: inherit;
     font-size: var(--text-base);
+    background: white;
     transition: border-color var(--transition-fast);
   }
 
@@ -337,36 +290,37 @@ const { phone, location } = resumeData.personalInfo;
 
   .form-group textarea {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
   }
 
-  .full-width {
-    width: 100%;
-  }
-
-  .hp-field {
-    display: none;
-    visibility: hidden;
+  .field-error {
+    font-size: var(--text-sm);
+    color: #dc2626;
+    min-height: 1.2em;
   }
 
   .checkbox-group {
     flex-direction: row;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: var(--space-2);
   }
 
-  .checkbox-group input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 0.25rem;
+  .checkbox-group input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.2rem;
     cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    border: 2px solid var(--border);
   }
 
   .checkbox-group label {
-    font-size: 0.85rem;
+    font-size: var(--text-sm);
     font-weight: 400;
     color: var(--text-light);
-    line-height: 1.4;
+    line-height: 1.5;
+    cursor: pointer;
   }
 
   .checkbox-group a {
@@ -374,171 +328,99 @@ const { phone, location } = resumeData.personalInfo;
     text-decoration: underline;
   }
 
-  /* Contact Info */
-  .contact-info h2 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-4);
+  .full-width {
+    width: 100%;
+    justify-content: center;
+    padding: var(--space-3);
+    font-size: var(--text-base);
   }
 
-  .info-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--space-4);
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
-  .info-item {
-    display: flex;
-    gap: var(--space-3);
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .info-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .info-item:first-child {
-    padding-top: 0;
-  }
-
-  .info-icon {
-    font-size: var(--text-3xl);
-    flex-shrink: 0;
-  }
-
-  .info-content h3 {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-1);
-  }
-
-  .info-content p,
-  .info-content a {
-    color: var(--text-light);
+  .form-status {
     margin: 0;
+    font-size: var(--text-sm);
+    text-align: center;
+    min-height: 1.4em;
   }
 
-  .info-content a {
-    text-decoration: none;
-    transition: color var(--transition-fast);
+  .form-status.success {
+    color: #16a34a;
   }
 
-  .info-content a:hover {
-    color: var(--primary);
+  .form-status.error {
+    color: #dc2626;
   }
 
-  /* Social Links Section */
-  .social-links-section {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    box-shadow: var(--shadow-md);
-    margin-bottom: var(--space-4);
-  }
-
-  .social-links-section h3 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-3);
-  }
-
-  .social-links {
+  /* Alt contact */
+  .alt-contact {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .social-link {
-    display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    background-color: var(--surface);
-    color: var(--text);
-    text-decoration: none;
-    transition: all var(--transition-fast);
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
   }
 
-  .social-link:hover {
-    background-color: var(--primary);
-    color: white;
-    transform: translateX(4px);
-  }
-
-  .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    background-color: white;
-    border-radius: var(--radius-sm);
-    font-weight: 700;
+  .alt-contact p {
+    margin: 0;
+    color: var(--text-light);
     font-size: var(--text-sm);
   }
 
-  .social-link:hover .social-icon {
-    background-color: rgba(255, 255, 255, 0.2);
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-5);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-md);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .btn-outline:hover {
+    background: var(--primary);
     color: white;
   }
 
-  /* Response Time */
-  .response-time {
-    background: var(--surface);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    border-left: 4px solid var(--primary);
+  .linkedin-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    transition: background var(--transition-fast);
   }
 
-  .response-time p {
-    margin: 0;
-    color: var(--text);
-  }
-
-
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
+  .btn-outline:hover .linkedin-icon {
     background: white;
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    box-shadow: var(--shadow-md);
-  }
-
-  .faq-item h3 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-2);
     color: var(--primary);
   }
 
-  .faq-item p {
-    color: var(--text-light);
-    line-height: var(--leading-relaxed);
-    margin: 0;
-  }
-
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .faq-grid {
-      grid-template-columns: 1fr;
-    }
+  .hp-field {
+    display: none;
+    visibility: hidden;
   }
 
   @media (max-width: 768px) {
-    .page-hero h1 {
+    .contact-section {
+      padding: var(--space-8) 0 var(--space-8);
+    }
+
+    .contact-wrapper h1 {
       font-size: var(--text-4xl);
     }
   }
