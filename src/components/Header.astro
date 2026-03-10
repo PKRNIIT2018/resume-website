@@ -272,7 +272,7 @@ const navItems = [
   /* Shrink logo on small phones */
   @media (max-width: 480px) {
     .logo {
-      font-size: var(--text-sm);
+      font-size: 1.125rem; /* Better readability than var(--text-sm) */
     }
   }
 
@@ -284,22 +284,25 @@ const navItems = [
 
     .mobile-menu-toggle {
       display: flex;
+      width: 3rem; /* Larger touch target */
+      height: 3rem;
     }
 
     .nav-links {
       position: fixed;
       top: var(--header-height);
       right: -100%;
-      width: 70%;
-      max-width: 300px;
+      width: 80%; /* Slightly wider for better reach */
+      max-width: 320px;
       height: calc(100vh - var(--header-height));
       flex-direction: column;
       gap: 0;
       background-color: var(--background);
       border-left: 1px solid var(--border);
       padding: var(--space-4);
-      transition: right var(--transition-base);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: var(--shadow-xl);
+      overflow-y: auto; /* Handle long menus */
     }
 
     .nav-links.active {

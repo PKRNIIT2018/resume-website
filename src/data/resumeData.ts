@@ -29,6 +29,20 @@ export interface Language {
     level: string;
 }
 
+export interface Project {
+    id: number;
+    title: string;
+    role: string;
+    description: string;
+    icon: string;
+    gradient: string;
+    tags: string[];
+    featured: boolean;
+    category: string;
+    metric: string;
+    link?: string;
+}
+
 export interface ResumeData {
     targetRole: string;
     personalInfo: {
@@ -55,6 +69,7 @@ export interface ResumeData {
     certifications: string[];
     languages: Language[];
     keywords: string[];
+    projects: Project[];
 }
 
 export const resumeData: ResumeData = {
@@ -251,5 +266,93 @@ export const resumeData: ResumeData = {
         "Enterprise Applications",
         "AI-Assisted Analysis",
         "IBM"
-    ]
+    ],
+
+    projects: [
+        {
+            id: 6,
+            title: "Indians In Slovakia",
+            role: "Founder & Lead Developer",
+            description: "A comprehensive community platform for Indians in Slovakia, featuring integration guides, legal resources, and community networking. Built with Astro, Tailwind CSS, and MDX.",
+            icon: "🇸🇰",
+            gradient: "from-blue-600 to-red-600",
+            tags: ["Astro", "Tailwind CSS", "MDX", "Community", "React"],
+            featured: true,
+            category: "innovation",
+            metric: "Community Platform",
+            link: "https://ins-pearl.vercel.app",
+        },
+        {
+            id: 0,
+            title: "AI-Augmented Requirement Analysis",
+            role: "AI Strategy & Implementation",
+            description: "Designed and executed agentic workflows using AntiGravity and IBM watsonx to automate requirement synthesis, data mapping, and documentation. Improved analysis throughput by 40% and reduced dependency on SME availability.",
+            icon: "🤖",
+            gradient: "from-violet-500 to-purple-600",
+            tags: ["AntiGravity", "IBM watsonx", "Prompt Engineering", "Ollama", "AI Agents"],
+            featured: true,
+            category: "innovation",
+            metric: "40% Faster Analysis",
+        },
+        {
+            id: 1,
+            title: "IBM Global Invoice Access Application",
+            role: "Product Owner",
+            description: "Worldwide IBM application providing seamless invoice access across multiple billing tools. Managed product development, technical debt, and security compliance while tracking adoption through data analytics.",
+            icon: "🌍",
+            gradient: "from-blue-500 to-cyan-500",
+            tags: ["Product Ownership", "PostgreSQL", "Python/Pandas", "IBM Cloud", "Agile/Scrum"],
+            featured: true,
+            category: "enterprise",
+            metric: "Global Scale Delivery",
+        },
+        {
+            id: 2,
+            title: "Enterprise Document Management System",
+            role: "Team Lead / Project Manager",
+            description: "Led implementation of comprehensive document management solutions for enterprise clients in Saudi Arabia. Managed cross-functional teams of 30+ members delivering mission-critical systems.",
+            icon: "🗂️",
+            gradient: "from-emerald-500 to-teal-600",
+            tags: ["Arcmate Enterprise", "Team Leadership", "Project Management", "Document Control"],
+            featured: true,
+            category: "enterprise",
+            metric: "30+ Resource Management",
+        },
+        {
+            id: 3,
+            title: "Data Analytics & KPI Dashboard",
+            role: "Technical Analyst",
+            description: "Developed comprehensive analytics solution using Python, Pandas, and Jupyter Notebooks to track user adoption, system performance, and key performance indicators for IBM applications.",
+            icon: "📊",
+            gradient: "from-orange-500 to-amber-500",
+            tags: ["Python", "Pandas", "Jupyter", "PostgreSQL", "Data Visualization"],
+            featured: true,
+            category: "analytics",
+            metric: "Real-time KPI Tracking",
+        },
+        {
+            id: 4,
+            title: "Agile Transformation Initiative",
+            role: "Agile Coach / Leader",
+            description: "Led agile transformation across multiple teams, implementing Scrum ceremonies, backlog management, and continuous improvement processes. Achieved significant improvements in delivery velocity.",
+            icon: "🔄",
+            gradient: "from-pink-500 to-rose-500",
+            tags: ["Agile/Scrum", "Change Management", "Team Leadership", "Process Improvement"],
+            featured: false,
+            category: "leadership",
+            metric: "Multi-team Rollout",
+        },
+        {
+            id: 5,
+            title: "Technical Training Program",
+            role: "Training Manager",
+            description: "Designed and delivered comprehensive technical training programs for .NET, C#, and project management. Managed team of 7 trainers and achieved 'Best Trainer' recognition.",
+            icon: "🎓",
+            gradient: "from-indigo-500 to-blue-600",
+            tags: [".NET", "C#", "Training Management", "Curriculum Design"],
+            featured: false,
+            category: "training",
+            metric: "Best Trainer Award",
+        },
+    ],
 };

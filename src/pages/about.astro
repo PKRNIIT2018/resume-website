@@ -511,7 +511,7 @@ const formatBold = (text: string) =>
 
   .pipeline-stage {
     flex: 1;
-    min-width: 130px;
+    min-width: 140px;
     background: white;
     border-radius: var(--radius-md);
     padding: var(--space-3);
@@ -797,6 +797,7 @@ const formatBold = (text: string) =>
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(8px);
+    padding: var(--space-4);
   }
 
   .infographic-modal.active {
@@ -811,8 +812,20 @@ const formatBold = (text: string) =>
 
   .modal-content {
     position: relative;
-    max-width: 90vw;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
     max-height: 90vh;
+    object-fit: contain;
+    border-radius: var(--radius-md);
   }
 
   .close-btn {
@@ -822,33 +835,45 @@ const formatBold = (text: string) =>
     color: white;
     background: none;
     border: none;
-    font-size: 2rem;
+    font-size: 2.5rem;
     cursor: pointer;
   }
 
   /* Responsive */
   @media (max-width: 1024px) {
-    .content-grid, .timeline-block, .credentials-grid {
+    .content-grid, .timeline-block, .credentials-grid, .endorsements-grid {
       grid-template-columns: 1fr;
     }
-    .timeline-info { text-align: left; margin-bottom: 1rem; }
+    .timeline-info { text-align: left; margin-bottom: 0.5rem; }
     .timeline-details { border-left: none; padding-left: 0; }
     .timeline-details::before { display: none; }
+    
+    .sidebar {
+      order: -1;
+      margin-bottom: var(--space-6);
+    }
   }
 
   @media (max-width: 768px) {
+    .page-hero h1 {
+      font-size: var(--text-4xl);
+    }
+    
     .ai-tools-grid {
       grid-template-columns: 1fr;
     }
+    
     .workflow-pipeline {
-      flex-direction: column;
+      margin: 0 calc(-1 * var(--space-4));
+      padding: 0 var(--space-4) var(--space-4);
     }
-    .pipeline-arrow {
-      transform: rotate(90deg);
-      margin: 0 auto;
+
+    .ai-impact-note {
+      font-size: 0.8rem;
     }
-    .ai-workflow-grid {
-      grid-template-columns: 1fr;
+
+    .modal-image {
+      max-height: 80vh;
     }
   }
 </style>

@@ -5,101 +5,7 @@ import Footer from "../components/Footer.astro";
 
 import { resumeData } from "../data/resumeData";
 
-// Projects based on Prasanth's experience
-const projects = [
-  {
-    id: 6,
-    title: "Indians In Slovakia",
-    role: "Founder & Lead Developer",
-    description:
-      "A comprehensive community platform for Indians in Slovakia, featuring integration guides, legal resources, and community networking. Built with Astro, Tailwind CSS, and MDX.",
-    icon: "🇸🇰",
-    gradient: "from-blue-600 to-red-600",
-    tags: ["Astro", "Tailwind CSS", "MDX", "Community", "React"],
-    featured: true,
-    category: "innovation",
-    metric: "Community Platform",
-    link: "https://ins-pearl.vercel.app",
-  },
-  {
-    id: 0,
-    title: "AI-Augmented Requirement Analysis",
-    role: "AI Strategy & Implementation",
-    description:
-      "Designed and executed agentic workflows using AntiGravity and IBM watsonx to automate requirement synthesis, data mapping, and documentation. Improved analysis throughput by 40% and reduced dependency on SME availability.",
-    icon: "🤖",
-    gradient: "from-violet-500 to-purple-600",
-    tags: ["AntiGravity", "IBM watsonx", "Prompt Engineering", "Ollama", "AI Agents"],
-    featured: true,
-    category: "innovation",
-    metric: "40% Faster Analysis",
-  },
-  {
-    id: 1,
-    title: "IBM Global Invoice Access Application",
-    role: "Product Owner",
-    description:
-      "Worldwide IBM application providing seamless invoice access across multiple billing tools. Managed product development, technical debt, and security compliance while tracking adoption through data analytics.",
-    icon: "🌍",
-    gradient: "from-blue-500 to-cyan-500",
-    tags: ["Product Ownership", "PostgreSQL", "Python/Pandas", "IBM Cloud", "Agile/Scrum"],
-    featured: true,
-    category: "enterprise",
-    metric: "Global Scale Delivery",
-  },
-  {
-    id: 2,
-    title: "Enterprise Document Management System",
-    role: "Team Lead / Project Manager",
-    description:
-      "Led implementation of comprehensive document management solutions for enterprise clients in Saudi Arabia. Managed cross-functional teams of 30+ members delivering mission-critical systems.",
-    icon: "🗂️",
-    gradient: "from-emerald-500 to-teal-600",
-    tags: ["Arcmate Enterprise", "Team Leadership", "Project Management", "Document Control"],
-    featured: true,
-    category: "enterprise",
-    metric: "30+ Resource Management",
-  },
-  {
-    id: 3,
-    title: "Data Analytics & KPI Dashboard",
-    role: "Technical Analyst",
-    description:
-      "Developed comprehensive analytics solution using Python, Pandas, and Jupyter Notebooks to track user adoption, system performance, and key performance indicators for IBM applications.",
-    icon: "📊",
-    gradient: "from-orange-500 to-amber-500",
-    tags: ["Python", "Pandas", "Jupyter", "PostgreSQL", "Data Visualization"],
-    featured: true,
-    category: "analytics",
-    metric: "Real-time KPI Tracking",
-  },
-  {
-    id: 4,
-    title: "Agile Transformation Initiative",
-    role: "Agile Coach / Leader",
-    description:
-      "Led agile transformation across multiple teams, implementing Scrum ceremonies, backlog management, and continuous improvement processes. Achieved significant improvements in delivery velocity.",
-    icon: "🔄",
-    gradient: "from-pink-500 to-rose-500",
-    tags: ["Agile/Scrum", "Change Management", "Team Leadership", "Process Improvement"],
-    featured: false,
-    category: "leadership",
-    metric: "Multi-team Rollout",
-  },
-  {
-    id: 5,
-    title: "Technical Training Program",
-    role: "Training Manager",
-    description:
-      "Designed and delivered comprehensive technical training programs for .NET, C#, and project management. Managed team of 7 trainers and achieved 'Best Trainer' recognition.",
-    icon: "🎓",
-    gradient: "from-indigo-500 to-blue-600",
-    tags: [".NET", "C#", "Training Management", "Curriculum Design"],
-    featured: false,
-    category: "training",
-    metric: "Best Trainer Award",
-  },
-];
+const projects = resumeData.projects;
 ---
 
 <BaseLayout
@@ -120,14 +26,51 @@ const projects = [
     </section>
 
     <!-- Filter Section -->
-    <section class="filter-section">
+    <section class="filter-section" aria-label="Filter projects">
       <div class="container">
-        <div class="filters">
-          <button class="filter-btn active" data-filter="all">All Projects</button>
-          <button class="filter-btn" data-filter="featured">Featured</button>
-          <button class="filter-btn" data-filter="enterprise">Enterprise</button>
-          <button class="filter-btn" data-filter="analytics">Analytics</button>
-          <button class="filter-btn" data-filter="innovation">Innovation</button>
+        <div class="filters-container">
+          <div class="filters" role="tablist" aria-label="Project categories">
+            <button 
+              class="filter-btn active" 
+              data-filter="all" 
+              role="tab" 
+              aria-selected="true"
+              aria-controls="projects-grid"
+              tabindex="0"
+            >All Projects</button>
+            <button 
+              class="filter-btn" 
+              data-filter="featured" 
+              role="tab" 
+              aria-selected="false"
+              aria-controls="projects-grid"
+              tabindex="-1"
+            >Featured</button>
+            <button 
+              class="filter-btn" 
+              data-filter="enterprise" 
+              role="tab" 
+              aria-selected="false"
+              aria-controls="projects-grid"
+              tabindex="-1"
+            >Enterprise</button>
+            <button 
+              class="filter-btn" 
+              data-filter="analytics" 
+              role="tab" 
+              aria-selected="false"
+              aria-controls="projects-grid"
+              tabindex="-1"
+            >Analytics</button>
+            <button 
+              class="filter-btn" 
+              data-filter="innovation" 
+              role="tab" 
+              aria-selected="false"
+              aria-controls="projects-grid"
+              tabindex="-1"
+            >Innovation</button>
+          </div>
         </div>
       </div>
     </section>
@@ -135,7 +78,7 @@ const projects = [
     <!-- Projects Grid -->
     <section class="section">
       <div class="container">
-        <div class="projects-grid">
+        <div class="projects-grid" id="projects-grid" role="tabpanel">
           {
             projects.map((project) => (
               <article
@@ -215,32 +158,83 @@ const projects = [
 </BaseLayout>
 
 <script>
-  const filterButtons = document.querySelectorAll(".filter-btn");
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
   const projectCards = document.querySelectorAll<HTMLElement>(".project-card");
 
+  function updateFilter(button: HTMLButtonElement) {
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("active");
+      btn.setAttribute("aria-selected", "false");
+      btn.setAttribute("tabindex", "-1");
+    });
+    
+    button.classList.add("active");
+    button.setAttribute("aria-selected", "true");
+    button.setAttribute("tabindex", "0");
+
+    const filter = button.getAttribute("data-filter");
+
+    projectCards.forEach((card) => {
+      const category = card.getAttribute("data-category");
+      const isFeatured = card.getAttribute("data-featured") === "true";
+      
+      const match = filter === "all" || 
+                   (filter === "featured" && isFeatured) || 
+                   category === filter;
+
+      if (match) {
+        card.style.display = "flex";
+        // Double rAF ensures browser repaints before starting opacity transition
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          card.style.opacity = "1";
+          card.style.transform = "scale(1)";
+        }));
+      } else {
+        card.style.opacity = "0";
+        card.style.transform = "scale(0.95)";
+        setTimeout(() => { card.style.display = "none"; }, 300);
+      }
+    });
+  }
+
   filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
+    button.addEventListener("click", () => updateFilter(button));
 
-      const filter = button.getAttribute("data-filter");
+    button.addEventListener("keydown", (e) => {
+      const buttons = Array.from(filterButtons);
+      const currentIndex = buttons.indexOf(button);
+      let targetIndex = currentIndex;
 
-      projectCards.forEach((card) => {
-        const category = card.getAttribute("data-category");
-        const isFeatured = card.getAttribute("data-featured") === "true";
-        
-        const match = filter === "all" || 
-                     (filter === "featured" && isFeatured) || 
-                     category === filter;
+      switch (e.key) {
+        case "ArrowRight":
+        case "ArrowDown":
+          e.preventDefault();
+          targetIndex = (currentIndex + 1) % buttons.length;
+          break;
+        case "ArrowLeft":
+        case "ArrowUp":
+          e.preventDefault();
+          targetIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+          break;
+        case "Home":
+          e.preventDefault();
+          targetIndex = 0;
+          break;
+        case "End":
+          e.preventDefault();
+          targetIndex = buttons.length - 1;
+          break;
+        case "Enter":
+        case " ":
+          e.preventDefault();
+          updateFilter(button);
+          return;
+        default:
+          return;
+      }
 
-        if (match) {
-          card.style.display = "flex";
-          setTimeout(() => card.style.opacity = "1", 10);
-        } else {
-          card.style.opacity = "0";
-          setTimeout(() => card.style.display = "none", 300);
-        }
-      });
+      buttons[targetIndex].focus();
+      updateFilter(buttons[targetIndex]);
     });
   });
 </script>
@@ -275,6 +269,10 @@ const projects = [
     z-index: 100;
   }
 
+  .filters-container {
+    width: 100%;
+  }
+
   .filters {
     display: flex;
     gap: var(--space-2);
@@ -292,6 +290,7 @@ const projects = [
     font-size: var(--text-sm);
     cursor: pointer;
     transition: all var(--transition-fast);
+    white-space: nowrap;
   }
 
   .filter-btn:hover {
@@ -303,6 +302,20 @@ const projects = [
     background-color: var(--primary);
     border-color: var(--primary);
     color: white;
+  }
+
+  .filter-btn:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  .filter-btn:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  .filter-btn:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
   }
 
   /* Projects Grid */
@@ -517,9 +530,39 @@ const projects = [
   }
 
   @media (max-width: 768px) {
+    .filter-section {
+      padding: var(--space-3) 0;
+    }
+
+    .filters-container {
+      overflow-x: auto;
+      padding-bottom: 4px;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      -webkit-overflow-scrolling: touch;
+      margin: 0 calc(-1 * var(--space-2));
+      padding: 0 var(--space-2);
+    }
+
+    .filters-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filters {
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+    }
+
     .projects-grid,
     .achievements-grid {
       grid-template-columns: 1fr;
+    }
+
+    .page-hero h1 {
+      font-size: var(--text-4xl);
+    }
+
+    .lead {
+      font-size: var(--text-lg);
     }
   }
 </style>

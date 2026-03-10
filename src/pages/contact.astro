@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { resumeData } from "../data/resumeData";
+const { phone, location } = resumeData.personalInfo;
 ---
 
 <BaseLayout
@@ -89,18 +91,14 @@ import Footer from "../components/Footer.astro";
             </form>
 
             <script>
-              const form = document.getElementById(
-                "contactForm",
-              ) as HTMLFormElement;
+              const form = document.getElementById("contactForm") as HTMLFormElement;
+              const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-              form?.addEventListener("submit", function (e) {
+              form?.addEventListener("submit", async function (e) {
                 e.preventDefault();
 
                 const hp = (document.getElementById("hp") as HTMLInputElement)?.value;
-                if (hp) {
-                  console.warn("Spam detected");
-                  return;
-                }
+                if (hp) return; // honeypot triggered
 
                 const privacy = (document.getElementById("privacy") as HTMLInputElement)?.checked;
                 if (!privacy) {
@@ -108,25 +106,39 @@ import Footer from "../components/Footer.astro";
                   return;
                 }
 
-                const name =
-                  (document.getElementById("name") as HTMLInputElement)
-                    ?.value || "";
-                const email =
-                  (document.getElementById("email") as HTMLInputElement)
-                    ?.value || "";
-                const subject =
-                  (document.getElementById("subject") as HTMLInputElement)
-                    ?.value || "";
-                const message =
-                  (document.getElementById("message") as HTMLTextAreaElement)
-                    ?.value || "";
+                const name = (document.getElementById("name") as HTMLInputElement)?.value || "";
+                const email = (document.getElementById("email") as HTMLInputElement)?.value || "";
+                const subject = (document.getElementById("subject") as HTMLInputElement)?.value || "";
+                const message = (document.getElementById("message") as HTMLTextAreaElement)?.value || "";
 
-                // Construct the mailto link
-                const recipient = 'prasanth.k.ramesh' + '\u0040' + 'gmail.com';
-                const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
+                if (submitBtn) {
+                  submitBtn.disabled = true;
+                  submitBtn.textContent = "Sending…";
+                }
 
-                // Open the user's email client
-                window.location.href = mailtoLink;
+                try {
+                  const res = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, subject, message }),
+                  });
+
+                  if (res.ok) {
+                    form.reset();
+                    if (submitBtn) submitBtn.textContent = "Message Sent ✓";
+                  } else {
+                    throw new Error("API error");
+                  }
+                } catch {
+                  // Fallback: open mailto if API is unavailable
+                  const recipient = "prasanth.k.ramesh" + "\u0040" + "gmail.com";
+                  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
+                  window.location.href = mailtoLink;
+                  if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Send Message";
+                  }
+                }
               });
             </script>
           </div>
@@ -150,7 +162,7 @@ import Footer from "../components/Footer.astro";
                 <div class="info-icon">📱</div>
                 <div class="info-content">
                   <h3>Phone</h3>
-                  <a href="tel:+421944016820">+421 944 016 820</a>
+                  <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
                 </div>
               </div>
 
