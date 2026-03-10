@@ -6,9 +6,11 @@ import { Image } from "astro:assets";
 import careerJourney from "../assets/career-journey.jpg";
 import { resumeData } from "../data/resumeData";
 
-// Helper to render markdown bolding in HTML
+// Helper to render markdown bolding in HTML - escapes HTML entities first to prevent XSS
+const escapeHtml = (str: string) =>
+  str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const formatBold = (text: string) =>
-  text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  escapeHtml(text).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 ---
 
 <BaseLayout

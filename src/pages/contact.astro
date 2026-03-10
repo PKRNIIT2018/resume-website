@@ -122,7 +122,8 @@ import Footer from "../components/Footer.astro";
                     ?.value || "";
 
                 // Construct the mailto link
-                const mailtoLink = `mailto:prasanth.k.ramesh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
+                const recipient = 'prasanth.k.ramesh' + '\u0040' + 'gmail.com';
+                const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n[Consent Given to Privacy Policy]`)}`;
 
                 // Open the user's email client
                 window.location.href = mailtoLink;
@@ -139,7 +140,7 @@ import Footer from "../components/Footer.astro";
                 <div class="info-icon">📧</div>
                 <div class="info-content">
                   <h3>Email</h3>
-                  <a href="mailto:prasanth.k.ramesh@gmail.com"
+                  <a href="#" data-u="prasanth.k.ramesh" data-d="gmail.com" data-show-email
                     >prasanth.k.ramesh@gmail.com</a
                   >
                 </div>
@@ -183,7 +184,9 @@ import Footer from "../components/Footer.astro";
                   <span>LinkedIn</span>
                 </a>
                 <a
-                  href="mailto:prasanth.k.ramesh@gmail.com"
+                  href="#"
+                  data-u="prasanth.k.ramesh"
+                  data-d="gmail.com"
                   class="social-link"
                 >
                   <span class="social-icon">@</span>

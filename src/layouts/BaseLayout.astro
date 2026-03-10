@@ -92,10 +92,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </button>
 
     <script>
-      // Cookie Consent Logic
+      // DOM Elements
       const cookieBanner = document.getElementById("cookie-banner");
       const acceptBtn = document.getElementById("accept-cookies");
+      const scrollBtn = document.getElementById("scrollToTop");
 
+      // Cookie Consent Logic
       if (cookieBanner && !localStorage.getItem("cookies-accepted")) {
         cookieBanner.classList.add("visible");
         cookieBanner.setAttribute("aria-hidden", "false");
@@ -110,7 +112,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       });
 
       // Scroll-to-top
-      const scrollBtn = document.getElementById("scrollToTop");
       window.addEventListener("scroll", () => {
         scrollBtn?.classList.toggle("visible", window.scrollY > 400);
       }, { passive: true });
@@ -136,6 +137,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         const animatedElements =
           document.querySelectorAll(".animate-on-scroll");
         animatedElements.forEach((el) => observer.observe(el));
+
+        // Assemble obfuscated email links - prevents static scraper harvesting
+        document.querySelectorAll("a[data-u][data-d]").forEach((el) => {
+          const email = el.getAttribute("data-u") + "@" + el.getAttribute("data-d");
+          (el as HTMLAnchorElement).href = "mailto:" + email;
+          if (el.hasAttribute("data-show-email")) el.textContent = email;
+        });
       });
     </script>
   </body>

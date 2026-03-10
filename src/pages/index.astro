@@ -2,9 +2,11 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { resumeData } from "../data/resumeData";
 
-// Helper to render markdown bolding in HTML
+// Helper to render markdown bolding in HTML - escapes HTML entities first to prevent XSS
+const escapeHtml = (str: string) =>
+  str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const formatBold = (text: string) =>
-  text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+  escapeHtml(text).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
@@ -29,7 +31,7 @@ import Footer from "../components/Footer.astro";
           
           <!-- Quick Contact Bar -->
           <div class="hero-contact-bar animate-on-scroll">
-            <a href={`mailto:${resumeData.personalInfo.email}`} class="contact-item">
+            <a href="#" data-u="prasanth.k.ramesh" data-d="gmail.com" class="contact-item">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span>Email</span>
             </a>
