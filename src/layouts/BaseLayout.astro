@@ -5,12 +5,14 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "Prasanth Kunnumal Ramesh, PMP® - Product Owner, Senior Technical Business Analyst, and Project Manager with 20+ years of IT expertise. Specializing in Agile transformation, data analytics, and technical leadership.",
   image = "/images/og-image.jpg",
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -28,6 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->

@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Admin"
+  description=""
+  noindex={true}
+>
+  <main class="admin-main">
+    <div class="admin-card" id="loginCard">
+      <h1>Resume Access</h1>
+      <p class="hint">Enter your password to download the resume.</p>
+
+      <form id="adminForm" novalidate>
+        <div class="field">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <p class="error-msg" id="errorMsg" aria-live="polite"></p>
+        <button type="submit" class="btn-admin" id="submitBtn">Unlock</button>
+      </form>
+    </div>
+
+    <div class="admin-card hidden" id="downloadCard">
+      <h1>Resume Ready</h1>
+      <p class="hint">Click below to generate and download your resume PDF.</p>
+      <button class="btn-admin" id="downloadBtn">Download Resume PDF</button>
+      <p class="note">This page is not indexed or linked publicly.</p>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { generateDynamicResumePDF } from "../../utils/pdfGenerator";
+
+  const adminForm = document.getElementById("adminForm") as HTMLFormElement;
+  const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
+  const errorMsg = document.getElementById("errorMsg") as HTMLParagraphElement;
+  const loginCard = document.getElementById("loginCard") as HTMLDivElement;
+  const downloadCard = document.getElementById("downloadCard") as HTMLDivElement;
+  const downloadBtn = document.getElementById("downloadBtn") as HTMLButtonElement;
+
+  adminForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const password = (document.getElementById("password") as HTMLInputElement).value;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Verifying…";
+    errorMsg.textContent = "";
+
+    try {
+      const res = await fetch("/api/admin/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        loginCard.classList.add("hidden");
+        downloadCard.classList.remove("hidden");
+      } else {
+        errorMsg.textContent = "Incorrect password.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Unlock";
+      }
+    } catch {
+      errorMsg.textContent = "Something went wrong. Try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Unlock";
+    }
+  });
+
+  downloadBtn.addEventListener("click", () => {
+    generateDynamicResumePDF();
+  });
+</script>
+
+<style>
+  .admin-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    padding: var(--space-4);
+  }
+
+  .admin-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-8);
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  .admin-card h1 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .hint {
+    color: var(--text-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-5);
+  }
+
+  .field {
+    margin-bottom: var(--space-3);
+  }
+
+  .field input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    text-align: center;
+    letter-spacing: 0.1em;
+    transition: border-color var(--transition-fast);
+    box-sizing: border-box;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  .error-msg {
+    color: #dc2626;
+    font-size: var(--text-sm);
+    min-height: 1.4em;
+    margin-bottom: var(--space-2);
+  }
+
+  .btn-admin {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+  }
+
+  .btn-admin:hover {
+    opacity: 0.9;
+  }
+
+  .btn-admin:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .note {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--text-light);
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
