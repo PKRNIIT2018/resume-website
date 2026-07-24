@@ -1,0 +1,258 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Admin"
+  description=""
+  noindex={true}
+>
+  <main class="admin-main">
+    <div class="admin-card" id="loginCard">
+      <h1>Cover Letter Generator</h1>
+      <p class="hint">Enter your password to continue.</p>
+
+      <form id="adminForm" novalidate>
+        <div class="field">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <p class="error-msg" id="loginError" aria-live="polite"></p>
+        <button type="submit" class="btn-admin" id="submitBtn">Unlock</button>
+      </form>
+    </div>
+
+    <div class="admin-card wide hidden" id="toolCard">
+      <h1>Cover Letter Generator</h1>
+      <p class="hint">Paste a job posting URL to generate a tailored cover letter from your resume.</p>
+
+      <form id="jobForm" novalidate>
+        <div class="field">
+          <input
+            type="url"
+            id="jobUrl"
+            placeholder="https://company.com/careers/job-posting"
+            required
+          />
+        </div>
+        <button type="submit" class="btn-admin" id="generateBtn">Generate Cover Letter</button>
+      </form>
+
+      <p class="error-msg" id="genError" aria-live="polite"></p>
+
+      <div class="result hidden" id="resultBox">
+        <textarea id="resultText" readonly rows="14"></textarea>
+        <button class="btn-admin secondary" id="copyBtn" type="button">Copy to Clipboard</button>
+      </div>
+
+      <p class="note">This page is not indexed or linked publicly.</p>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  const adminForm = document.getElementById("adminForm") as HTMLFormElement;
+  const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
+  const loginError = document.getElementById("loginError") as HTMLParagraphElement;
+  const loginCard = document.getElementById("loginCard") as HTMLDivElement;
+  const toolCard = document.getElementById("toolCard") as HTMLDivElement;
+
+  const jobForm = document.getElementById("jobForm") as HTMLFormElement;
+  const jobUrlInput = document.getElementById("jobUrl") as HTMLInputElement;
+  const generateBtn = document.getElementById("generateBtn") as HTMLButtonElement;
+  const genError = document.getElementById("genError") as HTMLParagraphElement;
+  const resultBox = document.getElementById("resultBox") as HTMLDivElement;
+  const resultText = document.getElementById("resultText") as HTMLTextAreaElement;
+  const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
+
+  let password = "";
+
+  adminForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    password = (document.getElementById("password") as HTMLInputElement).value;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Verifying…";
+    loginError.textContent = "";
+
+    try {
+      const res = await fetch("/api/admin/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        loginCard.classList.add("hidden");
+        toolCard.classList.remove("hidden");
+      } else {
+        loginError.textContent = "Incorrect password.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Unlock";
+      }
+    } catch {
+      loginError.textContent = "Something went wrong. Try again.";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Unlock";
+    }
+  });
+
+  jobForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    genError.textContent = "";
+    resultBox.classList.add("hidden");
+    generateBtn.disabled = true;
+    generateBtn.textContent = "Generating…";
+
+    try {
+      const res = await fetch("/api/admin/cover-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password, jobUrl: jobUrlInput.value }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        genError.textContent = data.error || "Something went wrong.";
+      } else {
+        resultText.value = data.coverLetter;
+        resultBox.classList.remove("hidden");
+      }
+    } catch {
+      genError.textContent = "Something went wrong. Try again.";
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.textContent = "Generate Cover Letter";
+    }
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(resultText.value);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => (copyBtn.textContent = "Copy to Clipboard"), 1500);
+  });
+</script>
+
+<style>
+  .admin-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    padding: var(--space-4);
+  }
+
+  .admin-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-8);
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  .admin-card.wide {
+    max-width: 560px;
+  }
+
+  .admin-card h1 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .hint {
+    color: var(--text-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-5);
+  }
+
+  .field {
+    margin-bottom: var(--space-3);
+  }
+
+  .field input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    text-align: center;
+    transition: border-color var(--transition-fast);
+    box-sizing: border-box;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  .error-msg {
+    color: #dc2626;
+    font-size: var(--text-sm);
+    min-height: 1.4em;
+    margin-bottom: var(--space-2);
+  }
+
+  .btn-admin {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+  }
+
+  .btn-admin.secondary {
+    background: var(--text-light);
+    margin-top: var(--space-3);
+  }
+
+  .btn-admin:hover {
+    opacity: 0.9;
+  }
+
+  .btn-admin:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .result {
+    margin-top: var(--space-4);
+    text-align: left;
+  }
+
+  .result textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--space-3);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    resize: vertical;
+  }
+
+  .note {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--text-light);
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
