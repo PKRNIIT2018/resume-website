@@ -1,7 +1,15 @@
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
+import { isRateLimited } from "../../utils/rateLimit";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  if (isRateLimited(`contact:${clientAddress}`, 5, 15 * 60 * 1000)) {
+    return new Response(JSON.stringify({ error: "Too many requests. Try again later." }), {
+      status: 429,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const body = await request.json().catch(() => null);
 
   if (!body) {

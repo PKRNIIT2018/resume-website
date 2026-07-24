@@ -47,7 +47,7 @@ export function generateDynamicResumePDF() {
     doc.setFont(FONT_BODY, 'normal');
     doc.setTextColor(80, 80, 80);
     addText(`${resumeData.personalInfo.location} | ${resumeData.personalInfo.email}`, SIZE_BODY, 'normal', [80, 80, 80], 2);
-    addText(`${resumeData.personalInfo.phone} | ${resumeData.personalInfo.linkedin}`, SIZE_BODY, 'normal', [80, 80, 80], 4);
+    addText(resumeData.personalInfo.linkedin, SIZE_BODY, 'normal', [80, 80, 80], 4);
     
     // Work Auth & Status
     addText(`Status: ${resumeData.personalInfo.availability} | Notice: ${resumeData.personalInfo.noticePeriod}`, SIZE_BODY, 'italic', [0, 102, 204], 2);
@@ -77,10 +77,6 @@ export function generateDynamicResumePDF() {
         addText(exp.role, SIZE_SUBHEADER, 'bold', [0, 0, 0], 1);
         // Company and Location
         addText(`${exp.company} | ${exp.location} | ${exp.period}`, SIZE_BODY, 'bold', [0, 102, 204], 4);
-
-        if (exp.description) {
-            addText(exp.description.replace(/\*\*/g, ''), SIZE_BODY, 'normal', [0, 0, 0], 4);
-        }
 
         exp.achievements.forEach(ach => {
             if (typeof ach === 'string') {

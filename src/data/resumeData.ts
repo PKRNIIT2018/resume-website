@@ -49,6 +49,7 @@ export interface ResumeData {
         name: string;
         title: string;
         location: string;
+        email: string;
         linkedin: string;
         website: string;
         workAuthorization: string;
@@ -77,6 +78,7 @@ export const resumeData: ResumeData = {
         name: "Prasanth Kunnumal Ramesh",
         title: "Senior Technical Business Analyst | Product Owner",
         location: "Pezinok, Slovakia",
+        email: "prasanth.k.ramesh@gmail.com",
         linkedin: "linkedin.com/in/prasanthkr",
         website: "https://resume-prasanthkr.vercel.app",
         workAuthorization: "Slovak Permanent Residence (EU Work Authorization)",
