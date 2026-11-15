@@ -30,24 +30,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
-  const FREE_DOMAINS = new Set([
-    "gmail.com","googlemail.com","yahoo.com","yahoo.co.uk","yahoo.co.in","yahoo.fr",
-    "yahoo.de","yahoo.es","yahoo.it","yahoo.ca","yahoo.com.au","ymail.com","rocketmail.com",
-    "hotmail.com","hotmail.co.uk","hotmail.fr","hotmail.de","hotmail.it","hotmail.es",
-    "outlook.com","outlook.co.uk","outlook.fr","outlook.de","live.com","live.co.uk",
-    "live.fr","live.de","msn.com","icloud.com","me.com","mac.com","aol.com","aim.com",
-    "protonmail.com","proton.me","protonmail.ch","tutanota.com","tutanota.de","tuta.io",
-    "mail.com","email.com","gmx.com","gmx.net","gmx.de","gmx.at","gmx.ch",
-    "zohomail.com","zoho.com","yandex.com","yandex.ru","mail.ru","inbox.ru","bk.ru",
-    "list.ru","rambler.ru","rediffmail.com","sify.com","indiatimes.com",
-    "fastmail.com","fastmail.fm","hushmail.com","guerrillamail.com","temp-mail.org",
-    "dispostable.com","mailinator.com","trashmail.com","sharklasers.com","guerrillamailblock.com",
-  ]);
-
-  const ALLOWED_EMAILS = new Set(["pkrniit@gmail.com"]);
-  const emailDomain = email.split("@")[1]?.toLowerCase();
-  if (!ALLOWED_EMAILS.has(email.toLowerCase()) && (!emailDomain || FREE_DOMAINS.has(emailDomain))) {
-    return new Response(JSON.stringify({ error: "Please use a work or business email address." }), {
+  // Personal and business email addresses are both valid contact channels.
+  // Keep client validation mirrored here; prevent header misuse and oversized payloads.
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email)) && String(email).length <= 254;
+  if (!emailValid || String(name).trim().length < 2 || String(name).length > 160 || String(message).trim().length < 10 || String(message).length > 5000) {
+    return new Response(JSON.stringify({ error: "Invalid contact details" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
