@@ -16,7 +16,7 @@ import Footer from "../components/Footer.astro";
         <div class="contact-wrapper">
           <h1>Get In Touch</h1>
           <p class="lead">
-            Fill in the form below and I'll get back to you within 24–48 hours.
+            Use the form below to discuss professional opportunities or collaborations.
           </p>
 
           <div class="alt-contact alt-contact--top">
@@ -214,7 +214,7 @@ import Footer from "../components/Footer.astro";
       if (res.ok) {
         form.reset();
         submitBtn.textContent = "Message Sent";
-        formStatus.textContent = "Thanks! I'll get back to you within 24–48 hours.";
+        formStatus.textContent = "Thanks for getting in touch. Your message has been received.";
         formStatus.classList.add("success");
       } else {
         throw new Error("API error");

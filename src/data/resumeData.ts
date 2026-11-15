@@ -81,18 +81,18 @@ export const resumeData: ResumeData = {
         email: "prasanth.k.ramesh@gmail.com",
         linkedin: "linkedin.com/in/prasanthkr",
         website: "https://resume-prasanthkr.vercel.app",
-        workAuthorization: "Slovak Permanent Residence (EU Work Authorization)",
+        workAuthorization: "Authorized to work in Slovakia without employer sponsorship",
         noticePeriod: "2 Months (Negotiable)",
-        availability: "Open to Strategic Roles"
+        availability: "Open to Senior BA, Product Owner and IT Project Manager roles"
     },
 
     hero: {
-        highlightLine: "Bridging 20+ Years of IT Excellence with AI Innovation",
-        description: "Experience is valuable, but experience augmented by AI is a superpower. By leveraging internal innovations like IBM BOB and watsonx alongside external tools like Gemini for research, I have transformed traditional Business Analyst tasks into a high-velocity delivery engine.",
+        highlightLine: "20+ Years in Enterprise IT Delivery and Business Analysis",
+        description: "I help business and technical teams translate complex requirements into clear, technically feasible enterprise solutions, combining structured delivery methods with practical AI-assisted analysis.",
     },
 
     executiveSummary:
-        "Senior Technical Business Analyst and Product Owner with 20+ years of experience delivering enterprise software solutions across global organizations. Proven expertise in Agile/Scrum delivery, SDLC, requirements engineering (BRD, FRD, user stories, acceptance criteria), stakeholder management, and large-scale backlog management. Experienced in AI-augmented analysis using enterprise and open-source tools to accelerate requirement discovery, documentation, and product delivery while maintaining security, compliance, and quality standards.",
+        "IT professional with 20+ years of international experience across enterprise applications, technical business analysis, project delivery, and team leadership. Experienced in enterprise invoicing and financial workflows, API and systems integration requirements, data mapping, backlog refinement, stakeholder coordination, and Agile delivery. PMP-certified, with experience leading cross-functional teams of more than 30 people. Exploring practical AI-assisted analysis and documentation with human review and appropriate security controls.",
 
     coreCompetencies: [
         "SDLC",
@@ -110,7 +110,7 @@ export const resumeData: ResumeData = {
 
     skills: [
         {
-            category: "AI & Automation",
+            category: "AI-Assisted Analysis & Automation",
             items: [
                 "Agentic AI Workflows (AntiGravity)",
                 "Prompt Engineering",
@@ -124,7 +124,7 @@ export const resumeData: ResumeData = {
             ]
         },
         {
-            category: "Product & Strategy",
+            category: "Business Analysis & Product Delivery",
             items: [
                 "Product Ownership",
                 "Technical Business Analysis",
@@ -141,7 +141,7 @@ export const resumeData: ResumeData = {
             ]
         },
         {
-            category: "Technical Stack",
+            category: "Technical & Enterprise Systems",
             items: [
                 "Python (Pandas, Jupyter)",
                 "Node.js",
@@ -158,22 +158,22 @@ export const resumeData: ResumeData = {
         {
             company: "IBM",
             location: "Bratislava, Slovakia",
-            role: "Senior Technical Business Analyst (Product Owner)",
-            period: "04/2019 – Present",
+            role: "Enterprise Applications — Technical Business Analysis & Product Delivery (functional focus)",
+            period: "04/2018 – Present (start date pending verification)",
             achievements: [
-                "Led Agile Scrum delivery for global enterprise applications, managing complex product backlogs across distributed teams.",
+                "Supported Agile delivery of global enterprise applications, including backlog refinement and coordination across distributed teams.",
                 "Elicited, analyzed, and documented business and technical requirements using BRDs, FRDs, user stories, and acceptance criteria.",
                 "Partnered with product managers, architects, and engineering teams to translate business needs into scalable technical solutions.",
-                "Facilitated backlog grooming, sprint planning, sprint reviews, and UAT activities to ensure on-time, high-quality releases.",
+                "Contributed to backlog refinement, sprint planning, reviews, and UAT coordination for enterprise application releases.",
                 "Performed application and infrastructure vulnerability assessments to support enterprise security and compliance standards.",
                 {
                     title: "AI-Enhanced Productivity:",
                     items: [
-                        "Applied AI-assisted analysis techniques to accelerate requirement discovery, documentation, and legacy system understanding, improving analysis throughput by an estimated 30–40%.",
-                        "Used IBM watsonx Code Assistant and IBM BOB to analyze legacy codebases and system behavior, reducing dependency on SME availability.",
+                        "Applied AI-assisted analysis techniques to support requirements discovery, technical documentation, and understanding of legacy systems; quantitative impact has not yet been independently verified.",
+                        "Explored IBM watsonx Code Assistant and IBM BOB to support codebase and system-behavior analysis alongside SME review.",
                         "Conducted regulatory and domain research using Perplexity and Gemini to support compliance-driven requirements.",
-                        "Synthesized large volumes of technical documentation using NotebookLM to speed up discovery and onboarding phases.",
-                        "Designed and executed agentic workflows (AntiGravity) to automate requirement synthesis, data mapping, and documentation tasks."
+                        "Used NotebookLM to help synthesize technical documentation during discovery and learning.",
+                        "Explored agentic workflows for requirements synthesis, data mapping, and documentation tasks."
                     ]
                 }
             ]
@@ -284,19 +284,19 @@ export const resumeData: ResumeData = {
             id: 0,
             title: "AI-Augmented Requirement Analysis",
             role: "AI Strategy & Implementation",
-            description: "Designed and executed agentic workflows using AntiGravity and IBM watsonx to automate requirement synthesis, data mapping, and documentation. Improved analysis throughput by 40% and reduced dependency on SME availability.",
+            description: "Explored AI-assisted workflows for requirements synthesis, technical documentation, data mapping, and system understanding. Human review remains part of the process.",
             icon: "🤖",
             gradient: "from-violet-500 to-purple-600",
             tags: ["AntiGravity", "IBM watsonx", "Prompt Engineering", "Ollama", "AI Agents"],
             featured: true,
             category: "innovation",
-            metric: "40% Faster Analysis",
+            metric: "AI Workflow Exploration",
         },
         {
             id: 1,
             title: "IBM Global Invoice Access Application",
-            role: "Product Owner",
-            description: "Worldwide IBM application providing seamless invoice access across multiple billing tools. Managed product development, technical debt, and security compliance while tracking adoption through data analytics.",
+            role: "Technical Business Analysis & Product Delivery",
+            description: "Contributed to analysis and delivery of enterprise invoice-access workflows, including requirements, integrations, stakeholder collaboration, and acceptance criteria.",
             icon: "🌍",
             gradient: "from-blue-500 to-cyan-500",
             tags: ["Product Ownership", "PostgreSQL", "Python/Pandas", "IBM Cloud", "Agile/Scrum"],
@@ -320,25 +320,25 @@ export const resumeData: ResumeData = {
             id: 3,
             title: "Data Analytics & KPI Dashboard",
             role: "Technical Analyst",
-            description: "Developed comprehensive analytics solution using Python, Pandas, and Jupyter Notebooks to track user adoption, system performance, and key performance indicators for IBM applications.",
+            description: "Explored analytics and reporting workflows using Python, Pandas, and Jupyter Notebooks; implementation details and production usage require verification.",
             icon: "📊",
             gradient: "from-orange-500 to-amber-500",
             tags: ["Python", "Pandas", "Jupyter", "PostgreSQL", "Data Visualization"],
             featured: true,
             category: "analytics",
-            metric: "Real-time KPI Tracking",
+            metric: "Analytics Exploration",
         },
         {
             id: 4,
             title: "Agile Transformation Initiative",
-            role: "Agile Coach / Leader",
-            description: "Led agile transformation across multiple teams, implementing Scrum ceremonies, backlog management, and continuous improvement processes. Achieved significant improvements in delivery velocity.",
+            role: "Agile Delivery Contributor",
+            description: "Supported Agile delivery practices, backlog management, coordination, and continuous improvement with cross-functional teams.",
             icon: "🔄",
             gradient: "from-pink-500 to-rose-500",
             tags: ["Agile/Scrum", "Change Management", "Team Leadership", "Process Improvement"],
             featured: false,
             category: "leadership",
-            metric: "Multi-team Rollout",
+            metric: "Agile Delivery",
         },
         {
             id: 5,
