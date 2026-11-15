@@ -115,28 +115,7 @@ import Footer from "../components/Footer.astro";
 
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const FREE_DOMAINS = new Set([
-    "gmail.com","googlemail.com","yahoo.com","yahoo.co.uk","yahoo.co.in","yahoo.fr",
-    "yahoo.de","yahoo.es","yahoo.it","yahoo.ca","yahoo.com.au","ymail.com","rocketmail.com",
-    "hotmail.com","hotmail.co.uk","hotmail.fr","hotmail.de","hotmail.it","hotmail.es",
-    "outlook.com","outlook.co.uk","outlook.fr","outlook.de","live.com","live.co.uk",
-    "live.fr","live.de","msn.com","icloud.com","me.com","mac.com","aol.com","aim.com",
-    "protonmail.com","proton.me","protonmail.ch","tutanota.com","tutanota.de","tuta.io",
-    "mail.com","email.com","gmx.com","gmx.net","gmx.de","gmx.at","gmx.ch",
-    "zohomail.com","zoho.com","yandex.com","yandex.ru","mail.ru","inbox.ru","bk.ru",
-    "list.ru","rambler.ru","rediffmail.com","sify.com","indiatimes.com",
-    "fastmail.com","fastmail.fm","hushmail.com","guerrillamail.com","temp-mail.org",
-    "dispostable.com","mailinator.com","trashmail.com","sharklasers.com","guerrillamailblock.com",
-  ]);
-
-  const ALLOWED_EMAILS = new Set(["pkrniit@gmail.com"]);
-
-  function isFreeDomain(email: string): boolean {
-    if (ALLOWED_EMAILS.has(email.toLowerCase())) return false;
-    const domain = email.split("@")[1]?.toLowerCase();
-    return domain ? FREE_DOMAINS.has(domain) : false;
-  }
-
+  // Accept valid personal and business email addresses; server-side rate limits remain in place.
   function validateName(): boolean {
     const v = nameInput.value.trim();
     if (!v) { nameError.textContent = "Name is required."; return false; }
@@ -149,7 +128,6 @@ import Footer from "../components/Footer.astro";
     const v = emailInput.value.trim();
     if (!v) { emailError.textContent = "Email is required."; return false; }
     if (!EMAIL_RE.test(v)) { emailError.textContent = "Please enter a valid email address."; return false; }
-    if (isFreeDomain(v)) { emailError.textContent = "Please use a work or business email address."; return false; }
     emailError.textContent = "";
     return true;
   }
@@ -164,7 +142,7 @@ import Footer from "../components/Footer.astro";
 
   function isEmailValid(): boolean {
     const v = emailInput.value.trim();
-    return EMAIL_RE.test(v) && !isFreeDomain(v);
+    return EMAIL_RE.test(v);
   }
 
   function checkForm() {
