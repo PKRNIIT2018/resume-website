@@ -62,6 +62,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       });
 
       if (res.ok) {
+        (document.getElementById("password") as HTMLInputElement).value = "";
         loginCard.classList.add("hidden");
         downloadCard.classList.remove("hidden");
       } else {

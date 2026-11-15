@@ -70,11 +70,10 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   const resultText = document.getElementById("resultText") as HTMLTextAreaElement;
   const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
 
-  let password = "";
-
   adminForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    password = (document.getElementById("password") as HTMLInputElement).value;
+    const passwordInput = document.getElementById("password") as HTMLInputElement;
+    const password = passwordInput.value;
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Verifying…";
@@ -88,6 +87,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       });
 
       if (res.ok) {
+        passwordInput.value = "";
         loginCard.classList.add("hidden");
         toolCard.classList.remove("hidden");
       } else {
@@ -113,7 +113,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       const res = await fetch("/api/admin/cover-letter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password, jobUrl: jobUrlInput.value }),
+        body: JSON.stringify({ jobUrl: jobUrlInput.value }),
       });
 
       const data = await res.json();

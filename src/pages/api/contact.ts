@@ -19,11 +19,20 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     });
   }
 
-  const { name, email, message, requestCV } = body as Record<string, string>;
+  const { name, email, message, requestCV } = body as Record<string, unknown>;
   const cvRequested = requestCV === true || requestCV === "true";
   const subject = cvRequested ? "CV Request from Resume Website" : "Contact from Resume Website";
 
-  if (!name || !email || !message) {
+  if (
+    typeof name !== "string" ||
+    typeof email !== "string" ||
+    typeof message !== "string" ||
+    name.trim().length < 2 ||
+    name.length > 100 ||
+    email.length > 254 ||
+    message.trim().length < 10 ||
+    message.length > 5_000
+  ) {
     return new Response(JSON.stringify({ error: "All fields are required" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
@@ -31,10 +40,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   }
 
   // Personal and business email addresses are both valid contact channels.
-  // Keep client validation mirrored here; prevent header misuse and oversized payloads.
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email)) && String(email).length <= 254;
-  if (!emailValid || String(name).trim().length < 2 || String(name).length > 160 || String(message).trim().length < 10 || String(message).length > 5000) {
-    return new Response(JSON.stringify({ error: "Invalid contact details" }), {
+  const normalizedEmail = email.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+    return new Response(JSON.stringify({ error: "Please enter a valid email address." }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
@@ -54,9 +62,9 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const { error } = await resend.emails.send({
     from: "Contact Form <onboarding@resend.dev>",
     to: recipient,
-    replyTo: email,
+    replyTo: normalizedEmail,
     subject: `[Resume Site] ${subject}`,
-    text: `Name: ${name}\nEmail: ${email}\n${cvRequested ? "CV Requested: Yes\n" : ""}\nMessage:\n${message}`,
+    text: `Name: ${name.trim()}\nEmail: ${normalizedEmail}\n${cvRequested ? "CV Requested: Yes\n" : ""}Message:\n${message.trim()}`,
   });
 
   if (error) {
